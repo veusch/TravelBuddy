@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, Stylesheet, AppRegistry } from "react-native";
+import { View, Text, Button, StyleSheet, AppRegistry } from "react-native";
 
 const PostScreen = ({ navigation }) => {
   return (
