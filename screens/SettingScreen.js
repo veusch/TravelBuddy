@@ -3,10 +3,10 @@ import { View, Text, Button, StyleSheet, AppRegistry } from "react-native";
 
 const SettingScreen = ({ navigation }) => {
   return (
-    <view styles={styles.container}>
-      <text>Setting Screen</text>
+    <View style={styles.container}>
+      <Text>Setting Screen</Text>
       <Button title="Click here" onPress={() => alert("Button clicked")} />
-    </view>
+    </View>
   );
 };
 
