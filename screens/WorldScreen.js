@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet, AppRegistry } from "react-native";
 
 const WorldScreen = ({ navigation }) => {
   return (
-    <View styles={styles.container}>
+    <View style={styles.container}>
       <Text>World Screen</Text>
       <Button title="Click here" onPress={() => alert("Button clicked")} />
     </View>
@@ -12,7 +12,7 @@ const WorldScreen = ({ navigation }) => {
 
 export default WorldScreen;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
