@@ -19,6 +19,7 @@
     "react-native": "0.69.5",
     "react-native-safe-area-context": "4.3.1",
     "react-native-screens": "~3.15.0",
+    "react-navigation-stack": "^2.10.4",
     "yet": "^0.1.0"
   },
   "devDependencies": {
