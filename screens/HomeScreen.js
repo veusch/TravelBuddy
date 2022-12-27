@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput } from "react-native";
+import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
 import BeitragForms from "./BeitragForms";
 import RevieForm from "./BeitragForms";
 import ReiseCard from "../Shared/ReiseCard";
@@ -38,39 +38,41 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Modal visible={modalOpen} animationType="slide">
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.modalContent}>
-            <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-            <RevieForm addJourney={addJourney}> </RevieForm>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+    <ScrollView>
+      <View style={styles.container}>
+        <Modal visible={modalOpen} animationType="slide">
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.modalContent}>
+              <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
+              <RevieForm addJourney={addJourney}> </RevieForm>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
 
-      <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
+        <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
 
-      <FlatList
-        data={eintraege}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate("reviewEintraege", item)}>
-            <ReiseCard>
-              <Text>{item.title}</Text>
-            </ReiseCard>
-          </TouchableOpacity>
-        )}
-      />
-      <Text>{name}</Text>
-      <Text style={styles.text}>Whats your name</Text>
-      <TextInput style={styles.input} onChangeText={(text) => setName(text)}></TextInput>
-      <TouchableOpacity>
-        <Text style={styles.button}> Save my name</Text>
-      </TouchableOpacity>
+        <FlatList
+          data={eintraege}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => navigation.navigate("reviewEintraege", item)}>
+              <ReiseCard>
+                <Text>{item.title}</Text>
+              </ReiseCard>
+            </TouchableOpacity>
+          )}
+        />
+        <Text>{name}</Text>
+        <Text style={styles.text}>Whats your name</Text>
+        <TextInput style={styles.input} onChangeText={(text) => setName(text)}></TextInput>
+        <TouchableOpacity>
+          <Text style={styles.button}> Save my name</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity>
-        <Text style={styles.button}> Remove my name</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity>
+          <Text style={styles.button}> Remove my name</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 };
 
