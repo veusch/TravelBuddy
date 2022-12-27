@@ -10,5 +10,7 @@ export const globalStyles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 8,
     padding: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 15,
   },
 });
