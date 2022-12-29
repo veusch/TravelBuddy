@@ -1,18 +1,13 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, TextInput, Button, FlatList } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-export default function RevieForm2({ addJourney, navigation }) {
-  const submit = () => {
-    navigation.navigate({
-      name: "BeitragFormsDayReviewEdit",
-      params: { answer: answer },
-      merge: true,
-    });
-  };
+function Edit({ route, navigation }) {}
 
+export default function RevieForm3({ addJourney, navigation }) {
+  //const DATA = [{ id: navigation.getParam("title") }];
   return (
     <View style={globalStyles.container}>
       <Formik
@@ -26,7 +21,7 @@ export default function RevieForm2({ addJourney, navigation }) {
         {(probs) => (
           <View style={styles.inputWrapper}>
             <View style={styles.input}>
-              <TextInput style={globalStyles.input} placeholder="Titel" onChangeText={probs.handleChange("title")} value={probs.values.title} />
+              <TextInput style={globalStyles.input} placeholder="{route.params?.answer}" onChangeText={probs.handleChange("title")} value={probs.values.title} />
             </View>
             <View style={styles.input}>
               <TextInput style={globalStyles.input} placeholder="Wohin gings" onChangeText={probs.handleChange("body")} value={probs.values.body} />
@@ -41,6 +36,8 @@ export default function RevieForm2({ addJourney, navigation }) {
             <View style={styles.Buttonv}>
               <Button title="erstellen" color={"green"} onPress={probs.handleSubmit}></Button>
             </View>
+
+            <Text>Hallo</Text>
           </View>
         )}
       </Formik>

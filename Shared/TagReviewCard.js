@@ -17,8 +17,6 @@ const HomeScreen = ({ navigation }) => {
 
   const [name, setName] = useState();
 
-  const [currentIndex, setCurrentIndex] = React.useState(null);
-
   const addJourney = (review) => {
     review.key = Math.random().toString();
     setEintraege((currentEintraeg) => {
