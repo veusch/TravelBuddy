@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput } from "react-native";
+import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
 import BeitragForms from "./BeitragForms";
 import RevieForm from "./BeitragForms";
 import ReiseCard from "../Shared/ReiseCard";
@@ -8,7 +8,7 @@ import ReviewEintraege from "./reviewEintraege";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const HomeScreen = ({ navigation }) => {
+const ReisenScreen = ({ navigation }) => {
   const [eintraege, setEintraege] = useState([
     { title: "Italienurlaub", rating: 5, body: "Meine Reise nach Italien mit meiner Familie", key: "1" },
     { title: "Tirol Kurztrip", rating: 4, body: "Kurztrip nach Tirol zum Schiefahren", key: "2" },
@@ -39,38 +39,66 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Modal visible={modalOpen} animationType="slide">
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.modalContent}>
-            <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-            <RevieForm addJourney={addJourney}> </RevieForm>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+      <ScrollView>
+        <Modal visible={modalOpen} animationType="slide">
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.modalContent}>
+              <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
+              <RevieForm addJourney={addJourney}> </RevieForm>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
 
-      <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
+        <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
 
-      <FlatList
-        data={eintraege}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate("reviewEintraege", item)}>
-            <ReiseCard>
-              <Text>{item.title}</Text>
-            </ReiseCard>
-          </TouchableOpacity>
-        )}
-      />
+        <FlatList
+          data={eintraege}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => navigation.navigate("reviewEintraege", item)}>
+              <ReiseCard>
+                <Text>{item.title}</Text>
+              </ReiseCard>
+            </TouchableOpacity>
+          )}
+        />
+      </ScrollView>
+      <View style={styles.Footer}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text style={styles.Home}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
+          <Text style={styles.Reisen}>Reisen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
+          <Text style={styles.Listen}>Listen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+          <Text style={styles.Settings}>Settings</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-export default HomeScreen;
+export default ReisenScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#8fcbbc",
+    backgroundColor: "white",
+  },
+
+  Reisen: {
+    color: "lightgrey",
+  },
+
+  Footer: {
+    backgroundColor: "grey",
+    alignSelf: "stretch",
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 
   modalToggle: {
@@ -80,6 +108,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignSelf: "center",
+    backgroundColor: "lightgrey",
+    marginTop: 20,
   },
   modalClose: {
     marginBottom: 0,

@@ -38,8 +38,8 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <ScrollView>
         <Modal visible={modalOpen} animationType="slide">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
@@ -71,8 +71,24 @@ const HomeScreen = ({ navigation }) => {
         <TouchableOpacity>
           <Text style={styles.button}> Remove my name</Text>
         </TouchableOpacity>
+      </ScrollView>
+
+      <View style={styles.Footer}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text style={styles.Home}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
+          <Text style={styles.Reisen}>Reisen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
+          <Text style={styles.Listen}>Listen</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("settings")}>
+          <Text style={styles.Settings}>Settings</Text>
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -82,7 +98,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#8fcbbc",
+    backgroundColor: "white",
+  },
+
+  Home: {
+    color: "lightgrey",
+  },
+
+  Footer: {
+    backgroundColor: "grey",
+    alignSelf: "stretch",
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 
   modalToggle: {

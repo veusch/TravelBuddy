@@ -7,11 +7,7 @@ import AppLoading from "expo-app-loading";
 import { useState } from "react";
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
-  );
+  return <Navigator></Navigator>;
 };
 
 export default App;

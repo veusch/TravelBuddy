@@ -3,6 +3,9 @@ import { createAppContainer } from "react-navigation";
 import HomeScreen from "../screens/HomeScreen";
 import ReviewEintraege from "../screens/reviewEintraege";
 import TagReviewCard from "../Shared/TagReviewCard";
+import ReisenScreen from "../screens/WorldScreen";
+import SettingScreen from "../screens/SettingScreen";
+import ListeBearbeiten from "../screens/ListeBearbeiten";
 
 const screens = {
   Home: {
@@ -24,6 +27,27 @@ const screens = {
     navigationOptions: {
       title: "DayReview",
       //headerStyle: { backgroundColor: "#333" },
+    },
+  },
+
+  settings: {
+    screen: SettingScreen,
+    navigationOptions: {
+      title: "Settings",
+    },
+  },
+
+  Reisen: {
+    screen: ReisenScreen,
+    navigationOptions: {
+      title: "ReisenScreen",
+    },
+  },
+
+  Listen: {
+    screen: ListeBearbeiten,
+    navigationOptions: {
+      title: "Listen",
     },
   },
 };

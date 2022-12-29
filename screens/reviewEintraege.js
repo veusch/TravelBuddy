@@ -4,6 +4,7 @@ import ReiseCard from "../Shared/ReiseCard";
 import TagCard from "../Shared/TagCard";
 //import { ImagePicker, launchImageLibrary, launchCamera } from "react-native-image-picker";
 import * as ImagePicker from "react-native-image-picker";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function ReviewEintraege({ navigation }) {
   const presshandler = () => {
@@ -31,7 +32,7 @@ export default function ReviewEintraege({ navigation }) {
   return (
     <ScrollView style={StyleSheet.container}>
       <ReiseCard>
-        <Text>{navigation.getParam("title")}</Text>
+        <Text style={styles.title}>{navigation.getParam("title")}</Text>
         <Text>{navigation.getParam("body")}</Text>
         <Text>{navigation.getParam("days")}</Text>
 
@@ -51,5 +52,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  title: {
+    color: "white",
+    fontWeight: "bold",
   },
 });

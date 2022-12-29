@@ -7,6 +7,7 @@ export default function TagCard(probs, { navigation }) {
     <TouchableOpacity onPress={() => navigation.navigate("TagReviewCard")}>
       <View style={styles.ReiseCard}>
         <View style={styles.ReiseCardContent}>{probs.children}</View>
+        <Text>TagCarte</Text>
       </View>
     </TouchableOpacity>
   );

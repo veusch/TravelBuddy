@@ -4,8 +4,8 @@ import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, ScrollView
 const SettingScreen = ({ navigation }) => {
   const [name, setName] = useState();
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <ScrollView>
         <View style={styles.picture}></View>
         <View style={styles.nameinput}>
           <Text style={styles.nameProfil}>{name}</Text>
@@ -31,8 +31,23 @@ const SettingScreen = ({ navigation }) => {
         <TouchableOpacity>
           <Text style={styles.Settings}> Accounteinstellungen</Text>
         </TouchableOpacity>
+      </ScrollView>
+
+      <View style={styles.Footer}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text style={styles.Home}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
+          <Text style={styles.Reisen}>Reisen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
+          <Text style={styles.Listen}>Listen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("settings")}>
+          <Text style={styles.SettingsNav}>Settings</Text>
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -42,8 +57,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#8fcbbc",
+    backgroundColor: "white",
   },
+
+  Footer: {
+    backgroundColor: "grey",
+    alignSelf: "stretch",
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+
+  SettingsNav: {
+    color: "lightgrey",
+  },
+
   Settings: {
     borderRadius: 6,
     elevation: 3,

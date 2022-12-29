@@ -3,11 +3,12 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-export default function RevieForm({ addJourney }) {
+
+export default function RevieForm2({ addJourney }) {
   return (
     <View style={globalStyles.container}>
       <Formik
-        initialValues={{ title: "", body: "", days: "", zusammenfassung: "", foto: "" }}
+        initialValues={{ title: "", body: "", days: "", zusammenfassung: "", pic: "" }}
         onSubmit={(values, actions) => {
           addJourney(values);
           actions.resetForm();
@@ -17,22 +18,18 @@ export default function RevieForm({ addJourney }) {
         {(probs) => (
           <View style={styles.inputWrapper}>
             <View style={styles.input}>
-              <TextInput style={globalStyles.input} placeholder="Name der Reise" onChangeText={probs.handleChange("title")} value={probs.values.title} />
+              <TextInput style={globalStyles.input} placeholder="Titel" onChangeText={probs.handleChange("title")} value={probs.values.title} />
             </View>
             <View style={styles.input}>
-              <TextInput style={globalStyles.input} placeholder="Reiseziel" onChangeText={probs.handleChange("body")} value={probs.values.body} />
+              <TextInput style={globalStyles.input} placeholder="Wohin gings" onChangeText={probs.handleChange("body")} value={probs.values.body} />
             </View>
             <View style={styles.input}>
-              <TextInput style={globalStyles.input} placeholder="Reisebeschreibung" onChangeText={probs.handleChange("zusammenfassung")} value={probs.values.zusammenfassung} />
-            </View>
-            <View style={styles.input}>
-              <TextInput style={globalStyles.input} keyboardType="numeric" placeholder="Wie lange" onChangeText={probs.handleChange("days")} value={probs.values.days} />
+              <TextInput style={globalStyles.input} placeholder="Was hast du erlebt?" onChangeText={probs.handleChange("zusammenfassung")} value={probs.values.zusammenfassung} />
             </View>
 
             <View style={styles.input}>
-              <TextInput style={globalStyles.input} placeholder="Titelbild" onChangeText={probs.handleChange("foto")} value={probs.values.foto} />
+              <TextInput style={globalStyles.input} placeholder="Foto hinzufügen" onChangeText={probs.handleChange("pic")} value={probs.values.pic} />
             </View>
-
             <View style={styles.Buttonv}>
               <Button title="erstellen" color={"green"} onPress={probs.handleSubmit}></Button>
             </View>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard } from "react-native";
+import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard, ScrollView } from "react-native";
 
 import Task from "../components/Tasks";
 
-const SettingScreen = ({ navigation }) => {
+const ListeBearbeiten = ({ navigation }) => {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
 
@@ -21,19 +21,20 @@ const SettingScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Todays Tasks</Text>
-        <View style={styles.items}>
-          {taskItems.map((item, index) => {
-            return (
-              <TouchableOpacity onPress={() => completeTask(index)}>
-                <Task key={index} text={item} />
-              </TouchableOpacity>
-            );
-          })}
+      <ScrollView>
+        <View style={styles.tasksWrapper}>
+          <Text style={styles.sectionTitle}>Todays Tasks</Text>
+          <View style={styles.items}>
+            {taskItems.map((item, index) => {
+              return (
+                <TouchableOpacity onPress={() => completeTask(index)}>
+                  <Task key={index} text={item} />
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
-      </View>
-
+      </ScrollView>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
         <TextInput style={styles.input} placeholder={"write a Task"} onChangeText={(text) => setTask(text)} value={task} />
         <TouchableOpacity onPress={() => handleAddTask()}>
@@ -42,11 +43,26 @@ const SettingScreen = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+
+      <View style={styles.Footer}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text style={styles.Home}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
+          <Text style={styles.Reisen}>Reisen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
+          <Text style={styles.Listen}>Listen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("settings")}>
+          <Text style={styles.Settings}>Settings</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-export default SettingScreen;
+export default ListeBearbeiten;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -57,6 +73,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
+
+  Listen: {
+    color: "lightgrey",
+  },
+
   items: {
     marginTop: 30,
   },
@@ -64,7 +85,13 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 20,
   },
-
+  Footer: {
+    backgroundColor: "grey",
+    alignSelf: "stretch",
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
   writeTaskWrapper: {
     position: "absolute",
     bottom: 100,
