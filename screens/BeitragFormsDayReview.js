@@ -5,18 +5,10 @@ import { Formik } from "formik";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 export default function RevieForm2({ addJourney, navigation }) {
-  const submit = () => {
-    navigation.navigate({
-      name: "BeitragFormsDayReviewEdit",
-      params: { answer: answer },
-      merge: true,
-    });
-  };
-
   return (
     <View style={globalStyles.container}>
       <Formik
-        initialValues={{ title: "", body: "", days: "", zusammenfassung: "", pic: "" }}
+        initialValues={{ title: "", body1: "", days: "", zusammenfassung: "", pic: "" }}
         onSubmit={(values, actions) => {
           addJourney(values);
           actions.resetForm();
@@ -29,10 +21,10 @@ export default function RevieForm2({ addJourney, navigation }) {
               <TextInput style={globalStyles.input} placeholder="Titel" onChangeText={probs.handleChange("title")} value={probs.values.title} />
             </View>
             <View style={styles.input}>
-              <TextInput style={globalStyles.input} placeholder="Wohin gings" onChangeText={probs.handleChange("body")} value={probs.values.body} />
+              <TextInput style={globalStyles.input} placeholder="Wohin gings" onChangeText={probs.handleChange("body1")} value={probs.values.body1} />
             </View>
             <View style={styles.input}>
-              <TextInput style={globalStyles.input} placeholder="Was hast du erlebt?" onChangeText={probs.handleChange("zusammenfassung")} value={probs.values.zusammenfassung} />
+              <TextInput multiline={true} style={globalStyles.input} placeholder="Was hast du erlebt?" onChangeText={probs.handleChange("zusammenfassung")} value={probs.values.zusammenfassung} />
             </View>
 
             <View style={styles.input}>

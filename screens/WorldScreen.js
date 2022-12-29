@@ -72,7 +72,7 @@ const ReisenScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
           <Text style={styles.Listen}>Listen</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+        <TouchableOpacity onPress={() => navigation.navigate("settings")}>
           <Text style={styles.Settings}>Settings</Text>
         </TouchableOpacity>
       </View>

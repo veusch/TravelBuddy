@@ -6,6 +6,7 @@ import TagReviewCard from "../Shared/TagReviewCard";
 import ReisenScreen from "../screens/WorldScreen";
 import SettingScreen from "../screens/SettingScreen";
 import ListeBearbeiten from "../screens/ListeBearbeiten";
+import ListeBearbeiten1 from "../screens/ListeBearbeiten1";
 
 const screens = {
   Home: {
@@ -48,6 +49,13 @@ const screens = {
     screen: ListeBearbeiten,
     navigationOptions: {
       title: "Listen",
+    },
+  },
+
+  ListeNeu: {
+    screen: ListeBearbeiten1,
+    navigationOptions: {
+      title: "Neue Liste",
     },
   },
 };

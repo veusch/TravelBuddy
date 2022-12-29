@@ -1,48 +1,52 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard, ScrollView } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
+import BeitragForms from "./BeitragForms";
+import RevieForm from "./BeitragForms";
+import ReiseCard from "../Shared/ReiseCard";
+import ListenForms from "./ListenForms";
+import ReviewEintraege from "./reviewEintraege";
+import ListenCard from "../Shared/ListenCard";
 
-import Task from "../components/Tasks";
+const ReisenScreen = ({ navigation }) => {
+  const [eintraege, setEintraege] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
-const ListeBearbeiten = ({ navigation }) => {
-  const [task, setTask] = useState();
-  const [taskItems, setTaskItems] = useState([]);
+  const [name, setName] = useState();
 
-  const handleAddTask = () => {
-    Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
-    setTask(null);
-  };
-
-  const completeTask = (index) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
+  const addJourney = (review) => {
+    review.key = Math.random().toString();
+    setEintraege((currentEintraeg) => {
+      return [review, ...currentEintraeg];
+    });
+    setModalOpen(false);
   };
 
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.tasksWrapper}>
-          <Text style={styles.sectionTitle}>Todays Tasks</Text>
-          <View style={styles.items}>
-            {taskItems.map((item, index) => {
-              return (
-                <TouchableOpacity onPress={() => completeTask(index)}>
-                  <Task key={index} text={item} />
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
+        <Modal visible={modalOpen} animationType="slide">
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.modalContent}>
+              <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
+              <ListenForms addJourney={addJourney}> </ListenForms>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+
+        <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
+
+        <FlatList
+          data={eintraege}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => navigation.navigate("ListeNeu", item)}>
+              <ListenCard>
+                <Text>{item.title}</Text>
+              </ListenCard>
+            </TouchableOpacity>
+          )}
+        />
       </ScrollView>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
-        <TextInput style={styles.input} placeholder={"write a Task"} onChangeText={(text) => setTask(text)} value={task} />
-        <TouchableOpacity onPress={() => handleAddTask()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
-          </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
 
       <View style={styles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
@@ -62,29 +66,23 @@ const ListeBearbeiten = ({ navigation }) => {
   );
 };
 
-export default ListeBearbeiten;
+export default ReisenScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    backgroundColor: "lightgrey",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
+
+  listenn: {
+    flexDirection: "row",
   },
 
   Listen: {
     color: "lightgrey",
   },
 
-  items: {
-    marginTop: 30,
-  },
-  tasksWrapper: {
-    paddingTop: 20,
-    paddingHorizontal: 20,
-  },
   Footer: {
     backgroundColor: "grey",
     alignSelf: "stretch",
@@ -92,33 +90,45 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
   },
-  writeTaskWrapper: {
-    position: "absolute",
-    bottom: 100,
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+
+  modalToggle: {
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "#f2f2f2",
+    padding: 10,
+    borderRadius: 10,
+    alignSelf: "center",
+    backgroundColor: "lightgrey",
+    marginTop: 20,
   },
+  modalClose: {
+    marginBottom: 0,
+    marginClose: 20,
+  },
+
   input: {
-    paddingVertical: 15,
-    paddingHorizontal: 15,
-    maxWidth: 250,
-    backgroundColor: "white",
-    borderRadius: 60,
-    borderColor: "#C0C0C0",
     borderWidth: 1,
-    width: 250,
-  },
-  addWrapper: {
-    width: 60,
-    height: 60,
+    borderColor: "black",
+    height: 64,
+    margin: 32,
+    alignSelf: "stretch",
+    borderRadius: 6,
+    paddingHorizontal: 16,
+    fontSize: 24,
     backgroundColor: "white",
-    borderWidth: 1,
-    borderRadius: 60,
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "#C0C0C0",
   },
-  addText: {},
+
+  text: {
+    marginTop: 32,
+  },
+
+  button: {
+    marginTop: 32,
+    backgroundColor: "white",
+    marginHorizontal: 32,
+    alignSelf: "stretch",
+    paddingHorizontal: 32,
+    paddingVertical: 12,
+    borderRadius: 6,
+  },
 });

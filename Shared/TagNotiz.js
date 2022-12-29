@@ -28,7 +28,7 @@ export default function TagNotiz(probs, { navigation }) {
       </Modal>
 
       <View style={styles.ReiseCardContent}>{probs.children}</View>
-      <Text>TagNotizzz</Text>
+      <Text title="hi">TagNotizzz</Text>
       <Text>Edit</Text>
       <TouchableOpacity onPress={() => setModalOpen(true)}>
         <Text>Edit</Text>

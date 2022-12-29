@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import { StyleSheet, View, Text, Button, ScrollView } from "react-native";
 import ReiseCard from "../Shared/ReiseCard";
 import TagCard from "../Shared/TagCard";

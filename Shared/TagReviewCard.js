@@ -6,7 +6,6 @@ import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react
 import RevieForm2 from "../screens/BeitragFormsDayReview";
 import ReiseCard from "./ReiseCard";
 import ReviewEintraege from "../screens/reviewEintraege";
-import ExpandableCard from "expandablecard";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TagNotiz from "./TagNotiz";
