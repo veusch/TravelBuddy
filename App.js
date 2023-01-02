@@ -4,10 +4,14 @@ import Tabs from "./navigation/tabs";
 import Navigator from "./stack/homeStack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
-import { useState } from "react";
+import UploadImage from "./screens/UploadImagee";
 
 const App = () => {
-  return <Navigator></Navigator>;
+  return (
+    <Navigator>
+      <UploadImage></UploadImage>
+    </Navigator>
+  );
 };
 
 export default App;

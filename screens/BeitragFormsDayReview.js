@@ -3,12 +3,13 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import UploadImage from "./UploadImagee.js";
 
 export default function RevieForm2({ addJourney, navigation }) {
   return (
     <View style={globalStyles.container}>
       <Formik
-        initialValues={{ title: "", body1: "", days: "", zusammenfassung: "", pic: "" }}
+        initialValues={{ title: "", body1: "", days: "", zusammenfassung: "", pic: "", image: {} }}
         onSubmit={(values, actions) => {
           addJourney(values);
           actions.resetForm();
@@ -30,6 +31,7 @@ export default function RevieForm2({ addJourney, navigation }) {
             <View style={styles.input}>
               <TextInput style={globalStyles.input} placeholder="Foto hinzufügen" onChangeText={probs.handleChange("pic")} value={probs.values.pic} />
             </View>
+            <UploadImage value={probs.values.image}></UploadImage>
             <View style={styles.Buttonv}>
               <Button title="erstellen" color={"green"} onPress={probs.handleSubmit}></Button>
             </View>

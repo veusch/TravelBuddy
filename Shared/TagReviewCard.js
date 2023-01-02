@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
+import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, Image } from "react-native";
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import RevieForm2 from "../screens/BeitragFormsDayReview";
@@ -9,6 +9,7 @@ import ReviewEintraege from "../screens/reviewEintraege";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TagNotiz from "./TagNotiz";
+import UploadImage from "../screens/UploadImagee";
 
 const HomeScreen = ({ navigation }) => {
   const [eintraege, setEintraege] = useState([]);
@@ -51,6 +52,7 @@ const HomeScreen = ({ navigation }) => {
 
               <CollapseBody style={styles.collapse}>
                 <Text>{item.zusammenfassung}</Text>
+                <Image source={item.image}></Image>
               </CollapseBody>
             </Collapse>
           </TagNotiz>

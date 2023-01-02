@@ -7,6 +7,7 @@ import ReiseCard from "../Shared/ReiseCard";
 import ReviewEintraege from "./reviewEintraege";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import UploadImage from "./UploadImagee";
 
 const HomeScreen = ({ navigation }) => {
   const [eintraege, setEintraege] = useState([
@@ -86,6 +87,10 @@ const HomeScreen = ({ navigation }) => {
 
         <TouchableOpacity onPress={() => navigation.navigate("settings")}>
           <Text style={styles.Settings}>Settings</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("image")}>
+          <Text style={styles.image}>Image</Text>
         </TouchableOpacity>
       </View>
     </View>

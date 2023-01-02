@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, ScrollView } from "react-native";
+import UploadImage from "./UploadImagee";
 
 const SettingScreen = ({ navigation }) => {
   const [name, setName] = useState();
   return (
     <View style={styles.container}>
       <ScrollView>
+        <UploadImage></UploadImage>
         <View style={styles.picture}></View>
         <View style={styles.nameinput}>
           <Text style={styles.nameProfil}>{name}</Text>

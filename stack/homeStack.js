@@ -7,6 +7,7 @@ import ReisenScreen from "../screens/WorldScreen";
 import SettingScreen from "../screens/SettingScreen";
 import ListeBearbeiten from "../screens/ListeBearbeiten";
 import ListeBearbeiten1 from "../screens/ListeBearbeiten1";
+import UploadImage from "../screens/UploadImagee";
 
 const screens = {
   Home: {
@@ -35,6 +36,13 @@ const screens = {
     screen: SettingScreen,
     navigationOptions: {
       title: "Settings",
+    },
+  },
+
+  image: {
+    screen: UploadImage,
+    navigationOptions: {
+      title: "Upload",
     },
   },
 
