@@ -31,7 +31,7 @@ export default function RevieForm2({ addJourney, navigation }) {
             <View style={styles.input}>
               <TextInput style={globalStyles.input} placeholder="Foto hinzufügen" onChangeText={probs.handleChange("pic")} value={probs.values.pic} />
             </View>
-            <UploadImage value={probs.values.image}></UploadImage>
+            <UploadImage></UploadImage>
             <View style={styles.Buttonv}>
               <Button title="erstellen" color={"green"} onPress={probs.handleSubmit}></Button>
             </View>

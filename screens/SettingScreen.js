@@ -7,8 +7,9 @@ const SettingScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <UploadImage></UploadImage>
-        <View style={styles.picture}></View>
+        <View style={styles.pic}>
+          <UploadImage></UploadImage>
+        </View>
         <View style={styles.nameinput}>
           <Text style={styles.nameProfil}>{name}</Text>
         </View>
@@ -62,6 +63,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 
+  pic: {
+    padding: 20,
+  },
+
   Footer: {
     backgroundColor: "grey",
     alignSelf: "stretch",
@@ -102,6 +107,8 @@ const styles = StyleSheet.create({
 
   text: {
     marginTop: 32,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   picture: {

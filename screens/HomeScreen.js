@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
+import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, RecyclerViewBackedScrollView } from "react-native";
 import BeitragForms from "./BeitragForms";
 import RevieForm from "./BeitragForms";
 import ReiseCard from "../Shared/ReiseCard";
 import ReviewEintraege from "./reviewEintraege";
-
+//import WorldMap from "react-svg-worldmap";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UploadImage from "./UploadImagee";
 
@@ -20,6 +20,12 @@ const HomeScreen = ({ navigation }) => {
     try {
       await AsyncStorage.setItem("data", "value");
     } catch (err) {}
+  };
+
+  const completeTask = (item) => {
+    let itemsCopy = [...eintraege];
+    itemsCopy.splice(item, 1);
+    setEintraege(itemsCopy);
   };
 
   const getData = async () => {
@@ -58,6 +64,8 @@ const HomeScreen = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate("reviewEintraege", item)}>
               <ReiseCard>
                 <Text>{item.title}</Text>
+
+                <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(item)} />
               </ReiseCard>
             </TouchableOpacity>
           )}
@@ -130,6 +138,8 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     marginClose: 20,
   },
+
+  delete: {},
 
   input: {
     borderWidth: 1,

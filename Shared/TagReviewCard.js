@@ -52,7 +52,6 @@ const HomeScreen = ({ navigation }) => {
 
               <CollapseBody style={styles.collapse}>
                 <Text>{item.zusammenfassung}</Text>
-                <Image source={item.image}></Image>
               </CollapseBody>
             </Collapse>
           </TagNotiz>

@@ -14,6 +14,12 @@ const ReisenScreen = ({ navigation }) => {
 
   const [name, setName] = useState();
 
+  const completeTask = (item) => {
+    let itemsCopy = [...eintraege];
+    itemsCopy.splice(item, 1);
+    setEintraege(itemsCopy);
+  };
+
   const addJourney = (review) => {
     review.key = Math.random().toString();
     setEintraege((currentEintraeg) => {
@@ -42,6 +48,7 @@ const ReisenScreen = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate("ListeNeu", item)}>
               <ListenCard>
                 <Text>{item.title}</Text>
+                <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(item)} />
               </ListenCard>
             </TouchableOpacity>
           )}
