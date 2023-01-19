@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import StarRatingg from "./StarRatingComponent.js";
 export default function RevieForm({ addJourney }) {
   return (
     <View style={globalStyles.container}>

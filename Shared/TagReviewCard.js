@@ -10,6 +10,7 @@ import ReviewEintraege from "../screens/reviewEintraege";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TagNotiz from "./TagNotiz";
 import UploadImage from "../screens/UploadImagee";
+import StarRatingg from "../screens/StarRatingComponent";
 
 const HomeScreen = ({ navigation }) => {
   const [eintraege, setEintraege] = useState([]);

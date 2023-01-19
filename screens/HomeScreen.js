@@ -8,7 +8,7 @@ import ReviewEintraege from "./reviewEintraege";
 //import WorldMap from "react-svg-worldmap";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UploadImage from "./UploadImagee";
-
+import StarRatingg from "./StarRatingComponent";
 const HomeScreen = ({ navigation }) => {
   const [eintraege, setEintraege] = useState([
     { title: "Italienurlaub", rating: 5, body: "Meine Reise nach Italien mit meiner Familie", key: "1" },
@@ -70,6 +70,7 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           )}
         />
+        <StarRatingg></StarRatingg>
         <Text>{name}</Text>
         <Text style={styles.text}>Whats your name</Text>
         <TextInput style={styles.input} onChangeText={(text) => setName(text)}></TextInput>

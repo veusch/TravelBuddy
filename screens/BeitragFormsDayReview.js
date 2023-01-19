@@ -4,6 +4,7 @@ import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import UploadImage from "./UploadImagee.js";
+import StarRatingg from "./StarRatingComponent.js";
 
 export default function RevieForm2({ addJourney, navigation }) {
   return (
@@ -31,7 +32,9 @@ export default function RevieForm2({ addJourney, navigation }) {
             <View style={styles.input}>
               <TextInput style={globalStyles.input} placeholder="Foto hinzufügen" onChangeText={probs.handleChange("pic")} value={probs.values.pic} />
             </View>
+            <StarRatingg></StarRatingg>
             <UploadImage></UploadImage>
+
             <View style={styles.Buttonv}>
               <Button title="erstellen" color={"green"} onPress={probs.handleSubmit}></Button>
             </View>
@@ -43,6 +46,12 @@ export default function RevieForm2({ addJourney, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+  },
   Buttonv: {
     paddingTop: 60,
   },

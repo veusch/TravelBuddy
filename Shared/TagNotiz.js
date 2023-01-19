@@ -4,6 +4,7 @@ import TagReviewCard from "./TagReviewCard";
 import RevieForm3 from "../screens/BeitragFormsDayReviewEdit";
 import ReiseCard from "./ReiseCard";
 import { MaterialIcons } from "@expo/vector-icons";
+import StarRatingg from "../screens/StarRatingComponent";
 
 export default function TagNotiz(probs, { navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -29,6 +30,7 @@ export default function TagNotiz(probs, { navigation }) {
 
       <View style={styles.ReiseCardContent}>{probs.children}</View>
       <Text title="hi">TagNotizzz</Text>
+      <StarRatingg></StarRatingg>
       <TouchableOpacity onPress={() => setModalOpen(true)}>
         <Text>Edit</Text>
       </TouchableOpacity>

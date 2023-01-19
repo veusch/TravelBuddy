@@ -8,6 +8,7 @@ import UploadImage from "./screens/UploadImagee";
 
 const App = () => {
   return (
+    //<Context></Context>
     <Navigator>
       <UploadImage></UploadImage>
     </Navigator>
