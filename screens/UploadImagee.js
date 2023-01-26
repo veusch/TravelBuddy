@@ -11,8 +11,6 @@ export default function UploadImage() {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (status !== "granted") {
       alert("Please grant camera roll permissions inside your system's settings");
-    } else {
-      console.log("Media Permissions are granted");
     }
   };
   const [image, setImage] = useState(null);
@@ -24,7 +22,6 @@ export default function UploadImage() {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(JSON.stringify(_image));
     if (!_image.cancelled) {
       setImage(_image.uri);
     }

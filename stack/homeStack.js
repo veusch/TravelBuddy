@@ -3,10 +3,10 @@ import { createAppContainer } from "react-navigation";
 import HomeScreen from "../screens/HomeScreen";
 import ReviewEintraege from "../screens/reviewEintraege";
 import TagReviewCard from "../components/TagReviewCard";
-import ReisenScreen from "../screens/WorldScreen";
+import ReisenScreen from "../screens/ReisenScreen";
 import SettingScreen from "../screens/SettingScreen";
-import ListeBearbeiten from "../screens/ListeBearbeiten";
-import ListeBearbeiten1 from "../screens/ListeBearbeiten1";
+import ListenScreen from "../screens/ListenScreen";
+import TaskItems from "../screens/TaskItems";
 import UploadImage from "../screens/UploadImagee";
 
 const screens = {
@@ -54,14 +54,14 @@ const screens = {
   },
 
   Listen: {
-    screen: ListeBearbeiten,
+    screen: ListenScreen,
     navigationOptions: {
       title: "Meine Listen",
     },
   },
 
   ListeNeu: {
-    screen: ListeBearbeiten1,
+    screen: TaskItems,
     navigationOptions: {
       title: "Neue Liste",
     },

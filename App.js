@@ -7,13 +7,23 @@ export const reisenContext = createContext();
 
 const App = () => {
   const [reisen, setReisen] = useState();
+  const [tasks, setTasks] = useState();
 
   useEffect(() => {
     async function getDataFromStorage() {
       let tempReisen = await AsyncStorage.getItem("reisen");
+      let tempTasks = await AsyncStorage.getItem("tasks");
 
       if (tempReisen !== null) {
         setReisen(JSON.parse(tempReisen));
+      } else {
+        setReisen([]);
+      }
+
+      if (tempTasks !== null) {
+        setTasks(JSON.parse(tempReisen));
+      } else {
+        setTasks([]);
       }
     }
 
@@ -21,7 +31,7 @@ const App = () => {
   }, []);
 
   return (
-    <reisenContext.Provider value={{ reisen, setReisen }}>
+    <reisenContext.Provider value={{ reisen, setReisen, tasks, setTasks }}>
       <Navigator>
         <UploadImage></UploadImage>
       </Navigator>

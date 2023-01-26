@@ -4,7 +4,7 @@ import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import RevieForm2 from "./BeitragFormsDayReview.js";
-import TagNotiz from "../Shared/TagNotiz.js";
+import TagNotiz from "../components/TagNotiz.js";
 
 //const aiai = navigation.getParam("pic");
 const RevieForm3 = (probs, { navigation, addJourney }) => {
@@ -18,7 +18,6 @@ const RevieForm3 = (probs, { navigation, addJourney }) => {
         onSubmit={(values, actions) => {
           addJourney(values);
           actions.resetForm();
-          console.log(values);
         }}
       >
         {(probs) => (

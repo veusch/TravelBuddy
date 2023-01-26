@@ -1,31 +1,20 @@
 import React, { useState, useContext } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
-import BeitragForms from "./BeitragForms";
 import RevieForm from "./BeitragForms";
-import ReiseCard from "../Shared/ReiseCard";
-import ListenForms from "./ListenForms";
-import ReviewEintraege from "./reviewEintraege";
-import ListenCard from "../Shared/ListenCard";
-import { AsyncStorage } from "react-native";
-import { reisenContext } from "../App";
 import { globalStyles } from "../styles/global";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AlleReisen from "../components/AlleReisen";
 
 const ReisenScreen = ({ navigation }) => {
-  const [eintraege, setEintraege] = useState([]);
-
   const [modalOpen, setModalOpen] = useState(false);
 
-  const completeTask = (item) => {
-    let itemsCopy = [...eintraege];
-    itemsCopy.splice(item, 1);
-    setEintraege(itemsCopy);
-  };
-
-  const addJourney = (review) => {
+  const addJourney = async (review) => {
     review.key = Math.random().toString();
-    setEintraege((currentEintraeg) => {
-      return [review, ...currentEintraeg];
+    await AsyncStorage.setItem("reisen", JSON.stringify([...reisen, review]));
+
+    setReisen((currentReisen) => {
+      return [review, ...currentReisen];
     });
     setModalOpen(false);
   };
@@ -37,28 +26,13 @@ const ReisenScreen = ({ navigation }) => {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-              <ListenForms addJourney={addJourney}> </ListenForms>
+              <RevieForm addJourney={addJourney}> </RevieForm>
             </View>
           </TouchableWithoutFeedback>
         </Modal>
-
         <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
-
-        <FlatList
-          contentContainerStyle={styles.fllexContainer}
-          data={eintraege}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("ListeNeu", item)}>
-              <ListenCard>
-                <Text>{item.title}</Text>
-
-                <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(item)} />
-              </ListenCard>
-            </TouchableOpacity>
-          )}
-        />
+        <AlleReisen navigation={navigation} />
       </ScrollView>
-
       <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.Home}>Home</Text>
@@ -86,19 +60,16 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 
-  fllexContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-
-  listenn: {
-    marginTop: 20,
-  },
-
-  Listen: {
+  Reisen: {
     color: "lightgrey",
+  },
+
+  Footer: {
+    backgroundColor: "grey",
+    alignSelf: "stretch",
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 
   modalToggle: {

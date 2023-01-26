@@ -1,40 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
-import BeitragForms from "./BeitragForms";
-import RevieForm from "./BeitragForms";
-import ReiseCard from "../Shared/ReiseCard";
-import ReviewEintraege from "./reviewEintraege";
+import ListenForms from "./ListenForms";
+import ListenCard from "../components/ListenCard";
+import { AsyncStorage } from "react-native";
 import { globalStyles } from "../styles/global";
+import { reisenContext } from "../App";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const ReisenScreen = ({ navigation }) => {
-  const [eintraege, setEintraege] = useState([
-    { title: "Italienurlaub", rating: 5, body: "Meine Reise nach Italien mit meiner Familie", key: "1" },
-    { title: "Tirol Kurztrip", rating: 4, body: "Kurztrip nach Tirol zum Schiefahren", key: "2" },
-  ]);
+export default function ListenScreen({ navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const { tasks, setTasks } = useContext(reisenContext);
 
-  const save = async () => {
-    try {
-      await AsyncStorage.setItem("data", "value");
-    } catch (err) {}
+  const completeTask = async (task) => {
+    setTasks((currentTasks) => currentTasks.filter((item) => item.key !== task.key));
+    await AsyncStorage.setItem("tasks", JSON.stringify([task, ...tasks]));
   };
 
-  const getData = async () => {
-    try {
-      return await AsyncStorage.getItem("data");
-    } catch (error) {}
-  };
-
-  const [name, setName] = useState();
-
-  const addJourney = (review) => {
-    review.key = Math.random().toString();
-    setEintraege((currentEintraeg) => {
-      return [review, ...currentEintraeg];
-    });
+  const addTask = async (task) => {
+    task.key = Math.random() * Math.random();
+    setTasks((currentTasks) => [task, ...currentTasks]);
+    await AsyncStorage.setItem("tasks", JSON.stringify([task, ...tasks]));
     setModalOpen(false);
   };
 
@@ -45,24 +30,27 @@ const ReisenScreen = ({ navigation }) => {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-              <RevieForm addJourney={addJourney}> </RevieForm>
+              <ListenForms addTask={addTask}></ListenForms>
             </View>
           </TouchableWithoutFeedback>
         </Modal>
 
         <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
 
-        <FlatList
-          data={eintraege}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("reviewEintraege", item)}>
-              <ReiseCard>
-                <Text>{item.title}</Text>
-              </ReiseCard>
-            </TouchableOpacity>
-          )}
-        />
+        <View style={styles.fllexContainer}>
+          {tasks?.map((item) => {
+            return (
+              <TouchableOpacity key={Math.random() * Math.random()} onPress={() => navigation.navigate("ListeNeu", item)}>
+                <ListenCard>
+                  <Text>{item.title}</Text>
+                  <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(item)} />
+                </ListenCard>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
       </ScrollView>
+
       <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.Home}>Home</Text>
@@ -79,9 +67,8 @@ const ReisenScreen = ({ navigation }) => {
       </View>
     </View>
   );
-};
+}
 
-export default ReisenScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -90,16 +77,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 
-  Reisen: {
-    color: "lightgrey",
+  fllexContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    flexDirection: "row",
   },
 
-  Footer: {
-    backgroundColor: "grey",
-    alignSelf: "stretch",
-    padding: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
+  listenn: {
+    marginTop: 20,
+  },
+
+  Listen: {
+    color: "lightgrey",
   },
 
   modalToggle: {

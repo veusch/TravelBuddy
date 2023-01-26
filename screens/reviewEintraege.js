@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, Button, ScrollView } from "react-native";
-import ReiseCard from "../Shared/ReiseCard";
-import TagCard from "../Shared/TagCard";
+import ReiseCard from "../components/ReiseCard";
+import TagCard from "../components/TagCard";
 //import { ImagePicker, launchImageLibrary, launchCamera } from "react-native-image-picker";
 import * as ImagePicker from "react-native-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -13,13 +13,11 @@ export default function ReviewEintraege({ navigation }) {
 
   const handleChoosePhoto = () => {
     const options = {};
-    ImagePicker.launchImageLibrary(options, (response) => {
-      console.log("response", response);
-    });
+    ImagePicker.launchImageLibrary(options, (response) => {});
   };
 
   const rating = navigation.getParam("days");
-  var losge = [];
+  let losge = [];
   for (let i = 0; i < rating; i++) {
     losge.push(
       <TagCard key={i}>

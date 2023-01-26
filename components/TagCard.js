@@ -1,6 +1,6 @@
 import react from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
-import TagReviewCard from "../Shared/TagReviewCard";
+import TagReviewCard from "../components/TagReviewCard";
 
 export default function TagCard(probs, { navigation }) {
   return (

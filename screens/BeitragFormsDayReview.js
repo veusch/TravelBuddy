@@ -14,7 +14,6 @@ export default function RevieForm2({ addJourney, navigation }) {
         onSubmit={(values, actions) => {
           addJourney(values);
           actions.resetForm();
-          console.log(values);
         }}
       >
         {(probs) => (

@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard, ScrollView } from "react-native";
-
+import { reisenContext } from "../App";
 import Task from "../components/Tasks";
 
-const ListeBearbeiten = ({ navigation }) => {
-  const [task, setTask] = useState();
-  const [taskItems, setTaskItems] = useState([]);
+export default function TaskItems({ navigation, route }) {
+  const { tasks, setTasks } = useContext(reisenContext);
+  const [taskInput, setTaskInput] = useState();
 
-  const handleAddTask = () => {
-    Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
-    setTask(null);
-  };
+  // der key sollte eigentlich über route.params mitgegben werden können und nicht extra mit getParam ausgelesen werden müssen ... Tim fragen!
+  let key;
+  useEffect(() => {
+    key = navigation.getParam("key");
+  }, []);
 
-  const completeTask = (index) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
+  const addTaskItem = async () => {
+    // TaskItem zum Context hinzufügen
   };
 
   return (
@@ -25,19 +23,26 @@ const ListeBearbeiten = ({ navigation }) => {
         <View style={styles.tasksWrapper}>
           <Text style={styles.sectionTitle}>Todays Tasks</Text>
           <View style={styles.items}>
-            {taskItems.map((item, index) => {
-              return (
-                <TouchableOpacity onPress={() => completeTask(index)}>
-                  <Task key={index} text={item} />
-                </TouchableOpacity>
-              );
-            })}
+            {tasks
+              .filter((task) => task.key === key)
+              .map((item) => {
+                return (
+                  <TouchableOpacity
+                    key={Math.random() * Math.random()}
+                    onPress={() => {
+                      // TaskItem aus dem Context löschen
+                    }}
+                  >
+                    <Task key={Math.random() * Math.random()} text={item} />
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         </View>
       </ScrollView>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
-        <TextInput style={styles.input} placeholder={"write a Task"} onChangeText={(text) => setTask(text)} value={task} />
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <TextInput style={styles.input} placeholder={"write a Task"} onChangeText={(text) => setTaskInput(text)} value={taskInput} />
+        <TouchableOpacity onPress={() => addTaskItem()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
@@ -60,9 +65,8 @@ const ListeBearbeiten = ({ navigation }) => {
       </View>
     </View>
   );
-};
+}
 
-export default ListeBearbeiten;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

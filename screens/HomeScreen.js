@@ -1,49 +1,20 @@
 import React, { useState, useContext } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
 import { AsyncStorage } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, RecyclerViewBackedScrollView } from "react-native";
-import BeitragForms from "./BeitragForms";
 import RevieForm from "./BeitragForms";
-import ReiseCard from "../Shared/ReiseCard";
-import ReviewEintraege from "./reviewEintraege";
-//import WorldMap from "react-svg-worldmap";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-import UploadImage from "./UploadImagee";
 import StarRatingg from "./StarRatingComponent";
 import { globalStyles } from "../styles/global";
-
 import { reisenContext } from "../App";
+import AlleReisen from "../components/AlleReisen";
 
 const HomeScreen = ({ navigation }) => {
   const { reisen, setReisen } = useContext(reisenContext);
-  // const [eintraege, setEintraege] = useState([
-  //   { title: "Italienurlaub", rating: 5, body: "Meine Reise nach Italien mit meiner Familie", key: "1" },
-  //   { title: "Tirol Kurztrip", rating: 4, body: "Kurztrip nach Tirol zum Schiefahren", key: "2" },
-  // ]);
   const [modalOpen, setModalOpen] = useState(false);
-
-  // const save = async () => {
-  //   try {
-  //     await AsyncStorage.setItem("data", "value");
-  //   } catch (err) {}
-  // };
-
-  const deleteReise = async (item) => {
-    setReisen((prev) => prev.filter((reise) => reise.key !== item.key));
-    await AsyncStorage.setItem("reisen", JSON.stringify(reisen.filter((reise) => reise.key !== item.key)));
-  };
-
-  // const getData = async () => {
-  //   try {
-  //     return await AsyncStorage.getItem("data");
-  //   } catch (error) {}
-  // };
-
   const [name, setName] = useState();
 
   const addJourney = async (review) => {
     review.key = Math.random().toString();
-    console.log(review);
     await AsyncStorage.setItem("reisen", JSON.stringify([...reisen, review]));
 
     setReisen((currentEintraeg) => {
@@ -59,25 +30,12 @@ const HomeScreen = ({ navigation }) => {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-              <RevieForm addJourney={addJourney}> </RevieForm>
+              <RevieForm addJourney={addJourney}></RevieForm>
             </View>
           </TouchableWithoutFeedback>
         </Modal>
-
         <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
-
-        <FlatList
-          data={reisen}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("reviewEintraege", item)}>
-              <ReiseCard>
-                <Text>{item.title}</Text>
-
-                <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => deleteReise(item)} />
-              </ReiseCard>
-            </TouchableOpacity>
-          )}
-        />
+        <AlleReisen navigation={navigation} />
         <StarRatingg></StarRatingg>
         <Text>{name}</Text>
         <Text style={styles.text}>Whats your name</Text>
@@ -85,7 +43,6 @@ const HomeScreen = ({ navigation }) => {
         <TouchableOpacity>
           <Text style={styles.button}> Save my name</Text>
         </TouchableOpacity>
-
         <TouchableOpacity>
           <Text style={styles.button}> Remove my name</Text>
         </TouchableOpacity>
@@ -140,8 +97,6 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     marginClose: 20,
   },
-
-  delete: {},
 
   input: {
     borderWidth: 1,
