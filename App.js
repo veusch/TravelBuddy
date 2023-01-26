@@ -1,11 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import Tabs from "./navigation/tabs";
 import Navigator from "./stack/homeStack";
-// import AsyncStorage  from "@react-native-async-storage/async-storage";
 import { AsyncStorage } from "react-native";
-
-import AppLoading from "expo-app-loading";
 import UploadImage from "./screens/UploadImagee";
 
 export const reisenContext = createContext();

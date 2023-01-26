@@ -2,14 +2,12 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import HomeScreen from "../screens/HomeScreen";
 import ReviewEintraege from "../screens/reviewEintraege";
-import TagReviewCard from "../Shared/TagReviewCard";
+import TagReviewCard from "../components/TagReviewCard";
 import ReisenScreen from "../screens/WorldScreen";
 import SettingScreen from "../screens/SettingScreen";
 import ListeBearbeiten from "../screens/ListeBearbeiten";
 import ListeBearbeiten1 from "../screens/ListeBearbeiten1";
 import UploadImage from "../screens/UploadImagee";
-import { Center } from "native-base";
-import React from "react";
 
 const screens = {
   Home: {
