@@ -2,21 +2,12 @@ import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, Image } from "react-native";
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
-
 import RevieForm2 from "../screens/BeitragFormsDayReview";
-import ReiseCard from "./ReiseCard";
-import ReviewEintraege from "../screens/reviewEintraege";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import TagNotiz from "./TagNotiz";
-import UploadImage from "../screens/UploadImagee";
-import StarRatingg from "../screens/StarRatingComponent";
 
 const HomeScreen = ({ navigation }) => {
   const [eintraege, setEintraege] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-
-  const [name, setName] = useState();
 
   const addJourney = (review) => {
     review.key = Math.random().toString();
