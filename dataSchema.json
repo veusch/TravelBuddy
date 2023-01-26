@@ -1,0 +1,31 @@
+[
+  [
+    {
+      "reiseID": 0.2342374,
+      "land": "Italien",
+      "startDate": "2022-08-20",
+      "endDate": "2022-08-28",
+      "tage": [
+        {
+          "tagID": 0.5636344,
+          "date": "2022-08-22",
+          "eintraege": [
+            {
+              "eintragID": 0.9544986,
+              "time": "2022-08-22T16:51:25.026Z",
+              "titel": "Hier steht ein Titel",
+              "body": "Hier steht ein Body"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  [
+    {
+      "key": 0.2342374,
+      "taskItems": ["1", "2"]
+    }
+  ]
+]
