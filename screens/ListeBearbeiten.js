@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
 import BeitragForms from "./BeitragForms";
@@ -7,12 +7,14 @@ import ReiseCard from "../Shared/ReiseCard";
 import ListenForms from "./ListenForms";
 import ReviewEintraege from "./reviewEintraege";
 import ListenCard from "../Shared/ListenCard";
+import { AsyncStorage } from "react-native";
+import { reisenContext } from "../App";
+import { globalStyles } from "../styles/global";
 
 const ReisenScreen = ({ navigation }) => {
   const [eintraege, setEintraege] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
 
-  const [name, setName] = useState();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const completeTask = (item) => {
     let itemsCopy = [...eintraege];
@@ -43,11 +45,13 @@ const ReisenScreen = ({ navigation }) => {
         <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
 
         <FlatList
+          contentContainerStyle={styles.fllexContainer}
           data={eintraege}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => navigation.navigate("ListeNeu", item)}>
               <ListenCard>
                 <Text>{item.title}</Text>
+
                 <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(item)} />
               </ListenCard>
             </TouchableOpacity>
@@ -55,7 +59,7 @@ const ReisenScreen = ({ navigation }) => {
         />
       </ScrollView>
 
-      <View style={styles.Footer}>
+      <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.Home}>Home</Text>
         </TouchableOpacity>
@@ -82,20 +86,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 
-  listenn: {
+  fllexContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
     flexDirection: "row",
+  },
+
+  listenn: {
+    marginTop: 20,
   },
 
   Listen: {
     color: "lightgrey",
-  },
-
-  Footer: {
-    backgroundColor: "grey",
-    alignSelf: "stretch",
-    padding: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
   },
 
   modalToggle: {

@@ -5,6 +5,7 @@ import BeitragForms from "./BeitragForms";
 import RevieForm from "./BeitragForms";
 import ReiseCard from "../Shared/ReiseCard";
 import ReviewEintraege from "./reviewEintraege";
+import { globalStyles } from "../styles/global";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -62,7 +63,7 @@ const ReisenScreen = ({ navigation }) => {
           )}
         />
       </ScrollView>
-      <View style={styles.Footer}>
+      <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.Home}>Home</Text>
         </TouchableOpacity>

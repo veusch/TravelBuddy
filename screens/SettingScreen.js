@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import UploadImage from "./UploadImagee";
+import { globalStyles } from "../styles/global";
 
 const SettingScreen = ({ navigation }) => {
   const [name, setName] = useState();
@@ -36,7 +37,7 @@ const SettingScreen = ({ navigation }) => {
         </TouchableOpacity>
       </ScrollView>
 
-      <View style={styles.Footer}>
+      <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.Home}>Home</Text>
         </TouchableOpacity>
@@ -65,14 +66,6 @@ const styles = StyleSheet.create({
 
   pic: {
     padding: 20,
-  },
-
-  Footer: {
-    backgroundColor: "grey",
-    alignSelf: "stretch",
-    padding: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
   },
 
   SettingsNav: {

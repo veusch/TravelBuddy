@@ -1,44 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import { AsyncStorage } from "react-native";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, RecyclerViewBackedScrollView } from "react-native";
 import BeitragForms from "./BeitragForms";
 import RevieForm from "./BeitragForms";
 import ReiseCard from "../Shared/ReiseCard";
 import ReviewEintraege from "./reviewEintraege";
 //import WorldMap from "react-svg-worldmap";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 import UploadImage from "./UploadImagee";
 import StarRatingg from "./StarRatingComponent";
+import { globalStyles } from "../styles/global";
+
+import { reisenContext } from "../App";
+
 const HomeScreen = ({ navigation }) => {
-  const [eintraege, setEintraege] = useState([
-    { title: "Italienurlaub", rating: 5, body: "Meine Reise nach Italien mit meiner Familie", key: "1" },
-    { title: "Tirol Kurztrip", rating: 4, body: "Kurztrip nach Tirol zum Schiefahren", key: "2" },
-  ]);
+  const { reisen, setReisen } = useContext(reisenContext);
+  // const [eintraege, setEintraege] = useState([
+  //   { title: "Italienurlaub", rating: 5, body: "Meine Reise nach Italien mit meiner Familie", key: "1" },
+  //   { title: "Tirol Kurztrip", rating: 4, body: "Kurztrip nach Tirol zum Schiefahren", key: "2" },
+  // ]);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const save = async () => {
-    try {
-      await AsyncStorage.setItem("data", "value");
-    } catch (err) {}
+  // const save = async () => {
+  //   try {
+  //     await AsyncStorage.setItem("data", "value");
+  //   } catch (err) {}
+  // };
+
+  const deleteReise = async (item) => {
+    setReisen((prev) => prev.filter((reise) => reise.key !== item.key));
+    await AsyncStorage.setItem("reisen", JSON.stringify(reisen.filter((reise) => reise.key !== item.key)));
   };
 
-  const completeTask = (item) => {
-    let itemsCopy = [...eintraege];
-    itemsCopy.splice(item, 1);
-    setEintraege(itemsCopy);
-  };
-
-  const getData = async () => {
-    try {
-      return await AsyncStorage.getItem("data");
-    } catch (error) {}
-  };
+  // const getData = async () => {
+  //   try {
+  //     return await AsyncStorage.getItem("data");
+  //   } catch (error) {}
+  // };
 
   const [name, setName] = useState();
 
-  const addJourney = (review) => {
+  const addJourney = async (review) => {
     review.key = Math.random().toString();
-    setEintraege((currentEintraeg) => {
+    console.log(review);
+    await AsyncStorage.setItem("reisen", JSON.stringify([...reisen, review]));
+
+    setReisen((currentEintraeg) => {
       return [review, ...currentEintraeg];
     });
     setModalOpen(false);
@@ -59,13 +67,13 @@ const HomeScreen = ({ navigation }) => {
         <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
 
         <FlatList
-          data={eintraege}
+          data={reisen}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => navigation.navigate("reviewEintraege", item)}>
               <ReiseCard>
                 <Text>{item.title}</Text>
 
-                <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(item)} />
+                <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => deleteReise(item)} />
               </ReiseCard>
             </TouchableOpacity>
           )}
@@ -83,7 +91,7 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
       </ScrollView>
 
-      <View style={styles.Footer}>
+      <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.Home}>Home</Text>
         </TouchableOpacity>
@@ -119,14 +127,6 @@ const styles = StyleSheet.create({
     color: "lightgrey",
   },
 
-  Footer: {
-    backgroundColor: "grey",
-    alignSelf: "stretch",
-    padding: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-
   modalToggle: {
     marginBottom: 10,
     borderWidth: 1,
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignSelf: "center",
+    marginTop: 30,
   },
   modalClose: {
     marginBottom: 0,

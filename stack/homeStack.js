@@ -8,13 +8,15 @@ import SettingScreen from "../screens/SettingScreen";
 import ListeBearbeiten from "../screens/ListeBearbeiten";
 import ListeBearbeiten1 from "../screens/ListeBearbeiten1";
 import UploadImage from "../screens/UploadImagee";
+import { Center } from "native-base";
+import React from "react";
 
 const screens = {
   Home: {
     screen: HomeScreen,
     navigationOptions: {
       title: "Übersicht",
-      //headerStyle: { backgroundColor: "#333" },
+      //headerStyle: () => <header></header>,
     },
   },
   reviewEintraege: {
@@ -56,7 +58,7 @@ const screens = {
   Listen: {
     screen: ListeBearbeiten,
     navigationOptions: {
-      title: "Listen",
+      title: "Meine Listen",
     },
   },
 
@@ -70,7 +72,8 @@ const screens = {
 const HomeStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerTintColor: "#444",
-    headerStyle: { backgroundColor: "#eee", height: 70 },
+    headerStyle: { backgroundColor: "white", height: 80 },
+    headerTitleStyle: { alignSelf: "center" },
   },
 });
 
