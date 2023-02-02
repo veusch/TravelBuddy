@@ -36,7 +36,6 @@ const HomeScreen = ({ navigation }) => {
         </Modal>
         <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
         <AlleReisen navigation={navigation} />
-        <StarRatingg></StarRatingg>
         <Text>{name}</Text>
         <Text style={styles.text}>Whats your name</Text>
         <TextInput style={styles.input} onChangeText={(text) => setName(text)}></TextInput>
@@ -83,6 +82,8 @@ const styles = StyleSheet.create({
   Home: {
     color: "lightgrey",
   },
+
+  modalContent: {},
 
   modalToggle: {
     marginBottom: 10,

@@ -70,7 +70,6 @@ export default function TaskItems({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: "lightgrey",
   },
   sectionTitle: {

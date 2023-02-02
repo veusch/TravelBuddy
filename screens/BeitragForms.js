@@ -15,33 +15,28 @@ export default function RevieForm({ addJourney }) {
         }}
       >
         {(probs) => (
-          <View style={globalStyles.WrapperForms}>
-            <View style={globalStyles.InputForms}>
-              <TextInput style={globalStyles.input} placeholder="Name der Reise" onChangeText={probs.handleChange("title")} value={probs.values.title} />
-            </View>
-            <View style={globalStyles.InputForms}>
-              <TextInput style={globalStyles.input} placeholder="Reiseziel" onChangeText={probs.handleChange("body")} value={probs.values.body} />
-            </View>
-            <View style={globalStyles.InputForms}>
-              <TextInput style={globalStyles.input} placeholder="Reisebeschreibung" onChangeText={probs.handleChange("zusammenfassung")} value={probs.values.zusammenfassung} />
-            </View>
-            <View style={globalStyles.InputForms}>
-              <TextInput style={globalStyles.input} keyboardType="numeric" placeholder="Wie lange" onChangeText={probs.handleChange("days")} value={probs.values.days} />
-            </View>
+          <View style={styles.WRapperR}>
+            <View style={globalStyles.WrapperForms}>
+              <View style={globalStyles.InputForms}>
+                <TextInput style={globalStyles.input} placeholder="Name der Reise" onChangeText={probs.handleChange("title")} value={probs.values.title} />
+              </View>
+              <View style={globalStyles.InputForms}>
+                <TextInput style={globalStyles.input} placeholder="Reiseziel" onChangeText={probs.handleChange("body")} value={probs.values.body} />
+              </View>
+              <View style={globalStyles.InputForms}>
+                <TextInput style={globalStyles.input} placeholder="Reisebeschreibung" onChangeText={probs.handleChange("zusammenfassung")} value={probs.values.zusammenfassung} />
+              </View>
+              <View style={globalStyles.InputForms}>
+                <TextInput style={globalStyles.input} keyboardType="numeric" placeholder="Wie lange" onChangeText={probs.handleChange("days")} value={probs.values.days} />
+              </View>
 
-            <View style={globalStyles.InputForms}>
-              <TextInput style={globalStyles.input} placeholder="Titelbild" onChangeText={probs.handleChange("foto")} value={probs.values.foto} />
+              <View style={globalStyles.InputForms}>
+                <TextInput style={globalStyles.input} placeholder="Titelbild" onChangeText={probs.handleChange("foto")} value={probs.values.foto} />
+              </View>
             </View>
             <View style={globalStyles.ButtonFlex}>
-              <View style={globalStyles.ButtonForms}>
-                <Button title="erstellen" color={"#C7DEF0"} onPress={probs.handleSubmit}></Button>
-              </View>
-              <View style={globalStyles.ButtonForms}>
-                <Button title="erstellen" color={"#C7DEF0"} onPress={probs.handleSubmit}></Button>
-              </View>
-
-              <TouchableOpacity onPress={probs.handleSubmit} style={globalStyles.Opac}>
-                <Text style={globalStyles.OpacText}>Erstellen</Text>
+              <TouchableOpacity onPress={probs.handleReset} style={globalStyles.Opac}>
+                <Text style={globalStyles.OpacText}>Reset</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={probs.handleSubmit} style={globalStyles.Opac}>
                 <Text style={globalStyles.OpacText}>Erstellen</Text>

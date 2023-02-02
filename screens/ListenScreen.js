@@ -34,7 +34,6 @@ export default function ListenScreen({ navigation }) {
             </View>
           </TouchableWithoutFeedback>
         </Modal>
-
         <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
 
         <View style={styles.fllexContainer}>
@@ -48,6 +47,10 @@ export default function ListenScreen({ navigation }) {
               </TouchableOpacity>
             );
           })}
+        </View>
+
+        <View style={styles.addIt}>
+          <TouchableOpacity></TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -82,6 +85,12 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     flexDirection: "row",
+  },
+
+  addIt: {
+    backgroundColor: "green",
+    width: 200,
+    height: 200,
   },
 
   listenn: {

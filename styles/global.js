@@ -58,16 +58,19 @@ export const globalStyles = StyleSheet.create({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
+    paddingTop: "5%",
   },
 
   Opac: {
     backgroundColor: "#C7DEF0",
     borderRadius: 10,
-    width: "50%",
+    width: "40%",
+    margin: "4%",
   },
   OpacText: {
     color: "white",
     padding: 10,
     fontSize: 14,
+    textAlign: "center",
   },
 });
