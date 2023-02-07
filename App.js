@@ -3,7 +3,7 @@ import Navigator from "./stack/homeStack";
 import { AsyncStorage } from "react-native";
 import UploadImage from "./screens/UploadImagee";
 
-export const reisenContext = createContext();
+export const storeContext = createContext();
 
 const App = () => {
   const [reisen, setReisen] = useState();
@@ -21,7 +21,7 @@ const App = () => {
       }
 
       if (tempTasks !== null) {
-        setTasks(JSON.parse(tempReisen));
+        setTasks(JSON.parse(tempTasks));
       } else {
         setTasks([]);
       }
@@ -31,11 +31,11 @@ const App = () => {
   }, []);
 
   return (
-    <reisenContext.Provider value={{ reisen, setReisen, tasks, setTasks }}>
+    <storeContext.Provider value={{ reisenContext: [reisen, setReisen], tasksContext: [tasks, setTasks] }}>
       <Navigator>
         <UploadImage></UploadImage>
       </Navigator>
-    </reisenContext.Provider>
+    </storeContext.Provider>
   );
 };
 

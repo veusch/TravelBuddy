@@ -14,6 +14,57 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 
+  headline: {
+    fontSize: 20,
+    textAlign: "center",
+    padding: "10%",
+  },
+
+  addListe: {
+    borderRadius: 15,
+    elevation: 3,
+    backgroundColor: "#213049",
+    shadowOffset: { width: 1, height: 1 },
+    shadowColor: "#333",
+    shadowRadius: 6,
+    shadowOpacity: 0.3,
+    marginHorizontal: 4,
+    marginVertical: 6,
+    width: 150,
+    height: 70,
+  },
+
+  ListenCardContent: {
+    color: "white",
+    fontWeight: "white",
+    alignItems: "center",
+  },
+
+  neu: {
+    width: 30,
+    height: 30,
+    marginLeft: "85%",
+  },
+
+  iconNavigator: {
+    width: 30,
+    height: 30,
+  },
+
+  ListenCard: {
+    borderRadius: 15,
+    elevation: 3,
+    backgroundColor: "#DFF1FF",
+    shadowOffset: { width: 1, height: 1 },
+    shadowColor: "#333",
+    shadowRadius: 6,
+    shadowOpacity: 0.3,
+    marginHorizontal: 4,
+    marginVertical: 6,
+    width: 150,
+    height: 70,
+  },
+
   Footer: {
     backgroundColor: "#DFF1FF",
     alignSelf: "stretch",

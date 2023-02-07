@@ -1,20 +1,20 @@
 [
   [
     {
-      "reiseID": 0.2342374,
-      "land": "Italien",
+      "reiseID": "abc",
+      "reiseLand": "Italien",
       "startDate": "2022-08-20",
       "endDate": "2022-08-28",
-      "tage": [
+      "reiseTage": [
         {
-          "tagID": 0.5636344,
-          "date": "2022-08-22",
-          "eintraege": [
+          "reiseTagId": "abc",
+          "reiseTagDate": "2022-08-22",
+          "reiseEntries": [
             {
-              "eintragID": 0.9544986,
-              "time": "2022-08-22T16:51:25.026Z",
-              "titel": "Hier steht ein Titel",
-              "body": "Hier steht ein Body"
+              "tagebuchEintragId": "abc",
+              "tagebuchEintragTime": "2022-08-22T16:51:25.026Z",
+              "tagebucheintragTitle": "Hier steht ein Titel",
+              "tagebucheintragBody": "Hier steht ein Body"
             }
           ]
         }
@@ -24,8 +24,12 @@
 
   [
     {
-      "key": 0.2342374,
-      "taskItems": ["1", "2"]
+      "taskListId": "abc",
+      "taskListTitle": "Titel",
+      "taskListItems": [
+        { "taskId": "abc", "taskTitle": "Titel", "done": false },
+        { "taskId": "abc", "taskTitle": "Titel", "done": false }
+      ]
     }
   ]
 ]

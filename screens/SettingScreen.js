@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from "react-native";
 import UploadImage from "./UploadImagee";
 import { globalStyles } from "../styles/global";
 
@@ -39,16 +39,21 @@ const SettingScreen = ({ navigation }) => {
 
       <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Text style={styles.Home}>Home</Text>
+          {/*Home*/}
+          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
-          <Text style={styles.Reisen}>Reisen</Text>
+          {/*Reisen*/}
+          <Image source={require("../images/eintrag.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
-          <Text style={styles.Listen}>Listen</Text>
+          {/*Listen*/}
+          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate("settings")}>
-          <Text style={styles.SettingsNav}>Settings</Text>
+          {/*Settings*/}
+          <Image source={require("../images/profil.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
       </View>
     </View>
@@ -75,7 +80,7 @@ const styles = StyleSheet.create({
   Settings: {
     borderRadius: 6,
     elevation: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "#DFF1FF",
     shadowOffset: { width: 1, height: 1 },
     shadowColor: "#333",
     shadowRadius: 6,

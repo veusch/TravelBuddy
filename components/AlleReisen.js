@@ -1,12 +1,13 @@
 import { View, TouchableOpacity, Text } from "react-native";
 import { useContext } from "react";
 import ReiseCard from "../components/ReiseCard";
-import { reisenContext } from "../App";
+import { storeContext } from "../App";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AsyncStorage } from "react-native";
 
 export default function AlleReisen({ navigation }) {
-  const { reisen, setReisen } = useContext(reisenContext);
+  const { reisenContext } = useContext(storeContext);
+  const [reisen, setReisen] = reisenContext;
 
   const deleteReise = async (item) => {
     setReisen((prev) => prev.filter((reise) => reise.key !== item.key));

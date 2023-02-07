@@ -8,6 +8,7 @@ import SettingScreen from "../screens/SettingScreen";
 import ListenScreen from "../screens/ListenScreen";
 import TaskItems from "../screens/TaskItems";
 import UploadImage from "../screens/UploadImagee";
+import { ImageStore } from "react-native";
 
 const screens = {
   Home: {
@@ -49,7 +50,7 @@ const screens = {
   Reisen: {
     screen: ReisenScreen,
     navigationOptions: {
-      title: "ReisenScreen",
+      title: "",
     },
   },
 
@@ -72,6 +73,7 @@ const HomeStack = createStackNavigator(screens, {
     headerTintColor: "#444",
     headerStyle: { backgroundColor: "white", height: 80 },
     headerTitleStyle: { alignSelf: "center" },
+    //headerBackImage:
   },
 });
 

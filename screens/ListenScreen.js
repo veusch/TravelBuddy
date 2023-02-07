@@ -1,23 +1,25 @@
 import React, { useEffect, useState, useContext } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
+import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, Image } from "react-native";
 import ListenForms from "./ListenForms";
 import ListenCard from "../components/ListenCard";
 import { AsyncStorage } from "react-native";
 import { globalStyles } from "../styles/global";
-import { reisenContext } from "../App";
+import { storeContext } from "../App";
+import { generateId } from "../util/generateId";
 
 export default function ListenScreen({ navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
-  const { tasks, setTasks } = useContext(reisenContext);
+  const { tasksContext } = useContext(storeContext);
+  const [tasks, setTasks] = tasksContext;
 
-  const completeTask = async (task) => {
-    setTasks((currentTasks) => currentTasks.filter((item) => item.key !== task.key));
-    await AsyncStorage.setItem("tasks", JSON.stringify([task, ...tasks]));
+  const completeTask = async (taskListId) => {
+    setTasks((currentTasks) => currentTasks.filter((item) => item.taskListId !== taskListId));
+    await AsyncStorage.setItem("tasks", JSON.stringify(tasks.filter((item) => item.taskListId !== taskListId)));
   };
 
   const addTask = async (task) => {
-    task.key = Math.random() * Math.random();
+    task.taskListId = generateId(10);
     setTasks((currentTasks) => [task, ...currentTasks]);
     await AsyncStorage.setItem("tasks", JSON.stringify([task, ...tasks]));
     setModalOpen(false);
@@ -30,42 +32,46 @@ export default function ListenScreen({ navigation }) {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-              <ListenForms addTask={addTask}></ListenForms>
+              <ListenForms addTask={addTask} />
             </View>
           </TouchableWithoutFeedback>
         </Modal>
         <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
 
         <View style={styles.fllexContainer}>
-          {tasks?.map((item) => {
+          {tasks?.map((taskList) => {
             return (
-              <TouchableOpacity key={Math.random() * Math.random()} onPress={() => navigation.navigate("ListeNeu", item)}>
+              <TouchableOpacity key={taskList.taskListId} onPress={() => navigation.navigate("ListeNeu", { taskListId: taskList.taskListId })}>
                 <ListenCard>
-                  <Text>{item.title}</Text>
-                  <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(item)} />
+                  <Text>{taskList.taskListTitle}</Text>
+                  <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(taskList.taskListId)} />
                 </ListenCard>
               </TouchableOpacity>
             );
           })}
-        </View>
-
-        <View style={styles.addIt}>
-          <TouchableOpacity></TouchableOpacity>
+          <View style={globalStyles.addListe}>
+            <TouchableOpacity></TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
 
       <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Text style={styles.Home}>Home</Text>
+          {/*Home*/}
+          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
-          <Text style={styles.Reisen}>Reisen</Text>
+          {/*Reisen*/}
+          <Image source={require("../images/eintrag.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
-          <Text style={styles.Listen}>Listen</Text>
+          {/*Listen*/}
+          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate("settings")}>
-          <Text style={styles.Settings}>Settings</Text>
+          {/*Settings*/}
+          <Image source={require("../images/profil.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
       </View>
     </View>
@@ -87,12 +93,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 
-  addIt: {
-    backgroundColor: "green",
-    width: 200,
-    height: 200,
-  },
-
   listenn: {
     marginTop: 20,
   },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignSelf: "center",
-    backgroundColor: "lightgrey",
+    backgroundColor: "white",
     marginTop: 20,
   },
   modalClose: {

@@ -1,20 +1,53 @@
 import React, { useState, useCallback, useContext, useEffect } from "react";
 import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard, ScrollView } from "react-native";
-import { reisenContext } from "../App";
-import Task from "../components/Tasks";
+import { storeContext } from "../App";
+import { generateId } from "../util/generateId";
+import { AsyncStorage } from "react-native";
 
-export default function TaskItems({ navigation, route }) {
-  const { tasks, setTasks } = useContext(reisenContext);
+export default function TaskItems(props) {
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+
+  const {
+    navigation,
+    navigation: {
+      state: {
+        params: { taskListId },
+      },
+    },
+  } = props;
+
+  // Das ist Object Destructuring
+  // const test = { name: "Peter", age: 20 };
+  // const { name } = test;
+
+  // Das ist Array Destructuring
+  // const test = ["Peter", 20];
+  // const [name] = test;
+
+  const { tasksContext } = useContext(storeContext);
+  const [tasks, setTasks] = tasksContext;
+
   const [taskInput, setTaskInput] = useState();
 
-  // der key sollte eigentlich über route.params mitgegben werden können und nicht extra mit getParam ausgelesen werden müssen ... Tim fragen!
-  let key;
-  useEffect(() => {
-    key = navigation.getParam("key");
-  }, []);
-
   const addTaskItem = async () => {
-    // TaskItem zum Context hinzufügen
+    let temp = tasks;
+    temp.find((task) => task.taskListId === taskListId).taskListItems = temp.find((task) => task.taskListId === taskListId).taskListItems || [];
+    temp.find((taskList) => taskList.taskListId === taskListId).taskListItems.push({ taskId: generateId(10), taskTitle: taskInput });
+    setTasks(temp);
+    await AsyncStorage.setItem("tasks", JSON.stringify(temp));
+    setTaskInput("");
+    forceUpdate();
+  };
+
+  const completeTaskItem = async (taskId) => {
+    let temp = tasks;
+    console.log(temp);
+    temp.find((task) => task.taskListId === taskListId).taskListItems = temp.find((task) => task.taskListId === taskListId).taskListItems.filter((task) => task.taskId !== taskId);
+    console.log(temp);
+    setTasks(temp);
+    await AsyncStorage.setItem("tasks", JSON.stringify(temp));
+    forceUpdate();
   };
 
   return (
@@ -24,16 +57,17 @@ export default function TaskItems({ navigation, route }) {
           <Text style={styles.sectionTitle}>Todays Tasks</Text>
           <View style={styles.items}>
             {tasks
-              .filter((task) => task.key === key)
-              .map((item) => {
+              ?.find((taskList) => taskList.taskListId === taskListId)
+              ?.taskListItems?.map((taskListItem) => {
                 return (
-                  <TouchableOpacity
-                    key={Math.random() * Math.random()}
-                    onPress={() => {
-                      // TaskItem aus dem Context löschen
-                    }}
-                  >
-                    <Task key={Math.random() * Math.random()} text={item} />
+                  <TouchableOpacity key={taskListItem.taskId} onPress={() => completeTaskItem(taskListItem.taskId)}>
+                    <View style={styles.item}>
+                      <View style={styles.itemLeft}>
+                        <View style={styles.square}></View>
+                        <Text style={styles.itemText}>{taskListItem.taskTitle}</Text>
+                      </View>
+                      {true && <View style={styles.circular}></View>}
+                    </View>
                   </TouchableOpacity>
                 );
               })}
@@ -42,7 +76,7 @@ export default function TaskItems({ navigation, route }) {
       </ScrollView>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
         <TextInput style={styles.input} placeholder={"write a Task"} onChangeText={(text) => setTaskInput(text)} value={taskInput} />
-        <TouchableOpacity onPress={() => addTaskItem()}>
+        <TouchableOpacity onPress={addTaskItem}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
@@ -124,4 +158,36 @@ const styles = StyleSheet.create({
     borderColor: "#C0C0C0",
   },
   addText: {},
+  item: {
+    backgroundColor: "white",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    flexDirection: "row",
+  },
+  itemLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  square: {
+    width: 24,
+    height: 24,
+    backgroundColor: "#BCF6",
+    opacity: 0.7,
+    borderRadius: 5,
+    marginRight: 15,
+  },
+  itemText: {
+    maxWidth: "80%",
+  },
+  circular: {
+    width: 12,
+    height: 12,
+    borderWidth: 2,
+    borderRadius: 5,
+    borderColor: "#55BCF6",
+  },
 });

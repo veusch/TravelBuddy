@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Button, ScrollView } from "react-native";
+import { StyleSheet, View, Text, Button, ScrollView, TouchableOpacity } from "react-native";
 import ReiseCard from "../components/ReiseCard";
 import TagCard from "../components/TagCard";
 //import { ImagePicker, launchImageLibrary, launchCamera } from "react-native-image-picker";
@@ -11,35 +11,33 @@ export default function ReviewEintraege({ navigation }) {
     navigation.navigate("reviewDay");
   };
 
-  const handleChoosePhoto = () => {
-    const options = {};
-    ImagePicker.launchImageLibrary(options, (response) => {});
-  };
+  // TODO: WTF passiert hier?
 
   const rating = navigation.getParam("days");
-  let losge = [];
+  let tageAnzeigen = [];
   for (let i = 0; i < rating; i++) {
-    losge.push(
-      <TagCard key={i}>
-        <Text>Tag {i}</Text>
-        <Button title="Edit" onPress={presshandler} />
-      </TagCard>
+    tageAnzeigen.push(
+      <TouchableOpacity onPress={presshandler}>
+        <TagCard key={i}>
+          <Text>Tag {i + 1}</Text>
+        </TagCard>
+      </TouchableOpacity>
     );
   }
 
   return (
-    <ScrollView style={StyleSheet.container}>
-      <ReiseCard>
-        <Text style={styles.title}>{navigation.getParam("title")}</Text>
-        <Text>{navigation.getParam("body")}</Text>
-        <Text>{navigation.getParam("days")}</Text>
+    <View style={styles.container}>
+      <ScrollView>
+        <ReiseCard>
+          <Text style={styles.title}>{navigation.getParam("title")}</Text>
+          <Text>{navigation.getParam("body")}</Text>
+          <Text>{navigation.getParam("days")}</Text>
 
-        <Text>"Hallo das ist die Reise Card"</Text>
-      </ReiseCard>
-      {losge}
-
-      <Button title="Choose Photo" onPress={handleChoosePhoto}></Button>
-    </ScrollView>
+          <Text>"Hallo das ist die Reise Card"</Text>
+        </ReiseCard>
+        {tageAnzeigen}
+      </ScrollView>
+    </View>
   );
 }
 
@@ -49,7 +47,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
 
   title: {

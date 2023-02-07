@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from "react-native";
+import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, Image } from "react-native";
 import RevieForm from "./BeitragForms";
 import { globalStyles } from "../styles/global";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -30,21 +30,30 @@ const ReisenScreen = ({ navigation }) => {
             </View>
           </TouchableWithoutFeedback>
         </Modal>
-        <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
+        <TouchableOpacity onPress={() => setModalOpen(true)}>
+          <Image source={require("../images/neu.png")} style={globalStyles.neu} />
+        </TouchableOpacity>
+        <Text style={globalStyles.headline}>Meine Tagebücher</Text>
+
         <AlleReisen navigation={navigation} />
       </ScrollView>
       <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Text style={styles.Home}>Home</Text>
+          {/*Home*/}
+          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
-          <Text style={styles.Reisen}>Reisen</Text>
+          {/*Reisen*/}
+          <Image source={require("../images/eintrag.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
-          <Text style={styles.Listen}>Listen</Text>
+          {/*Listen*/}
+          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate("settings")}>
-          <Text style={styles.Settings}>Settings</Text>
+          {/*Settings*/}
+          <Image source={require("../images/profil.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
       </View>
     </View>
@@ -57,6 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
     backgroundColor: "white",
   },
 
