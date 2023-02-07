@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, 
 import { storeContext } from "../App";
 import { generateId } from "../util/generateId";
 import { AsyncStorage } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function TaskItems(props) {
   const [, updateState] = React.useState();
@@ -33,7 +34,7 @@ export default function TaskItems(props) {
   const addTaskItem = async () => {
     let temp = tasks;
     temp.find((task) => task.taskListId === taskListId).taskListItems = temp.find((task) => task.taskListId === taskListId).taskListItems || [];
-    temp.find((taskList) => taskList.taskListId === taskListId).taskListItems.push({ taskId: generateId(10), taskTitle: taskInput });
+    temp.find((taskList) => taskList.taskListId === taskListId).taskListItems.push({ taskId: generateId(10), taskTitle: taskInput, done: false });
     setTasks(temp);
     await AsyncStorage.setItem("tasks", JSON.stringify(temp));
     setTaskInput("");
@@ -42,9 +43,7 @@ export default function TaskItems(props) {
 
   const completeTaskItem = async (taskId) => {
     let temp = tasks;
-    console.log(temp);
-    temp.find((task) => task.taskListId === taskListId).taskListItems = temp.find((task) => task.taskListId === taskListId).taskListItems.filter((task) => task.taskId !== taskId);
-    console.log(temp);
+    temp.find((task) => task.taskListId === taskListId).taskListItems.find((taskListItem) => taskListItem.taskId === taskId).done = !temp.find((task) => task.taskListId === taskListId).taskListItems.find((taskListItem) => taskListItem.taskId === taskId).done;
     setTasks(temp);
     await AsyncStorage.setItem("tasks", JSON.stringify(temp));
     forceUpdate();
@@ -58,15 +57,15 @@ export default function TaskItems(props) {
           <View style={styles.items}>
             {tasks
               ?.find((taskList) => taskList.taskListId === taskListId)
-              ?.taskListItems?.map((taskListItem) => {
+              ?.taskListItems?.sort((taskListItem) => taskListItem.done)
+              .map((taskListItem) => {
                 return (
                   <TouchableOpacity key={taskListItem.taskId} onPress={() => completeTaskItem(taskListItem.taskId)}>
                     <View style={styles.item}>
                       <View style={styles.itemLeft}>
-                        <View style={styles.square}></View>
+                        {taskListItem.done ? <MaterialIcons size={24} name="check" /> : <View style={styles.square}></View>}
                         <Text style={styles.itemText}>{taskListItem.taskTitle}</Text>
                       </View>
-                      {true && <View style={styles.circular}></View>}
                     </View>
                   </TouchableOpacity>
                 );
@@ -178,10 +177,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#BCF6",
     opacity: 0.7,
     borderRadius: 5,
-    marginRight: 15,
   },
   itemText: {
     maxWidth: "80%",
+    marginLeft: 15,
   },
   circular: {
     width: 12,

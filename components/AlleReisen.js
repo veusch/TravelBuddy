@@ -18,7 +18,7 @@ export default function AlleReisen({ navigation }) {
     <View>
       {reisen?.map((item) => {
         return (
-          <TouchableOpacity key={Math.random() * Math.random()} onPress={() => navigation.navigate("reviewEintraege", item)}>
+          <TouchableOpacity style={{ alignItems: "center" }} key={Math.random() * Math.random()} onPress={() => navigation.navigate("reviewEintraege", item)}>
             <ReiseCard>
               <Text>{item.title}</Text>
               <MaterialIcons size={24} name="delete" onPress={() => deleteReise(item)} />

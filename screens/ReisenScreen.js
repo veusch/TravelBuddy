@@ -4,17 +4,20 @@ import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, Touchable
 import RevieForm from "./BeitragForms";
 import { globalStyles } from "../styles/global";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storeContext } from "../App";
 import AlleReisen from "../components/AlleReisen";
 
 const ReisenScreen = ({ navigation }) => {
+  const { reisenContext } = useContext(storeContext);
+  const [reisen, setReisen] = reisenContext;
   const [modalOpen, setModalOpen] = useState(false);
 
   const addJourney = async (review) => {
     review.key = Math.random().toString();
     await AsyncStorage.setItem("reisen", JSON.stringify([...reisen, review]));
 
-    setReisen((currentReisen) => {
-      return [review, ...currentReisen];
+    setReisen((currentEintraeg) => {
+      return [review, ...currentEintraeg];
     });
     setModalOpen(false);
   };
@@ -26,7 +29,7 @@ const ReisenScreen = ({ navigation }) => {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-              <RevieForm addJourney={addJourney}> </RevieForm>
+              <RevieForm addJourney={addJourney}></RevieForm>
             </View>
           </TouchableWithoutFeedback>
         </Modal>
