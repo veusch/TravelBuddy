@@ -6,18 +6,25 @@ import RevieForm from "./BeitragForms";
 import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import AlleReisen from "../components/AlleReisen";
+import { generateId } from "../util/generateId";
 
 const HomeScreen = ({ navigation }) => {
   const { reisenContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
   const [modalOpen, setModalOpen] = useState(false);
 
-  const addJourney = async (review) => {
-    review.key = Math.random().toString();
-    await AsyncStorage.setItem("reisen", JSON.stringify([...reisen, review]));
+  const addJourney = async (journey) => {
+    journey.reiseId = generateId(10);
+    let test = new Array(10);
+    test.map((item, index) => {
+      reiseTagId: generateId(10);
+      reiseTagDate: "temp";
+    });
+    journey.reiseTage = [];
+    await AsyncStorage.setItem("reisen", JSON.stringify([...reisen, journey]));
 
     setReisen((currentEintraeg) => {
-      return [review, ...currentEintraeg];
+      return [journey, ...currentEintraeg];
     });
     setModalOpen(false);
   };
@@ -28,8 +35,7 @@ const HomeScreen = ({ navigation }) => {
         <Modal visible={modalOpen} animationType="slide">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
-              <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-              <RevieForm addJourney={addJourney}></RevieForm>
+              <RevieForm setModalOpen={setModalOpen} addJourney={addJourney}></RevieForm>
             </View>
           </TouchableWithoutFeedback>
         </Modal>

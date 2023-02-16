@@ -13,7 +13,7 @@ export default function ReviewEintraege({ navigation }) {
 
   // TODO: WTF passiert hier?
 
-  const rating = navigation.getParam("days");
+  const rating = navigation.getParam("duration");
   let tageAnzeigen = [];
   for (let i = 0; i < rating; i++) {
     tageAnzeigen.push(
