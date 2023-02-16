@@ -32,8 +32,6 @@ export default function ReviewEintraege({ navigation }) {
           <Text style={styles.title}>{navigation.getParam("title")}</Text>
           <Text>{navigation.getParam("body")}</Text>
           <Text>{navigation.getParam("days")}</Text>
-
-          <Text>"Hallo das ist die Reise Card"</Text>
         </ReiseCard>
         {tageAnzeigen}
       </ScrollView>

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     marginHorizontal: 4,
     marginVertical: 6,
-    width: 400,
+    width: 200,
     heigh: 200,
   },
 

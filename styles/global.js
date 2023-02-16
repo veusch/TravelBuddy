@@ -46,6 +46,11 @@ export const globalStyles = StyleSheet.create({
     marginLeft: "85%",
   },
 
+  icon: {
+    width: 30,
+    height: 30,
+  },
+
   iconNavigator: {
     width: 30,
     height: 30,

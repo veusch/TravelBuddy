@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Modal, TouchableWithoutFeedback, Keyboard, FlatList } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, Modal, TouchableWithoutFeedback, Keyboard, FlatList, Image } from "react-native";
 import TagReviewCard from "./TagReviewCard";
 import RevieForm3 from "../screens/BeitragFormsDayReviewEdit";
 import ReiseCard from "./ReiseCard";
 import { MaterialIcons } from "@expo/vector-icons";
 import StarRatingg from "../screens/StarRatingComponent";
+import { globalStyles } from "../styles/global";
 
 export default function TagNotiz(probs, { navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -27,13 +28,14 @@ export default function TagNotiz(probs, { navigation }) {
           </View>
         </TouchableWithoutFeedback>
       </Modal>
-
-      <View style={styles.ReiseCardContent}>{probs.children}</View>
-      <Text title="hi">TagNotizzz</Text>
-      <StarRatingg></StarRatingg>
-      <TouchableOpacity onPress={() => setModalOpen(true)}>
-        <Text>Edit</Text>
-      </TouchableOpacity>
+      <View style={styles.besides}>
+        <View style={styles.ReiseCardContent}>{probs.children}</View>
+        <View style={styles.bearbeitenIcon}>
+          <TouchableOpacity onPress={() => setModalOpen(true)}>
+            <Image source={require("../images/bearbeiten.png")} style={globalStyles.icon} />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
@@ -43,18 +45,37 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 6,
     elevation: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "#213049",
     shadowOffset: { width: 1, height: 1 },
     shadowColor: "#333",
     shadowRadius: 6,
     shadowOpacity: 0.3,
     marginHorizontal: 4,
     marginVertical: 6,
-    width: 200,
+    width: 310,
+  },
+  bearbeitenIcon: {
+    backgroundColor: "green",
+    width: 40,
+    height: 40,
+    alignItems: "center",
+  },
+
+  Edit: {
+    color: "white",
+    padding: "10%",
   },
 
   ReiseCardContent: {
     marginHorizontal: 18,
     marginVertical: 15,
+    color: "white",
+  },
+
+  besides: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });

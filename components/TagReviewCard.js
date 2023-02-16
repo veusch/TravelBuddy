@@ -4,8 +4,10 @@ import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, Touchable
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import RevieForm2 from "../screens/BeitragFormsDayReview";
 import TagNotiz from "./TagNotiz";
+import { globalStyles } from "../styles/global";
+import StarRatingg from "../screens/StarRatingComponent";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = (probs, { navigation }) => {
   const [eintraege, setEintraege] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -28,9 +30,11 @@ const HomeScreen = ({ navigation }) => {
         </TouchableWithoutFeedback>
       </Modal>
 
-      <TouchableOpacity style={styles.tagebuch} onPress={() => setModalOpen(true)}>
-        <Text style={styles.textDay}>Neuer Tagebucheintrag</Text>
+      <TouchableOpacity onPress={() => setModalOpen(true)}>
+        <Image source={require("../images/neu.png")} style={globalStyles.neu} />
       </TouchableOpacity>
+      <Text style={globalStyles.headline}>Reise</Text>
+
       <FlatList
         data={eintraege}
         renderItem={({ item }) => (
@@ -43,7 +47,8 @@ const HomeScreen = ({ navigation }) => {
               </CollapseHeader>
 
               <CollapseBody style={styles.collapse}>
-                <Text>{item.zusammenfassung}</Text>
+                <Text style={styles.zusammenfassung}>{item.zusammenfassung}</Text>
+                <StarRatingg></StarRatingg>
               </CollapseBody>
             </Collapse>
           </TagNotiz>
@@ -63,7 +68,8 @@ const styles = StyleSheet.create({
   },
 
   collapse: {
-    backgroundColor: "grey",
+    backgroundColor: "#DFF1FF",
+    width: 310,
   },
 
   tagebuch: {
@@ -73,9 +79,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
+  zusammenfassung: {
+    padding: 15,
+  },
+
   titelTagNotiz: {
     fontWeight: "bold",
     fontSize: 20,
+    color: "white",
+    textAlign: "center",
+    marginBottom: 10,
   },
 
   textDay: {

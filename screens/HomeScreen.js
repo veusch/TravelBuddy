@@ -3,7 +3,6 @@ import { AsyncStorage } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, RecyclerViewBackedScrollView, Image } from "react-native";
 import RevieForm from "./BeitragForms";
-import StarRatingg from "./StarRatingComponent";
 import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import AlleReisen from "../components/AlleReisen";
@@ -12,7 +11,6 @@ const HomeScreen = ({ navigation }) => {
   const { reisenContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
   const [modalOpen, setModalOpen] = useState(false);
-  const [name, setName] = useState();
 
   const addJourney = async (review) => {
     review.key = Math.random().toString();
@@ -41,6 +39,7 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.name}>Name</Text>
         <Text style={styles.wasErlebt}>Was hast du heute erlebt?</Text>
         <View style={styles.statistik}></View>
+        <Text style={globalStyles.headline}>Meine Tagebücher</Text>
         <AlleReisen navigation={navigation} />
       </ScrollView>
 

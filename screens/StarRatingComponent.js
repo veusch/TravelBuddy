@@ -32,31 +32,31 @@ export default function StarRatingg() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.heading}>{starRating ? `${starRating}/5 ` : "Tap to rate"}</Text>
+        <Text style={styles.heading}>{starRating ? `${starRating}/5 ` : ""}</Text>
         <View style={styles.stars}>
           <TouchableWithoutFeedback onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={() => setStarRating(1)}>
             <Animated.View style={animatedScaleStyle}>
-              <MaterialIcons name={starRating >= 1 ? "star" : "star-border"} size={32} style={starRating >= 1 ? styles.starSelected : styles.starUnselected} />
+              <MaterialIcons name={starRating >= 1 ? "star" : "star-border"} size={25} style={starRating >= 1 ? styles.starSelected : styles.starUnselected} />
             </Animated.View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={() => setStarRating(2)}>
             <Animated.View style={animatedScaleStyle}>
-              <MaterialIcons name={starRating >= 2 ? "star" : "star-border"} size={32} style={starRating >= 2 ? styles.starSelected : styles.starUnselected} />
+              <MaterialIcons name={starRating >= 2 ? "star" : "star-border"} size={25} style={starRating >= 2 ? styles.starSelected : styles.starUnselected} />
             </Animated.View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={() => setStarRating(3)}>
             <Animated.View style={animatedScaleStyle}>
-              <MaterialIcons name={starRating >= 3 ? "star" : "star-border"} size={32} style={starRating >= 3 ? styles.starSelected : styles.starUnselected} />
+              <MaterialIcons name={starRating >= 3 ? "star" : "star-border"} size={25} style={starRating >= 3 ? styles.starSelected : styles.starUnselected} />
             </Animated.View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={() => setStarRating(4)}>
             <Animated.View style={animatedScaleStyle}>
-              <MaterialIcons name={starRating >= 4 ? "star" : "star-border"} size={32} style={starRating >= 4 ? styles.starSelected : styles.starUnselected} />
+              <MaterialIcons name={starRating >= 4 ? "star" : "star-border"} size={25} style={starRating >= 4 ? styles.starSelected : styles.starUnselected} />
             </Animated.View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={() => setStarRating(5)}>
             <Animated.View style={animatedScaleStyle}>
-              <MaterialIcons name={starRating >= 5 ? "star" : "star-border"} size={32} style={starRating >= 5 ? styles.starSelected : styles.starUnselected} />
+              <MaterialIcons name={starRating >= 5 ? "star" : "star-border"} size={25} style={starRating >= 5 ? styles.starSelected : styles.starUnselected} />
             </Animated.View>
           </TouchableWithoutFeedback>
         </View>
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   heading: {
-    fontSize: 24,
+    fontSize: 14,
     fontWeight: "bold",
     marginBottom: 20,
   },
