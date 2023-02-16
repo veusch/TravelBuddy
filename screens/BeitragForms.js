@@ -1,88 +1,109 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
 import { globalStyles } from "../styles/global.js";
-import { Formik } from "formik";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function RevieForm({ addJourney, setModalOpen }) {
-  const [datePickerOpen, setDatePickerOpen] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const [datePicker, setDatePicker] = useState("");
+  const [invalidDate, setInvalidDate] = useState(false);
+  const [form, setForm] = useState({ reiseTitel: "", reiseLand: "", startDate: new Date(), endDate: new Date(), reiseBeschreibung: "", thumbnail: "" });
 
-  const onChange = (event, selectedDate) => {
+  const setStartDate = (event, selectedDate) => {
     const currentDate = selectedDate;
-    setDatePickerOpen(false);
-    setDate(currentDate);
+    setDatePicker("");
+    setForm((prev) => ({ ...prev, startDate: currentDate }));
   };
 
-  const showMode = (currentMode) => {
-    if (Platform.OS === "android") {
-      setDatePickerOpen(false);
-      // for iOS, add a button that closes the picker
+  const setEndDate = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDatePicker("");
+    setForm((prev) => ({ ...prev, endDate: currentDate }));
+  };
+
+  const handleSubmit = () => {
+    if (new Date(form.startDate).valueOf() - new Date(form.endDate).valueOf() <= 0) {
+      addJourney(form);
+      setForm({ reiseTitel: "", reiseLand: "", startDate: new Date(), endDate: new Date(), reiseBeschreibung: "", thumbnail: "" });
+      setInvalidDate(false);
+    } else {
+      setInvalidDate(true);
     }
-    setMode(currentMode);
   };
 
   return (
     <View style={globalStyles.container}>
-      <Formik
-        initialValues={{ reiseTitel: "", reiseLand: "", startDate: "", endDate: "", reiseBeschreibung: "", thumbnail: "" }}
-        onSubmit={(values, actions) => {
-          addJourney(values);
-          actions.resetForm();
-        }}
-        onReset={() => {
-          setModalOpen(false);
-        }}
-      >
-        {(props) => (
-          <>
-            {datePickerOpen && <DateTimePicker testID="dateTimePicker" value={startDate} mode="date" is24Hour={true} onChange={onChange} />}
-            <View style={styles.WRapperR}>
-              <View style={globalStyles.WrapperForms}>
-                <View style={globalStyles.InputForms}>
-                  <TextInput style={globalStyles.input} placeholder="Name der Reise" onChangeText={props.handleChange("reiseTitel")} value={props.values.reiseTitel} />
-                </View>
-                <View style={globalStyles.InputForms}>
-                  <TextInput style={globalStyles.input} placeholder="Reiseziel" onChangeText={props.handleChange("reiseLand")} value={props.values.reiseLand} />
-                </View>
-                <View style={globalStyles.InputForms}>
-                  <TextInput style={globalStyles.input} placeholder="Reisebeschreibung" onChangeText={props.handleChange("reiseBeschreibung")} value={props.values.reiseBeschreibung} />
-                </View>
-                <View style={globalStyles.InputForms}>
-                  <TextInput style={globalStyles.input} keyboardType="numeric" placeholder="Startdatum" onChangeText={props.handleChange("startDate")} value={props.values.startDate} />
-                </View>
-                <View style={globalStyles.InputForms}>
-                  <TextInput style={globalStyles.input} keyboardType="numeric" placeholder="Enddatum" onChangeText={props.handleChange("endDate")} value={props.values.endDate} />
-                </View>
+      {datePicker === "start" ? <DateTimePicker testID="dateTimePicker" value={form.startDate} mode="date" is24Hour={true} onChange={setStartDate} /> : datePicker === "end" ? <DateTimePicker testID="dateTimePicker" value={form.endDate} mode="date" is24Hour={true} onChange={setEndDate} /> : null}
+      <View style={styles.WRapperR}>
+        <View style={globalStyles.WrapperForms}>
+          <View style={globalStyles.InputForms}>
+            <TextInput
+              style={globalStyles.input}
+              placeholder="Name der Reise"
+              onChangeText={(e) => {
+                setForm((prev) => ({ ...prev, reiseTitel: e }));
+              }}
+              value={form.reiseTitel}
+            />
+          </View>
+          <View style={globalStyles.InputForms}>
+            <TextInput
+              style={globalStyles.input}
+              placeholder="Reiseziel"
+              onChangeText={(e) => {
+                setForm((prev) => ({ ...prev, reiseLand: e }));
+              }}
+              value={form.reiseLand}
+            />
+          </View>
+          <View style={globalStyles.InputForms}>
+            <TextInput
+              style={globalStyles.input}
+              placeholder="Reisebeschreibung"
+              onChangeText={(e) => {
+                setForm((prev) => ({ ...prev, reiseBeschreibung: e }));
+              }}
+              value={form.reiseBeschreibung}
+            />
+          </View>
+          <View style={globalStyles.InputForms}>
+            <TouchableOpacity onPress={() => setDatePicker("start")} style={styles.reset}>
+              <Text style={globalStyles.InputForms}>{form.startDate.toLocaleDateString("de").toString()}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[globalStyles.InputForms, invalidDate && styles.invalid]}>
+            <TouchableOpacity onPress={() => setDatePicker("end")} style={styles.reset}>
+              <Text style={[globalStyles.InputForms, invalidDate && styles.invalid]}>{form.endDate.toLocaleDateString("de").toString()}</Text>
+            </TouchableOpacity>
+          </View>
 
-                <View style={globalStyles.InputForms}>
-                  <TextInput style={globalStyles.input} placeholder="Titelbild" onChangeText={props.handleChange("thumbnail")} value={props.values.thumbnail} />
-                </View>
-              </View>
-              <View style={globalStyles.ButtonFlex}>
-                <TouchableOpacity onPress={props.handleReset} style={globalStyles.Opac}>
-                  <Text style={globalStyles.OpacText}>Abbrechen</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={props.handleSubmit} style={globalStyles.Opac}>
-                  <Text style={globalStyles.OpacText}>Erstellen</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </>
-        )}
-      </Formik>
+          <View style={globalStyles.InputForms}>
+            <TextInput style={globalStyles.input} placeholder="Titelbild" onChangeText={() => {}} value={form.thumbnail} />
+          </View>
+        </View>
+        <View style={globalStyles.ButtonFlex}>
+          <TouchableOpacity
+            onPress={() => {
+              setModalOpen(false);
+            }}
+            style={globalStyles.Opac}
+          >
+            <Text style={globalStyles.OpacText}>Abbrechen</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleSubmit} style={globalStyles.Opac}>
+            <Text style={globalStyles.OpacText}>Erstellen</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  Buttonv: {
-    paddingTop: 60,
+  reset: {
+    margin: 0,
+    padding: 0,
   },
-  input: {
-    padding: 10,
-  },
-  inputWrapper: {
+  invalid: {
     backgroundColor: "red",
   },
 });

@@ -1,29 +1,28 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, View, Text, Button, ScrollView, TouchableOpacity } from "react-native";
 import ReiseCard from "../components/ReiseCard";
 import TagCard from "../components/TagCard";
 //import { ImagePicker, launchImageLibrary, launchCamera } from "react-native-image-picker";
 import * as ImagePicker from "react-native-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
+import { storeContext } from "../App";
 
-export default function ReviewEintraege({ navigation }) {
+export default function ReviewEintraege(props) {
+  const { reisenContext } = useContext(storeContext);
+  const [reisen, setReisen] = reisenContext;
+
   const presshandler = () => {
     navigation.navigate("reviewDay");
   };
 
-  // TODO: WTF passiert hier?
-
-  const rating = navigation.getParam("duration");
-  let tageAnzeigen = [];
-  for (let i = 0; i < rating; i++) {
-    tageAnzeigen.push(
-      <TouchableOpacity onPress={presshandler}>
-        <TagCard key={i}>
-          <Text>Tag {i + 1}</Text>
-        </TagCard>
-      </TouchableOpacity>
-    );
-  }
+  const {
+    navigation,
+    navigation: {
+      state: {
+        params: { reiseId },
+      },
+    },
+  } = props;
 
   return (
     <View style={styles.container}>
@@ -33,7 +32,15 @@ export default function ReviewEintraege({ navigation }) {
           <Text>{navigation.getParam("body")}</Text>
           <Text>{navigation.getParam("days")}</Text>
         </ReiseCard>
-        {tageAnzeigen}
+        {reisen
+          .find((reise) => reise.reiseId === reiseId)
+          .reiseTage.map((reiseTag) => (
+            <TouchableOpacity key={reiseTag.reiseTagId} onPress={presshandler}>
+              <TagCard key={reiseTag.reiseTagId}>
+                <Text style={{ color: "white" }}>{new Date(reiseTag.reiseTagDate).toLocaleDateString("de")}</Text>
+              </TagCard>
+            </TouchableOpacity>
+          ))}
       </ScrollView>
     </View>
   );

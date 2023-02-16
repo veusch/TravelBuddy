@@ -6,18 +6,37 @@ import { globalStyles } from "../styles/global";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { storeContext } from "../App";
 import AlleReisen from "../components/AlleReisen";
+import { generateId } from "../util/generateId";
 
 const ReisenScreen = ({ navigation }) => {
   const { reisenContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
   const [modalOpen, setModalOpen] = useState(false);
 
-  const addJourney = async (review) => {
-    review.key = Math.random().toString();
-    await AsyncStorage.setItem("reisen", JSON.stringify([...reisen, review]));
+  function addDays(date, days) {
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
+  const addJourney = async (journey) => {
+    journey.reiseId = generateId(10);
+
+    let dayCount = Math.ceil((new Date(journey.endDate).getTime() - new Date(journey.startDate).getTime()) / (1000 * 3600 * 24)) + 1;
+
+    journey.reiseTage = [];
+
+    for (let i = 0; i < dayCount; i++) {
+      journey.reiseTage.push({
+        reiseTagId: generateId(10),
+        reiseTagDate: addDays(new Date(journey.startDate), i),
+        reiseEntries: [],
+      });
+    }
+
+    await AsyncStorage.setItem("reisen", JSON.stringify([...reisen, journey]));
 
     setReisen((currentEintraeg) => {
-      return [review, ...currentEintraeg];
+      return [journey, ...currentEintraeg];
     });
     setModalOpen(false);
   };

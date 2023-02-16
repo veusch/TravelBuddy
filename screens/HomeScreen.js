@@ -13,14 +13,26 @@ const HomeScreen = ({ navigation }) => {
   const [reisen, setReisen] = reisenContext;
   const [modalOpen, setModalOpen] = useState(false);
 
+  function addDays(date, days) {
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
   const addJourney = async (journey) => {
     journey.reiseId = generateId(10);
-    let test = new Array(10);
-    test.map((item, index) => {
-      reiseTagId: generateId(10);
-      reiseTagDate: "temp";
-    });
+
+    let dayCount = Math.ceil((new Date(journey.endDate).getTime() - new Date(journey.startDate).getTime()) / (1000 * 3600 * 24)) + 1;
+
     journey.reiseTage = [];
+
+    for (let i = 0; i < dayCount; i++) {
+      journey.reiseTage.push({
+        reiseTagId: generateId(10),
+        reiseTagDate: addDays(new Date(journey.startDate), i),
+        reiseEntries: [],
+      });
+    }
+
     await AsyncStorage.setItem("reisen", JSON.stringify([...reisen, journey]));
 
     setReisen((currentEintraeg) => {
