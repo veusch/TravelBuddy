@@ -8,6 +8,20 @@ export default function RevieForm({ addJourney, setModalOpen }) {
   const [datePickerOpen, setDatePickerOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
 
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDatePickerOpen(false);
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    if (Platform.OS === "android") {
+      setDatePickerOpen(false);
+      // for iOS, add a button that closes the picker
+    }
+    setMode(currentMode);
+  };
+
   return (
     <View style={globalStyles.container}>
       <Formik
@@ -22,7 +36,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
       >
         {(props) => (
           <>
-            <DateTimePicker />
+            {datePickerOpen && <DateTimePicker testID="dateTimePicker" value={startDate} mode="date" is24Hour={true} onChange={onChange} />}
             <View style={styles.WRapperR}>
               <View style={globalStyles.WrapperForms}>
                 <View style={globalStyles.InputForms}>
