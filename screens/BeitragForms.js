@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 export default function RevieForm({ addJourney, setModalOpen }) {
   const [datePicker, setDatePicker] = useState("");
@@ -67,12 +68,12 @@ export default function RevieForm({ addJourney, setModalOpen }) {
           </View>
           <View style={globalStyles.InputForms}>
             <TouchableOpacity onPress={() => setDatePicker("start")} style={styles.reset}>
-              <Text style={globalStyles.InputForms}>{form.startDate.toLocaleDateString("de").toString()}</Text>
+              <Text style={globalStyles.InputForms}>{form.startDate.toLocaleDateString("de-DE").toString()}</Text>
             </TouchableOpacity>
           </View>
           <View style={[globalStyles.InputForms, invalidDate && styles.invalid]}>
             <TouchableOpacity onPress={() => setDatePicker("end")} style={styles.reset}>
-              <Text style={[globalStyles.InputForms, invalidDate && styles.invalid]}>{form.endDate.toLocaleDateString("de").toString()}</Text>
+              <Text style={[globalStyles.InputForms, invalidDate && styles.invalid]}>{form.endDate.toLocaleDateString("de-DE").toString()}</Text>
             </TouchableOpacity>
           </View>
 

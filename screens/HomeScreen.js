@@ -64,7 +64,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           {/*Home*/}
-          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
+          <Image source={require("../images/home-white.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
           {/*Reisen*/}
@@ -72,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
           {/*Listen*/}
-          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
+          <Image source={require("../images/liste.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("settings")}>
@@ -107,11 +107,12 @@ const styles = StyleSheet.create({
     color: "lightgrey",
   },
   name: {
-    fontWeight: "bold",
+    fontFamily: "Medium",
     fontSize: 26,
   },
   wasErlebt: {
     fontSize: 20,
+    fontFamily: "Light",
   },
 
   modalContent: {},

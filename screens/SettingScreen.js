@@ -4,37 +4,36 @@ import UploadImage from "./UploadImagee";
 import { globalStyles } from "../styles/global";
 
 const SettingScreen = ({ navigation }) => {
-  const [name, setName] = useState();
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.pic}>
-          <UploadImage></UploadImage>
-        </View>
-        <View style={styles.nameinput}>
-          <Text style={styles.nameProfil}>{name}</Text>
-        </View>
-        <Text style={styles.text}>Whats your name</Text>
-        <TextInput style={styles.input} onChangeText={(text) => setName(text)}></TextInput>
-        <TouchableOpacity>
-          <Text style={styles.button}> Save my name</Text>
-        </TouchableOpacity>
+        <View>
+          <View style={styles.pic}>
+            <UploadImage></UploadImage>
+          </View>
+          <View style={styles.name}>
+            <TextInput editable multiline numberOfLines={4} defaultValue={"Dein Name"} maxLength={30} fontSize={26} textAlign={"center"}></TextInput>
+          </View>
+          <TouchableOpacity>
+            <Text style={styles.Settings}> Hintergrund</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Text style={styles.Settings}> Privatsphäre</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.Settings}> Impressum</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.Settings}> Datenschutzerklärung</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.Settings}> Nutzungbedingungen</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.Settings}> Accounteinstellungen</Text>
-        </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.Settings}> Privatsphäre</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.Settings}> Impressum</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.Settings}> Datenschutzerklärung</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.Settings}> Nutzungbedingungen</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.Settings}> Accounteinstellungen</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
 
       <View style={globalStyles.Footer}>
@@ -48,12 +47,12 @@ const SettingScreen = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
           {/*Listen*/}
-          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
+          <Image source={require("../images/liste.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("settings")}>
           {/*Settings*/}
-          <Image source={require("../images/profil.png")} style={globalStyles.iconNavigator} />
+          <Image source={require("../images/profil-white.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
       </View>
     </View>
@@ -119,6 +118,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     marginTop: 10,
   },
+  name: { padding: 10, alignContent: "center", justifyContent: "center" },
 
   button: {
     marginTop: 10,
@@ -128,15 +128,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 6,
-  },
-  nameinput: {
-    backgroundColor: "lightgrey",
-    padding: 20,
-    borderRadius: 20,
-  },
-
-  nameProfil: {
-    fontWeight: "bold",
-    fontSize: 24,
   },
 });

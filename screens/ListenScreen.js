@@ -66,7 +66,7 @@ export default function ListenScreen({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
           {/*Listen*/}
-          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
+          <Image source={require("../images/listenwhite.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("settings")}>

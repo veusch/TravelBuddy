@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, Image } from "react-native";
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
@@ -6,17 +6,56 @@ import RevieForm2 from "../screens/BeitragFormsDayReview";
 import TagNotiz from "./TagNotiz";
 import { globalStyles } from "../styles/global";
 import StarRatingg from "../screens/StarRatingComponent";
+import { AsyncStorage } from "react-native";
 
-const HomeScreen = (probs, { navigation }) => {
-  const [eintraege, setEintraege] = useState([]);
+import { storeContext } from "../App";
+
+export default function TagReviewCard(props) {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const addJourney = (review) => {
-    review.key = Math.random().toString();
-    setEintraege((currentEintraeg) => {
-      return [review, ...currentEintraeg];
-    });
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+
+  const { reisenContext } = useContext(storeContext);
+  const [reisen, setReisen] = reisenContext;
+
+  const {
+    navigation,
+    navigation: {
+      state: {
+        params: { reiseId, reiseTagId },
+      },
+    },
+  } = props;
+
+  const addEntry = async (review) => {
+    let temp = reisen;
+
+    temp
+      ?.find((reise) => reise.reiseId === reiseId)
+      ?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)
+      ?.reiseEntries?.push(review);
+
+    setReisen(temp);
+
+    await AsyncStorage.setItem("reisen", JSON.stringify(temp));
+    forceUpdate();
     setModalOpen(false);
+  };
+
+  const removeEntry = async (tagebuchEintragId) => {
+    let temp = reisen;
+    let x = temp
+      ?.find((reise) => reise.reiseId === reiseId)
+      ?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)
+      ?.reiseEntries?.filter((entry) => entry.tagebuchEintragId !== tagebuchEintragId);
+
+     temp?.find((reise) => reise.reiseId === reiseId)?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)?.reiseEntries = x;
+
+       setReisen(temp);
+
+      await AsyncStorage.setItem("reisen", JSON.stringify(temp));
+      forceUpdate();
   };
 
   return (
@@ -25,7 +64,7 @@ const HomeScreen = (probs, { navigation }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.modalContent}>
             <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-            <RevieForm2 addJourney={addJourney}> </RevieForm2>
+            <RevieForm2 addEntry={addEntry}></RevieForm2>
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -33,32 +72,32 @@ const HomeScreen = (probs, { navigation }) => {
       <TouchableOpacity onPress={() => setModalOpen(true)}>
         <Image source={require("../images/neu.png")} style={globalStyles.neu} />
       </TouchableOpacity>
-      <Text style={globalStyles.headline}>Reise</Text>
+      <ScrollView>
+        <Text style={globalStyles.headline}>{new Date(reisen?.find((reise) => reise.reiseId === reiseId)?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)?.reiseTagDate).toLocaleDateString("de-DE")}</Text>
+        {reisen
+          ?.find((reise) => reise.reiseId === reiseId)
+          ?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)
+          ?.reiseEntries?.map((reiseEntry) => (
+            <TagNotiz removeEntry={removeEntry} tagebuchEintragId={reiseEntry.tagebuchEintragId} key={reiseEntry.tagebuchEintragId}>
+              <Collapse>
+                <CollapseHeader>
+                  <View>
+                    <Text style={styles.titelTagNotiz}>{reiseEntry.tagebucheintragTitle}</Text>
+                  </View>
+                </CollapseHeader>
 
-      <FlatList
-        data={eintraege}
-        renderItem={({ item }) => (
-          <TagNotiz>
-            <Collapse>
-              <CollapseHeader>
-                <View>
-                  <Text style={styles.titelTagNotiz}>{item.title}</Text>
-                </View>
-              </CollapseHeader>
-
-              <CollapseBody style={styles.collapse}>
-                <Text style={styles.zusammenfassung}>{item.zusammenfassung}</Text>
-                <StarRatingg></StarRatingg>
-              </CollapseBody>
-            </Collapse>
-          </TagNotiz>
-        )}
-      />
+                <CollapseBody style={styles.collapse}>
+                  <Text style={styles.zusammenfassung}>{reiseEntry.tagebucheintragBody}</Text>
+                  <StarRatingg></StarRatingg>
+                </CollapseBody>
+              </Collapse>
+            </TagNotiz>
+          ))}
+      </ScrollView>
     </View>
   );
-};
+}
 
-export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

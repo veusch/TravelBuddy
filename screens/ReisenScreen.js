@@ -65,11 +65,11 @@ const ReisenScreen = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
           {/*Reisen*/}
-          <Image source={require("../images/eintrag.png")} style={globalStyles.iconNavigator} />
+          <Image source={require("../images/reisenWhite.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
           {/*Listen*/}
-          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
+          <Image source={require("../images/liste.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("settings")}>

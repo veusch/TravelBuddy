@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useContext, useEffect } from "react";
-import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard, ScrollView } from "react-native";
+import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard, Image, ScrollView } from "react-native";
 import { storeContext } from "../App";
 import { generateId } from "../util/generateId";
 import { AsyncStorage } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { globalStyles } from "../styles/global";
 
 export default function TaskItems(props) {
   const [, updateState] = React.useState();
@@ -53,7 +54,7 @@ export default function TaskItems(props) {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.tasksWrapper}>
-          <Text style={styles.sectionTitle}>Todays Tasks</Text>
+          <Text style={styles.sectionTitle}>Reisevorbereitungen</Text>
           <View style={styles.items}>
             {tasks
               ?.find((taskList) => taskList.taskListId === taskListId)
@@ -81,19 +82,23 @@ export default function TaskItems(props) {
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-
-      <View style={styles.Footer}>
+      <View style={globalStyles.Footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Text style={styles.Home}>Home</Text>
+          {/*Home*/}
+          <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
-          <Text style={styles.Reisen}>Reisen</Text>
+          {/*Reisen*/}
+          <Image source={require("../images/eintrag.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
-          <Text style={styles.Listen}>Listen</Text>
+          {/*Listen*/}
+          <Image source={require("../images/listenwhite.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate("settings")}>
-          <Text style={styles.Settings}>Settings</Text>
+          {/*Settings*/}
+          <Image source={require("../images/profil.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
       </View>
     </View>
@@ -103,7 +108,7 @@ export default function TaskItems(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightgrey",
+    backgroundColor: "white",
   },
   sectionTitle: {
     fontSize: 24,
@@ -116,10 +121,14 @@ const styles = StyleSheet.create({
 
   items: {
     marginTop: 30,
+    backgroundColor: "#DFF1FF",
+    padding: "7%",
+    borderRadius: 15,
   },
   tasksWrapper: {
     paddingTop: 20,
     paddingHorizontal: 20,
+    height: 300,
   },
   Footer: {
     backgroundColor: "grey",

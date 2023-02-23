@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useContext } from "react";
 import ReiseCard from "../components/ReiseCard";
 import { storeContext } from "../App";
@@ -18,8 +18,8 @@ export default function AlleReisen({ navigation }) {
     <View>
       {reisen?.map((item) => {
         return (
-          <TouchableOpacity style={{ alignItems: "center" }} key={item.reiseId} onPress={() => navigation.navigate("reviewEintraege", { reiseId: item.reiseId })}>
-            <ReiseCard>
+          <TouchableOpacity style={{ alignItems: "center", width: "100%" }} key={item.reiseId} onPress={() => navigation.navigate("reviewEintraege", { reiseId: item.reiseId })}>
+            <ReiseCard small={navigation.state.routeName === "Home"}>
               <Text>{item.reiseTitel}</Text>
               <MaterialIcons size={24} name="delete" onPress={() => deleteReise(item)} />
             </ReiseCard>
@@ -29,3 +29,4 @@ export default function AlleReisen({ navigation }) {
     </View>
   );
 }
+const styles = StyleSheet.create({});

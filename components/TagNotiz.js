@@ -34,6 +34,8 @@ export default function TagNotiz(probs, { navigation }) {
           <TouchableOpacity onPress={() => setModalOpen(true)}>
             <Image source={require("../images/bearbeiten.png")} style={globalStyles.icon} />
           </TouchableOpacity>
+
+          <MaterialIcons style={{ color: "white" }} size={50} name="delete" onPress={() => probs.removeEntry(probs.tagebuchEintragId)} />
         </View>
       </View>
     </View>

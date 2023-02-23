@@ -11,8 +11,8 @@ export default function ReviewEintraege(props) {
   const { reisenContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
 
-  const presshandler = () => {
-    navigation.navigate("reviewDay");
+  const presshandler = (id) => {
+    navigation.navigate("reviewDay", { reiseTagId: id, reiseId: reiseId });
   };
 
   const {
@@ -28,16 +28,14 @@ export default function ReviewEintraege(props) {
     <View style={styles.container}>
       <ScrollView>
         <ReiseCard>
-          <Text style={styles.title}>{navigation.getParam("title")}</Text>
-          <Text>{navigation.getParam("body")}</Text>
-          <Text>{navigation.getParam("days")}</Text>
+          <Text style={styles.title}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseBeschreibung}</Text>
         </ReiseCard>
         {reisen
           .find((reise) => reise.reiseId === reiseId)
           .reiseTage.map((reiseTag) => (
-            <TouchableOpacity key={reiseTag.reiseTagId} onPress={presshandler}>
-              <TagCard key={reiseTag.reiseTagId}>
-                <Text style={{ color: "white" }}>{new Date(reiseTag.reiseTagDate).toLocaleDateString("de")}</Text>
+            <TouchableOpacity key={reiseTag.reiseTagId} onPress={() => presshandler(reiseTag.reiseTagId)}>
+              <TagCard>
+                <Text style={{ color: "white" }}>{new Date(reiseTag.reiseTagDate).toLocaleDateString("de-DE")}</Text>
               </TagCard>
             </TouchableOpacity>
           ))}

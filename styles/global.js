@@ -15,9 +15,10 @@ export const globalStyles = StyleSheet.create({
   },
 
   headline: {
-    fontSize: 20,
+    fontSize: 26,
     textAlign: "center",
     padding: "10%",
+    fontFamily: "Medium",
   },
 
   addListe: {
