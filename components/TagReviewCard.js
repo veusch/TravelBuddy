@@ -44,18 +44,24 @@ export default function TagReviewCard(props) {
   };
 
   const removeEntry = async (tagebuchEintragId) => {
+    // TODO: Funktioniert diese Funktion überhaupt?
+
     let temp = reisen;
-    let x = temp
+
+    const entryIndex = temp
       ?.find((reise) => reise.reiseId === reiseId)
       ?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)
-      ?.reiseEntries?.filter((entry) => entry.tagebuchEintragId !== tagebuchEintragId);
+      ?.reiseEntries?.findIndex((entry) => entry.tagebuchEintragId === tagebuchEintragId);
 
-     temp?.find((reise) => reise.reiseId === reiseId)?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)?.reiseEntries = x;
+    temp
+      ?.find((reise) => reise.reiseId === reiseId)
+      ?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)
+      ?.reiseEntries?.splice(entryIndex, 1);
 
-       setReisen(temp);
+    setReisen(temp);
 
-      await AsyncStorage.setItem("reisen", JSON.stringify(temp));
-      forceUpdate();
+    await AsyncStorage.setItem("reisen", JSON.stringify(temp));
+    forceUpdate();
   };
 
   return (
