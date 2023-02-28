@@ -58,7 +58,9 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.wasErlebt}>Was hast du heute erlebt?</Text>
         <View style={styles.statistik}></View>
         <Text style={globalStyles.headline}>Meine Tagebücher</Text>
-        <AlleReisen navigation={navigation} />
+        <View style={styles.flex}>
+          <AlleReisen navigation={navigation} />
+        </View>
       </ScrollView>
 
       <View style={globalStyles.Footer}>

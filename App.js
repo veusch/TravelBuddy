@@ -13,6 +13,7 @@ const App = () => {
     Bold: require("./assets/fonts/SF-Pro-Rounded-Bold.otf"),
     Medium: require("./assets/fonts/SF-Pro-Rounded-Medium.otf"),
     Light: require("./assets/fonts/SF-Pro-Rounded-Light.otf"),
+    Regular: require("./assets/fonts/SF-Pro-Rounded-Regular.otf"),
   });
 
   useEffect(() => {

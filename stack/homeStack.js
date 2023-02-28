@@ -8,14 +8,37 @@ import SettingScreen from "../screens/SettingScreen";
 import ListenScreen from "../screens/ListenScreen";
 import TaskItems from "../screens/TaskItems";
 import UploadImage from "../screens/UploadImagee";
-import { ImageStore } from "react-native";
+import Impressum from "../screens/Impressum";
+import Datenschutzerklärung from "../screens/Datenschutz";
+import Hintergrund from "../screens/Hintergrund";
+import testAutocomplete from "../screens/test-autocomplete";
 
+import { ImageStore } from "react-native";
+import Nutzungsbedingungen from "../screens/Nutzungsbedingungen";
+Nutzungsbedingungen;
 const screens = {
   Home: {
     screen: HomeScreen,
     navigationOptions: {
       title: "Übersicht",
       //headerStyle: () => <header></header>,
+    },
+  },
+
+  testAutocomplete: {
+    screen: testAutocomplete,
+    navigationOptions: { title: "" },
+  },
+
+  Hintergrund: {
+    screen: Hintergrund,
+    navigationOptions: { title: "" },
+  },
+
+  Impressum: {
+    screen: Impressum,
+    navigationOptions: {
+      title: "",
     },
   },
   reviewEintraege: {
@@ -57,7 +80,7 @@ const screens = {
   Listen: {
     screen: ListenScreen,
     navigationOptions: {
-      title: "Meine Listen",
+      title: "",
     },
   },
 
@@ -66,6 +89,17 @@ const screens = {
     navigationOptions: {
       title: "Neue Liste",
     },
+  },
+
+  Datenschutzerklärung: {
+    screen: Datenschutzerklärung,
+    navigationOptions: {
+      title: "",
+    },
+  },
+  Nutzungsbedingungen: {
+    screen: Nutzungsbedingungen,
+    navigationOptions: { title: "" },
   },
 };
 const HomeStack = createStackNavigator(screens, {

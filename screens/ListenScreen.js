@@ -32,25 +32,31 @@ export default function ListenScreen({ navigation }) {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
               <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-              <ListenForms addTask={addTask} />
+              <ListenForms addTask={addTask} setModalOpen={setModalOpen} />
             </View>
           </TouchableWithoutFeedback>
         </Modal>
-        <MaterialIcons name="add" size={24} style={styles.modalToggle} onPress={() => setModalOpen(true)} />
-
+        <TouchableOpacity onPress={() => setModalOpen(true)}>
+          <Image source={require("../images/neu.png")} style={globalStyles.neu} />
+        </TouchableOpacity>
+        <Text style={globalStyles.headline}>Meine Listen</Text>
         <View style={styles.fllexContainer}>
           {tasks?.map((taskList) => {
             return (
               <TouchableOpacity key={taskList.taskListId} onPress={() => navigation.navigate("ListeNeu", { taskListId: taskList.taskListId })}>
                 <ListenCard>
-                  <Text>{taskList.taskListTitle}</Text>
-                  <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(taskList.taskListId)} />
+                  <View style={styles.wrapper}>
+                    <Text>{taskList.taskListTitle}</Text>
+                    <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(taskList.taskListId)} />
+                  </View>
                 </ListenCard>
               </TouchableOpacity>
             );
           })}
           <View style={globalStyles.addListe}>
-            <TouchableOpacity></TouchableOpacity>
+            <TouchableOpacity onPress={() => setModalOpen(true)}>
+              <Text style={styles.addText}>Neue Liste hinzufügen</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -84,6 +90,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+  },
+
+  wrapper: { flexDirection: "row", justifyContent: "space-around" },
+  text: { fontSize: 20 },
+  addText: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Medium",
+    textAlign: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    alignItems: "center",
   },
 
   fllexContainer: {

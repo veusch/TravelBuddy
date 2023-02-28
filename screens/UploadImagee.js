@@ -10,7 +10,7 @@ export default function UploadImage() {
   const checkForCameraRollPermission = async () => {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("Please grant camera roll permissions inside your system's settings");
+      alert("Bitte erteilen Sie in den Einstellungen Ihres Systems Kamera-Berechtigungen");
     }
   };
   const [image, setImage] = useState(null);
@@ -43,7 +43,7 @@ const imageUploaderStyles = StyleSheet.create({
     elevation: 2,
     height: 200,
     width: 200,
-    backgroundColor: "#efefef",
+    backgroundColor: "#213049",
     position: "relative",
     borderRadius: 999,
     overflow: "hidden",

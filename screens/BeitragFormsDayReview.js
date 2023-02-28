@@ -6,15 +6,25 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import UploadImage from "./UploadImagee.js";
 import StarRatingg from "./StarRatingComponent.js";
 import { generateId } from "../util/generateId.js";
+import * as yup from "yup";
 
-export default function RevieForm2({ addEntry, navigation }) {
+const schema = yup.object({
+  tagebucheintragTitle: yup.string().required().min(3),
+
+  tagebucheintragBody: yup.string().required().min(4),
+  tagebuchEintragZiel: yup.string().required(),
+});
+
+export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
   return (
     <ScrollView>
       <View style={globalStyles.container}>
         <Formik
           initialValues={{ tagebucheintragTitle: "", tagebuchEintragTime: new Date(), tagebuchEintragZiel: "", tagebucheintragBody: "", tagebucheintragImage: "", tagebuchEintragId: generateId(10) }}
+          validationSchema={schema}
           onSubmit={(values, actions) => {
             addEntry(values);
+
             actions.resetForm();
           }}
         >
@@ -22,14 +32,19 @@ export default function RevieForm2({ addEntry, navigation }) {
             <View style={styles.inputWrapper}>
               <View style={globalStyles.WrapperForms}>
                 <View style={globalStyles.InputForms}>
-                  <TextInput style={globalStyles.input} placeholder="Titel" onChangeText={probs.handleChange("tagebucheintragTitle")} value={probs.values.title} />
+                  <TextInput multiline style={globalStyles.input} placeholder="Titel" onBlur={probs.handleBlur("tagebucheintragTitle")} onChangeText={probs.handleChange("tagebucheintragTitle")} value={probs.values.title} />
                 </View>
+                <Text style={globalStyles.errorNachricht}>{probs.touched.tagebucheintragTitle && probs.errors.tagebucheintragTitle}</Text>
+
                 <View style={globalStyles.InputForms}>
-                  <TextInput style={globalStyles.input} placeholder="Wohin gings" onChangeText={probs.handleChange("tagebuchEintragZiel")} value={probs.values.body1} />
+                  <TextInput multiline style={globalStyles.input} placeholder="Wohin gings" onChangeText={probs.handleChange("tagebuchEintragZiel")} value={probs.values.body1} />
                 </View>
+                <Text style={globalStyles.errorNachricht}>{probs.touched.tagebuchEintragZiel && probs.errors.tagebuchEintragZiel}</Text>
+
                 <View style={globalStyles.InputForms}>
-                  <TextInput multiline={true} style={globalStyles.input} placeholder="Was hast du erlebt?" onChangeText={probs.handleChange("tagebucheintragBody")} value={probs.values.zusammenfassung} />
+                  <TextInput multiline={true} style={globalStyles.input} placeholder="Was hast du erlebt?" onChangeText={probs.handleChange("tagebucheintragBody")} onBlur={probs.handleBlur("tagebucheintragBody")} value={probs.values.zusammenfassung} />
                 </View>
+                <Text style={globalStyles.errorNachricht}>{probs.touched.tagebucheintragBody && probs.errors.tagebucheintragBody}</Text>
 
                 <View style={globalStyles.InputForms}>
                   <TextInput style={globalStyles.input} placeholder="Foto hinzufügen" onChangeText={probs.handleChange("tagebucheintragImage")} value={probs.values.pic} />
@@ -38,8 +53,13 @@ export default function RevieForm2({ addEntry, navigation }) {
                 <UploadImage></UploadImage>
               </View>
               <View style={globalStyles.ButtonFlex}>
-                <TouchableOpacity onPress={probs.handleReset} style={globalStyles.Opac}>
-                  <Text style={globalStyles.OpacText}>Reset</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    setModalOpen(false);
+                  }}
+                  style={globalStyles.Opac}
+                >
+                  <Text style={globalStyles.OpacText}>Abbrechen</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={probs.handleSubmit} style={globalStyles.Opac}>
                   <Text style={globalStyles.OpacText}>Erstellen</Text>

@@ -21,7 +21,9 @@ export default function AlleReisen({ navigation }) {
           <TouchableOpacity style={{ alignItems: "center", width: "100%" }} key={item.reiseId} onPress={() => navigation.navigate("reviewEintraege", { reiseId: item.reiseId })}>
             <ReiseCard small={navigation.state.routeName === "Home"}>
               <Text>{item.reiseTitel}</Text>
-              <MaterialIcons size={24} name="delete" onPress={() => deleteReise(item)} />
+              <TouchableOpacity onPress={() => deleteReise(item)}>
+                <MaterialIcons size={30} name="delete" color={"white"} />
+              </TouchableOpacity>
             </ReiseCard>
           </TouchableOpacity>
         );
@@ -29,4 +31,3 @@ export default function AlleReisen({ navigation }) {
     </View>
   );
 }
-const styles = StyleSheet.create({});

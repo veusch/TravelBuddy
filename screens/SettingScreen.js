@@ -14,23 +14,29 @@ const SettingScreen = ({ navigation }) => {
           <View style={styles.name}>
             <TextInput editable multiline numberOfLines={4} defaultValue={"Dein Name"} maxLength={30} fontSize={26} textAlign={"center"}></TextInput>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Hintergrund")}>
             <Text style={styles.Settings}> Hintergrund</Text>
           </TouchableOpacity>
 
           <TouchableOpacity>
             <Text style={styles.Settings}> Privatsphäre</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Impressum")}>
             <Text style={styles.Settings}> Impressum</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.Settings}> Datenschutzerklärung</Text>
+            <Text style={styles.Settings} onPress={() => navigation.navigate("Datenschutzerklärung")}>
+              {" "}
+              Datenschutzerklärung
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.Settings}> Nutzungbedingungen</Text>
+            <Text style={styles.Settings} onPress={() => navigation.navigate("Nutzungsbedingungen")}>
+              {" "}
+              Nutzungbedingungen
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("testAutocomplete")}>
             <Text style={styles.Settings}> Accounteinstellungen</Text>
           </TouchableOpacity>
         </View>
@@ -72,10 +78,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 
-  SettingsNav: {
-    color: "lightgrey",
-  },
-
   Settings: {
     borderRadius: 6,
     elevation: 3,
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     width: 250,
     heigh: 300,
     padding: 15,
+    fontFamily: "Regular",
   },
   input: {
     borderWidth: 1,

@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
   tasksWrapper: {
     paddingTop: 20,
     paddingHorizontal: 20,
-    height: 300,
   },
   Footer: {
     backgroundColor: "grey",

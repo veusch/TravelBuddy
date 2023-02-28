@@ -21,6 +21,29 @@ export const globalStyles = StyleSheet.create({
     fontFamily: "Medium",
   },
 
+  headline2: {
+    fontFamily: "Medium",
+    fontSize: 20,
+    padding: "5%",
+  },
+
+  impBold: {
+    fontSize: 16,
+    fontFamily: "Bold",
+  },
+
+  impHeadline: {
+    fontSize: 20,
+    fontFamily: "Medium",
+    justifyContent: "center",
+    textAlign: "center",
+    padding: 10,
+  },
+  impLight: {
+    fontSize: 16,
+    fontFamily: "Regular",
+  },
+
   addListe: {
     borderRadius: 15,
     elevation: 3,
@@ -35,16 +58,16 @@ export const globalStyles = StyleSheet.create({
     height: 70,
   },
 
-  ListenCardContent: {
-    color: "white",
-    fontWeight: "white",
-    alignItems: "center",
-  },
-
   neu: {
     width: 30,
     height: 30,
     marginLeft: "85%",
+  },
+
+  errorNachricht: {
+    color: "crimson",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 
   icon: {
@@ -69,17 +92,22 @@ export const globalStyles = StyleSheet.create({
     marginVertical: 6,
     width: 150,
     height: 70,
+    justifyContent: "space-around",
+    padding: 10,
   },
 
-  Footer: {
-    backgroundColor: "#DFF1FF",
-    alignSelf: "stretch",
-    padding: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
+  HintergrundCard: {
+    borderRadius: 20,
+    backgroundColor: "white",
+    marginHorizontal: 7,
+    marginVertical: 10,
+    width: 150,
+    height: 120,
+    borderColor: "blue",
+    borderWidth: 2,
   },
   ReiseCard: {
-    borderRadius: 6,
+    borderRadius: 20,
     elevation: 3,
     backgroundColor: "#213049",
     shadowOffset: { width: 1, height: 1 },
@@ -88,8 +116,15 @@ export const globalStyles = StyleSheet.create({
     shadowOpacity: 0.3,
     marginHorizontal: 4,
     marginVertical: 6,
-    width: 200,
-    heigh: 200,
+    justifyContent: "space-around",
+  },
+
+  Footer: {
+    backgroundColor: "#DFF1FF",
+    alignSelf: "stretch",
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 
   WrapperForms: {

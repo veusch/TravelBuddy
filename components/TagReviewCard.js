@@ -44,8 +44,6 @@ export default function TagReviewCard(props) {
   };
 
   const removeEntry = async (tagebuchEintragId) => {
-    // TODO: Funktioniert diese Funktion überhaupt?
-
     let temp = reisen;
 
     const entryIndex = temp
@@ -69,8 +67,7 @@ export default function TagReviewCard(props) {
       <Modal visible={modalOpen} animationType="slide">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.modalContent}>
-            <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-            <RevieForm2 addEntry={addEntry}></RevieForm2>
+            <RevieForm2 setModalOpen={setModalOpen} addEntry={addEntry}></RevieForm2>
           </View>
         </TouchableWithoutFeedback>
       </Modal>

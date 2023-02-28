@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
-export default function ListenForms({ addTask }) {
+export default function ListenForms({ addTask, setModalOpen }) {
   return (
     <View style={globalStyles.container}>
       <Text style={globalStyles.headline}>Neue Liste{"\n"}erstellen</Text>
@@ -22,6 +22,14 @@ export default function ListenForms({ addTask }) {
               </View>
             </View>
             <View style={globalStyles.ButtonFlex}>
+              <TouchableOpacity
+                onPress={() => {
+                  setModalOpen(false);
+                }}
+                style={globalStyles.Opac}
+              >
+                <Text style={globalStyles.OpacText}>Abbrechen</Text>
+              </TouchableOpacity>
               <TouchableOpacity onPress={probs.handleSubmit} style={globalStyles.Opac}>
                 <Text style={globalStyles.OpacText}>Erstellen</Text>
               </TouchableOpacity>

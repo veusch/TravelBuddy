@@ -30,13 +30,12 @@ export default function TagNotiz(probs, { navigation }) {
       </Modal>
       <View style={styles.besides}>
         <View style={styles.ReiseCardContent}>{probs.children}</View>
-        <View style={styles.bearbeitenIcon}>
-          <TouchableOpacity onPress={() => setModalOpen(true)}>
-            <Image source={require("../images/bearbeiten.png")} style={globalStyles.icon} />
-          </TouchableOpacity>
 
-          <MaterialIcons style={{ color: "white" }} size={50} name="delete" onPress={() => probs.removeEntry(probs.tagebuchEintragId)} />
-        </View>
+        <TouchableOpacity onPress={() => setModalOpen(true)}>
+          <Image source={require("../images/bearbeiten.png")} style={globalStyles.icon} />
+        </TouchableOpacity>
+
+        <MaterialIcons style={{ color: "white" }} size={24} name="delete" onPress={() => probs.removeEntry(probs.tagebuchEintragId)} />
       </View>
     </View>
   );
@@ -56,12 +55,6 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     width: 310,
   },
-  bearbeitenIcon: {
-    backgroundColor: "green",
-    width: 40,
-    height: 40,
-    alignItems: "center",
-  },
 
   Edit: {
     color: "white",
@@ -77,7 +70,8 @@ const styles = StyleSheet.create({
   besides: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: "space-around",
     flexDirection: "row",
+    alignItems: "center",
   },
 });

@@ -6,6 +6,7 @@ import TagCard from "../components/TagCard";
 import * as ImagePicker from "react-native-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { storeContext } from "../App";
+import { globalStyles } from "../styles/global";
 
 export default function ReviewEintraege(props) {
   const { reisenContext } = useContext(storeContext);
@@ -25,20 +26,24 @@ export default function ReviewEintraege(props) {
   } = props;
 
   return (
-    <View style={styles.container}>
+    <View style={styles.Wrapper}>
       <ScrollView>
-        <ReiseCard>
-          <Text style={styles.title}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseBeschreibung}</Text>
-        </ReiseCard>
-        {reisen
-          .find((reise) => reise.reiseId === reiseId)
-          .reiseTage.map((reiseTag) => (
-            <TouchableOpacity key={reiseTag.reiseTagId} onPress={() => presshandler(reiseTag.reiseTagId)}>
-              <TagCard>
-                <Text style={{ color: "white" }}>{new Date(reiseTag.reiseTagDate).toLocaleDateString("de-DE")}</Text>
-              </TagCard>
-            </TouchableOpacity>
-          ))}
+        <View style={styles.container}>
+          <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseTitel}</Text>
+
+          <View style={styles.kontext}>
+            <Text style={styles.title}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseBeschreibung}</Text>
+          </View>
+          {reisen
+            .find((reise) => reise.reiseId === reiseId)
+            .reiseTage.map((reiseTag) => (
+              <TouchableOpacity key={reiseTag.reiseTagId} onPress={() => presshandler(reiseTag.reiseTagId)}>
+                <TagCard>
+                  <Text style={{ color: "white" }}>{new Date(reiseTag.reiseTagDate).toLocaleDateString("de-DE")}</Text>
+                </TagCard>
+              </TouchableOpacity>
+            ))}
+        </View>
       </ScrollView>
     </View>
   );
@@ -50,10 +55,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
     alignItems: "center",
+    backgroundColor: "white",
+  },
+  Wrapper: {
+    backgroundColor: "white",
+    flex: 1,
   },
 
   title: {
-    color: "white",
-    fontWeight: "bold",
+    color: "#213049",
+    fontFamily: "Regular",
+    fontSize: 16,
+  },
+
+  kontext: {
+    //backgroundColor: "#EFF8FF",
+    borderRadius: 20,
+    padding: 20,
+    margin: 10,
   },
 });
