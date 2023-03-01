@@ -33,7 +33,11 @@ export default function RevieForm({ addJourney, setModalOpen }) {
 
   return (
     <View style={globalStyles.container}>
-      {datePicker === "start" ? <DateTimePicker testID="dateTimePicker" value={form.startDate} mode="date" is24Hour={true} onChange={setStartDate} /> : datePicker === "end" ? <DateTimePicker testID="dateTimePicker" value={form.endDate} mode="date" is24Hour={true} onChange={setEndDate} /> : null}
+      {datePicker === "start" ? (
+        <DateTimePicker testID="dateTimePicker" value={form.startDate} mode="date" is24Hour={true} onChange={setStartDate} />
+      ) : datePicker === "end" ? (
+        <DateTimePicker testID="dateTimePicker" value={form.endDate} mode="date" is24Hour={true} onChange={setEndDate} />
+      ) : null}
       <View style={styles.WRapperR}>
         <View style={globalStyles.WrapperForms}>
           <View style={globalStyles.InputForms}>
@@ -47,14 +51,17 @@ export default function RevieForm({ addJourney, setModalOpen }) {
             />
           </View>
           <View style={globalStyles.InputForms}>
-            <TextInput
+            {/* <TextInput
               style={globalStyles.input}
               placeholder="Reiseziel"
               onChangeText={(e) => {
                 setForm((prev) => ({ ...prev, reiseLand: e }));
               }}
               value={form.reiseLand}
-            />
+            /> */}
+            <AddressAutofill accessToken="pk.eyJ1IjoidmV1c2NoIiwiYSI6ImNsZXBrZWo3ODBkYjIzc281bGVkYjJzYnMifQ.fPN5YRFzmO34d2p12mPCgw">
+              <input name="address" placeholder="Address" type="text" autoComplete="address-line1" />
+            </AddressAutofill>
           </View>
           <View style={globalStyles.InputForms}>
             <TextInput
