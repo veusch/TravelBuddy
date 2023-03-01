@@ -5,7 +5,7 @@ import { globalStyles } from "../styles/global";
 
 export default function ReiseCard(probs) {
   return (
-    <View style={[globalStyles.ReiseCard, probs.small ? { width: "48%" } : { width: "100%" }]}>
+    <View style={[globalStyles.ReiseCard, probs.small ? { width: "44%" } : { width: "100%" }]}>
       <Text style={styles.ReiseCardContent}>{probs.children}</Text>
     </View>
   );
@@ -16,6 +16,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "white",
     padding: "7%",
-    alignSelf: "center",
+    justifyContent: "space-around",
   },
 });

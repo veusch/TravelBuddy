@@ -31,6 +31,7 @@
     "react-native": "0.69.5",
     "react-native-async-storage": "^0.0.1",
     "react-native-date-picker": "^4.2.8",
+    "react-native-dropdown-select-list": "^2.0.4",
     "react-native-google-places-autocomplete": "^2.5.1",
     "react-native-image-picker": "^4.10.3",
     "react-native-ratings": "^8.1.0",

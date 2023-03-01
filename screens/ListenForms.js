@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
+import * as yup from "yup";
+
+const schema = yup.object({
+  taskListTitle: yup.string().required().min(4),
+});
+
 export default function ListenForms({ addTask, setModalOpen }) {
   return (
     <View style={globalStyles.container}>
@@ -9,6 +15,7 @@ export default function ListenForms({ addTask, setModalOpen }) {
 
       <Formik
         initialValues={{ taskListTitle: "" }}
+        validationSchema={schema}
         onSubmit={(values, actions) => {
           addTask(values);
           actions.resetForm();
@@ -18,8 +25,9 @@ export default function ListenForms({ addTask, setModalOpen }) {
           <View style={styles.WRapperR}>
             <View style={globalStyles.WrapperForms}>
               <View style={globalStyles.InputForms}>
-                <TextInput style={globalStyles.input} placeholder="Name der Liste" onChangeText={probs.handleChange("taskListTitle")} value={probs.values.taskListTitle} />
+                <TextInput style={globalStyles.input} onBlur={probs.handleBlur("taskListTitle")} placeholder="Name der Liste" onChangeText={probs.handleChange("taskListTitle")} value={probs.values.taskListTitle} />
               </View>
+              <Text style={globalStyles.errorNachricht}>{probs.touched.taskListTitle && probs.errors.taskListTitle}</Text>
             </View>
             <View style={globalStyles.ButtonFlex}>
               <TouchableOpacity

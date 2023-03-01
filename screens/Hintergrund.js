@@ -24,23 +24,23 @@ export default function Hintergrund() {
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Flieger.png")} style={globalStyles.HintergrundCard} />
+          <Image source={require("../images/Hintergruende/Flieger.png")} style={styles.HintergrundCard} />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Koffer.png")} style={globalStyles.HintergrundCard} />
+          <Image source={require("../images/Hintergruende/Koffer.png")} style={styles.HintergrundCard} />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Raeder.png")} style={globalStyles.HintergrundCard} />
+          <Image source={require("../images/Hintergruende/Raeder.png")} style={styles.HintergrundCard} />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Zuege.png")} style={globalStyles.HintergrundCard} />
+          <Image source={require("../images/Hintergruende/Zuege.png")} style={styles.HintergrundCard} />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Wolken.png")} style={globalStyles.HintergrundCard} />
+          <Image source={require("../images/Hintergruende/Wolken.png")} style={styles.HintergrundCard} />
         </TouchableOpacity>
       </View>
     </View>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: 150,
     height: 120,
-    borderColor: "blue",
+    borderColor: "lightgrey",
     borderWidth: 2,
   },
 

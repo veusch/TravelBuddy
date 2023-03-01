@@ -31,7 +31,6 @@ export default function ListenScreen({ navigation }) {
         <Modal visible={modalOpen} animationType="slide">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
-              <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
               <ListenForms addTask={addTask} setModalOpen={setModalOpen} />
             </View>
           </TouchableWithoutFeedback>

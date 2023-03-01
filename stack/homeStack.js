@@ -12,6 +12,7 @@ import Impressum from "../screens/Impressum";
 import Datenschutzerklärung from "../screens/Datenschutz";
 import Hintergrund from "../screens/Hintergrund";
 import testAutocomplete from "../screens/test-autocomplete";
+import HelpCenter from "../screens/HelpCenter";
 
 import { ImageStore } from "react-native";
 import Nutzungsbedingungen from "../screens/Nutzungsbedingungen";
@@ -24,6 +25,8 @@ const screens = {
       //headerStyle: () => <header></header>,
     },
   },
+
+  HelpCenter: { screen: HelpCenter, navigationOptions: { title: "" } },
 
   testAutocomplete: {
     screen: testAutocomplete,

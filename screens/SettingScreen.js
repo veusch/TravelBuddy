@@ -39,6 +39,9 @@ const SettingScreen = ({ navigation }) => {
           <TouchableOpacity onPress={() => navigation.navigate("testAutocomplete")}>
             <Text style={styles.Settings}> Accounteinstellungen</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("HelpCenter")}>
+            <Text style={styles.Settings}> Helpcenter</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 

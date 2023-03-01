@@ -6,6 +6,7 @@ import ReiseCard from "./ReiseCard";
 import { MaterialIcons } from "@expo/vector-icons";
 import StarRatingg from "../screens/StarRatingComponent";
 import { globalStyles } from "../styles/global";
+import RevieForm2 from "../screens/BeitragFormsDayReview";
 
 export default function TagNotiz(probs, { navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -23,8 +24,7 @@ export default function TagNotiz(probs, { navigation }) {
       <Modal visible={modalOpen} animationType="slide">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.modalContent}>
-            <MaterialIcons name="close" style={{ ...styles.modalToggle, ...styles.modalClose }} size={24} onPress={() => setModalOpen(false)} />
-            <RevieForm3 addJourney={addJourney}> </RevieForm3>
+            <RevieForm3 setModalOpen={setModalOpen} addJourney={addJourney}></RevieForm3>
           </View>
         </TouchableWithoutFeedback>
       </Modal>

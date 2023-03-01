@@ -105,6 +105,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
+  flex: {
+    justifyContent: "space-around",
+  },
+
   Home: {
     color: "lightgrey",
   },

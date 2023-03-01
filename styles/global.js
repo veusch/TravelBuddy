@@ -56,6 +56,7 @@ export const globalStyles = StyleSheet.create({
     marginVertical: 6,
     width: 150,
     height: 70,
+    justifyContent: "center",
   },
 
   neu: {
@@ -106,6 +107,7 @@ export const globalStyles = StyleSheet.create({
     borderColor: "blue",
     borderWidth: 2,
   },
+
   ReiseCard: {
     borderRadius: 20,
     elevation: 3,
@@ -116,6 +118,9 @@ export const globalStyles = StyleSheet.create({
     shadowOpacity: 0.3,
     marginHorizontal: 4,
     marginVertical: 6,
+    alignItems: "center",
+    alignSelf: "center",
+    textAlign: "center",
     justifyContent: "space-around",
   },
 
