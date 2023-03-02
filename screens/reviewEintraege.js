@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { StyleSheet, View, Text, Button, ScrollView, TouchableOpacity } from "react-native";
-import ReiseCard from "../components/ReiseCard";
 import TagCard from "../components/TagCard";
 //import { ImagePicker, launchImageLibrary, launchCamera } from "react-native-image-picker";
 import * as ImagePicker from "react-native-image-picker";
@@ -30,6 +29,7 @@ export default function ReviewEintraege(props) {
       <ScrollView>
         <View style={styles.container}>
           <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseTitel}</Text>
+          <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseLand}</Text>
 
           <View style={styles.kontext}>
             <Text style={styles.title}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseBeschreibung}</Text>

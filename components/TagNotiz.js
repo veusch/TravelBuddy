@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, Modal, TouchableWithoutFeedback, Keyboard, FlatList, Image } from "react-native";
 import TagReviewCard from "./TagReviewCard";
 import RevieForm3 from "../screens/BeitragFormsDayReviewEdit";
-import ReiseCard from "./ReiseCard";
 import { MaterialIcons } from "@expo/vector-icons";
 import StarRatingg from "../screens/StarRatingComponent";
 import { globalStyles } from "../styles/global";

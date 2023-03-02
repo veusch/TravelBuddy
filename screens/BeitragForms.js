@@ -6,6 +6,8 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { SelectList } from "react-native-dropdown-select-list";
 import { cities } from "../util/cities.js";
 import * as yup from "yup";
+import MapboxPlacesAutocomplete from "react-native-mapbox-places-autocomplete";
+import Config from "react-native-config";
 
 export default function RevieForm({ addJourney, setModalOpen }) {
   const [datePicker, setDatePicker] = useState("");
@@ -57,15 +59,31 @@ export default function RevieForm({ addJourney, setModalOpen }) {
               />
             </View>
 
-            <View style={globalStyles.InputForms}>
-              <TextInput
+            <View style={[globalStyles.InputForms, styles.obenDrauf]}>
+              <MapboxPlacesAutocomplete
+                id="origin"
+                placeholder="Wo warst du?"
+                accessToken={"sk.eyJ1IjoidmV1c2NoIiwiYSI6ImNsZXI1bTBjMzB0MTEzcW83aW1xNjVoNjgifQ._FF_oDaMCx4TCKvzw33LbQ"}
+                onPlaceSelect={(data) => {
+                  setForm((prev) => ({ ...prev, reiseLand: data["place_name"] }));
+                }}
+                onClearInput={({ id }) => {
+                  id === "origin";
+                }}
+                countryId=""
+                containerStyle={{
+                  marginBottom: 12,
+                }}
+                inputStyle={{ backgroundColor: "#C7DEF0" }}
+              />
+              {/* <TextInput
                 style={globalStyles.input}
                 placeholder="Reiseziel"
                 onChangeText={(e) => {
                   setForm((prev) => ({ ...prev, reiseLand: e }));
                 }}
                 value={form.reiseLand}
-              />
+              /> */}
             </View>
             <View style={globalStyles.InputForms}>
               <TextInput
@@ -119,5 +137,9 @@ const styles = StyleSheet.create({
   },
   invalid: {
     backgroundColor: "red",
+  },
+  obenDrauf: {
+    position: "relative",
+    zIndex: 100,
   },
 });

@@ -122,6 +122,8 @@ export const globalStyles = StyleSheet.create({
     alignSelf: "center",
     textAlign: "center",
     justifyContent: "space-around",
+    alignItems: "center",
+    flexDirection: "row",
   },
 
   Footer: {
