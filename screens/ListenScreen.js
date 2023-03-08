@@ -3,7 +3,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, Image } from "react-native";
 import ListenForms from "./ListenForms";
 import ListenCard from "../components/ListenCard";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import { generateId } from "../util/generateId";

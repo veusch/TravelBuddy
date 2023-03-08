@@ -2,7 +2,7 @@ import React, { useState, useCallback, useContext, useEffect } from "react";
 import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard, Image, ScrollView } from "react-native";
 import { storeContext } from "../App";
 import { generateId } from "../util/generateId";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { globalStyles } from "../styles/global";
 

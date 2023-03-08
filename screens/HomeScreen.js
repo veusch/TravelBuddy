@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, RecyclerViewBackedScrollView, Image } from "react-native";
 import RevieForm from "./BeitragForms";
@@ -13,6 +13,7 @@ const HomeScreen = ({ navigation }) => {
   const { reisenContext, backgroundContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
   const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
+
   const [modalOpen, setModalOpen] = useState(false);
 
   let c = 1;

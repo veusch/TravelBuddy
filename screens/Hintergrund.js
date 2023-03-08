@@ -5,7 +5,7 @@ import ListenCard from "../components/ListenCard";
 import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import { useState } from "react";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Hintergrund({ navigation }) {
   const [border, setBorder] = useState({ styles });

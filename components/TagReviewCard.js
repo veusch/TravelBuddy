@@ -6,7 +6,7 @@ import RevieForm2 from "../screens/BeitragFormsDayReview";
 import TagNotiz from "./TagNotiz";
 import { globalStyles } from "../styles/global";
 import StarRatingg from "../screens/StarRatingComponent";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { storeContext } from "../App";
 

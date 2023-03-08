@@ -2,7 +2,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useContext } from "react";
 import { storeContext } from "../App";
 import { MaterialIcons } from "@expo/vector-icons";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { globalStyles } from "../styles/global";
 
 export default function AlleReisen({ navigation }) {

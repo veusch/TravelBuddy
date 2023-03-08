@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storeContext } from "../App";
+
 export default function UploadImage() {
+  const { profileContext } = useContext(storeContext);
+  const [profile, setProfile] = profileContext;
+
   useEffect(() => {
     checkForCameraRollPermission();
   }, []);
@@ -13,7 +19,6 @@ export default function UploadImage() {
     //   alert("Bitte erteilen Sie in den Einstellungen Ihres Systems Kamera-Berechtigungen");
     // }
   };
-  const [image, setImage] = useState(null);
 
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
@@ -23,16 +28,16 @@ export default function UploadImage() {
       quality: 1,
     });
     if (!_image.cancelled) {
-      setImage(_image.uri);
-      console.log(_image.uri);
+      setProfile((prev) => ({ ...prev, profilePicture: _image.uri }));
+      AsyncStorage.setItem("profile", JSON.stringify({ ...profile, profilePicture: _image.uri }));
     }
   };
   return (
     <View style={imageUploaderStyles.container}>
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      {profile?.profilePicture && <Image source={{ uri: profile?.profilePicture }} style={{ width: 200, height: 200 }} />}
       <View style={imageUploaderStyles.uploadBtnContainer}>
         <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn}>
-          <Text>{image ? "Edit" : "Upload"} Image</Text>
+          <Text>{profile?.profilePicture ? "Edit" : "Upload"} Image</Text>
           <AntDesign name="camera" size={20} color="black" />
         </TouchableOpacity>
       </View>
