@@ -19,6 +19,7 @@ export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
   return (
     <ScrollView>
       <View style={globalStyles.container}>
+        <Text style={styles.headline2}>Neuen Beitrag{"\n"}erstellen</Text>
         <Formik
           initialValues={{ tagebucheintragTitle: "", tagebuchEintragTime: new Date(), tagebuchEintragZiel: "", tagebucheintragBody: "", tagebucheintragImage: "", tagebuchEintragId: generateId(10) }}
           validationSchema={schema}
@@ -49,8 +50,6 @@ export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
                 <View style={globalStyles.InputForms}>
                   <TextInput style={globalStyles.input} placeholder="Foto hinzufügen" onChangeText={probs.handleChange("tagebucheintragImage")} value={probs.values.pic} />
                 </View>
-
-                <UploadImage></UploadImage>
               </View>
               <View style={globalStyles.ButtonFlex}>
                 <TouchableOpacity
@@ -79,6 +78,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+  },
+
+  headline2: {
+    fontSize: 20,
+    fontFamily: "Medium",
+    textAlign: "center",
+    padding: "5%",
   },
   Buttonv: {
     paddingTop: 60,

@@ -1,15 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import HintergrundCard from "../components/HintergrundCard";
 import ListenCard from "../components/ListenCard";
 import { globalStyles } from "../styles/global";
+import { storeContext } from "../App";
 import { useState } from "react";
+import { AsyncStorage } from "react-native";
 
-export default function Hintergrund() {
+export default function Hintergrund({ navigation }) {
   const [border, setBorder] = useState({ styles });
-  const handlePress = () => {
-    console.log("hallo");
-  };
+
+  const { backgroundContext } = useContext(storeContext);
+  const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
+
+  function handlePress(number) {
+    setBackgroundImageNumber(number);
+    AsyncStorage.setItem("backgroundImageNumber", JSON.stringify(number));
+  }
 
   return (
     <View style={styles.container}>
@@ -17,30 +24,50 @@ export default function Hintergrund() {
       <View style={styles.hintergrundWrapper}>
         <TouchableOpacity
           onPress={() => {
-            handlePress;
+            handlePress(1);
           }}
         >
-          <Image source={require("../images/Hintergruende/blatter.png")} style={styles.HintergrundCard} />
+          <Image source={require("../images/Hintergruende/hintergrund_1.png")} style={[styles.HintergrundCard, backgroundImageNumber === 1 && { borderColor: "#DFF1FF", borderWidth: 5 }]} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Flieger.png")} style={styles.HintergrundCard} />
+        <TouchableOpacity
+          onPress={() => {
+            handlePress(2);
+          }}
+        >
+          <Image source={require("../images/Hintergruende/hintergrund_2.png")} style={[styles.HintergrundCard, backgroundImageNumber === 2 && { borderColor: "#DFF1FF", borderWidth: 5 }]} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Koffer.png")} style={styles.HintergrundCard} />
+        <TouchableOpacity
+          onPress={() => {
+            handlePress(3);
+          }}
+        >
+          <Image source={require("../images/Hintergruende/hintergrund_3.png")} style={[styles.HintergrundCard, backgroundImageNumber === 3 && { borderColor: "#DFF1FF", borderWidth: 5 }]} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Raeder.png")} style={styles.HintergrundCard} />
+        <TouchableOpacity
+          onPress={() => {
+            handlePress(4);
+          }}
+        >
+          <Image source={require("../images/Hintergruende/hintergrund_4.png")} style={[styles.HintergrundCard, backgroundImageNumber === 4 && { borderColor: "#DFF1FF", borderWidth: 5 }]} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Zuege.png")} style={styles.HintergrundCard} />
+        <TouchableOpacity
+          onPress={() => {
+            handlePress(5);
+          }}
+        >
+          <Image source={require("../images/Hintergruende/hintergrund_5.png")} style={[styles.HintergrundCard, backgroundImageNumber === 5 && { borderColor: "#DFF1FF", borderWidth: 5 }]} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Image source={require("../images/Hintergruende/Wolken.png")} style={styles.HintergrundCard} />
+        <TouchableOpacity
+          onPress={() => {
+            handlePress(6);
+          }}
+        >
+          <Image source={require("../images/Hintergruende/hintergrund_6.png")} style={[styles.HintergrundCard, backgroundImageNumber === 6 && { borderColor: "#DFF1FF", borderWidth: 5 }]} />
         </TouchableOpacity>
       </View>
     </View>

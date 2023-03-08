@@ -12,7 +12,7 @@ export default function TagCard(probs, { navigation }) {
 
 const styles = StyleSheet.create({
   ReiseCard: {
-    borderRadius: 6,
+    borderRadius: 20,
     elevation: 3,
     backgroundColor: "#213049",
     shadowOffset: { width: 1, height: 1 },
@@ -21,12 +21,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     marginHorizontal: 4,
     marginVertical: 6,
-    width: 200,
-    heigh: 200,
+    width: 300,
+    heigh: 170,
   },
 
   ReiseCardContent: {
     marginHorizontal: 18,
-    marginVertical: 50,
+    marginVertical: 30,
   },
 });

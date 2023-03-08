@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
   container: {
-    padding: 24,
+    padding: "5%",
   },
   input: {
     borderWidth: 1,
@@ -12,6 +12,7 @@ export const globalStyles = StyleSheet.create({
     padding: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
+    fontFamily: "Medium",
   },
 
   headline: {
@@ -137,7 +138,7 @@ export const globalStyles = StyleSheet.create({
   WrapperForms: {
     backgroundColor: "#DFF1FF",
     borderRadius: 20,
-    padding: 20,
+    padding: "5%",
   },
 
   InputForms: {

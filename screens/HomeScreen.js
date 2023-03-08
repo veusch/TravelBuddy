@@ -7,11 +7,16 @@ import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import AlleReisen from "../components/AlleReisen";
 import { generateId } from "../util/generateId";
+// import background from "./../images/Hintergruende/Zuege.png";
 
 const HomeScreen = ({ navigation }) => {
-  const { reisenContext } = useContext(storeContext);
+  const { reisenContext, backgroundContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
+  const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
   const [modalOpen, setModalOpen] = useState(false);
+
+  let c = 1;
+  let test = c.toString();
 
   function addDays(date, days) {
     date.setDate(date.getDate() + days);
@@ -43,6 +48,24 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        source={
+          backgroundImageNumber === 1
+            ? require(`../images/Hintergruende/hintergrund_1.png`)
+            : backgroundImageNumber === 2
+            ? require(`../images/Hintergruende/hintergrund_2.png`)
+            : backgroundImageNumber === 3
+            ? require(`../images/Hintergruende/hintergrund_3.png`)
+            : backgroundImageNumber === 4
+            ? require(`../images/Hintergruende/hintergrund_4.png`)
+            : backgroundImageNumber === 5
+            ? require(`../images/Hintergruende/hintergrund_5.png`)
+            : backgroundImageNumber === 6
+            ? require(`../images/Hintergruende/hintergrund_6.png`)
+            : require(`../images/Hintergruende/hintergrund_1.png`)
+        }
+      />
       <ScrollView>
         <Modal visible={modalOpen} animationType="slide">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -57,9 +80,24 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.name}>Name</Text>
         <Text style={styles.wasErlebt}>Was hast du heute erlebt?</Text>
         <View style={styles.statistik}></View>
+        <View style={styles.flex2}>
+          <View style={styles.besucht}>
+            <Text style={{ textAlign: "center", alignItems: "center", padding: 15, fontSize: 16 }}>
+              Du hast insgesamt <Text style={{ color: "orange", fontWeight: "bold" }}>3/195 Länder </Text> bereist!
+            </Text>
+          </View>
+          <View style={styles.besucht}>
+            <Text style={{ textAlign: "center", alignItems: "center", padding: 15, fontSize: 16 }}>
+              Du warst insgesamt <Text style={{ color: "orange", fontWeight: "bold" }}>70 Tage lang </Text> unterwegs!
+            </Text>
+          </View>
+        </View>
         <Text style={globalStyles.headline}>Meine Tagebücher</Text>
         <View style={styles.flex}>
           <AlleReisen navigation={navigation} />
+          {/* <TouchableOpacity style={{ padding: 10, justifyContent: "space-around", alignItems: "center", flexDirection: "row", borderRadius: 20, margin: 5, backgroundColor: "#DFF1FF", width: "47%" }}>
+            <Text style={{ color: "#213049", textAlign: "center", fontFamily: "Medium" }}>Neues Tagebuch erstellen</Text>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
 
@@ -97,7 +135,7 @@ const styles = StyleSheet.create({
 
   statistik: {
     marginTop: 20,
-    marginBottom: 20,
+
     width: 340,
     height: 210,
     backgroundColor: "#EFF8FF",
@@ -105,8 +143,27 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
+  besucht: {
+    marginTop: 20,
+    marginBottom: 20,
+    margin: 5,
+
+    width: 150,
+    height: 130,
+    backgroundColor: "#EFF8FF",
+    alignSelf: "center",
+    borderRadius: 10,
+  },
+
   flex: {
     justifyContent: "space-around",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  flex2: {
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
 
   Home: {
@@ -115,10 +172,12 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: "Medium",
     fontSize: 26,
+    paddingLeft: 15,
   },
   wasErlebt: {
     fontSize: 20,
     fontFamily: "Light",
+    paddingLeft: 15,
   },
 
   modalContent: {},

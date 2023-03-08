@@ -9,9 +9,9 @@ export default function UploadImage() {
 
   const checkForCameraRollPermission = async () => {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
-    if (status !== "granted") {
-      alert("Bitte erteilen Sie in den Einstellungen Ihres Systems Kamera-Berechtigungen");
-    }
+    // if (status !== "granted") {
+    //   alert("Bitte erteilen Sie in den Einstellungen Ihres Systems Kamera-Berechtigungen");
+    // }
   };
   const [image, setImage] = useState(null);
 
@@ -24,6 +24,7 @@ export default function UploadImage() {
     });
     if (!_image.cancelled) {
       setImage(_image.uri);
+      console.log(_image.uri);
     }
   };
   return (

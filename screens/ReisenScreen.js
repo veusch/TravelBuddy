@@ -9,8 +9,10 @@ import AlleReisen from "../components/AlleReisen";
 import { generateId } from "../util/generateId";
 
 const ReisenScreen = ({ navigation }) => {
-  const { reisenContext } = useContext(storeContext);
+  const { reisenContext, backgroundContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
+  const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
+
   const [modalOpen, setModalOpen] = useState(false);
 
   function addDays(date, days) {
@@ -43,6 +45,24 @@ const ReisenScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        source={
+          backgroundImageNumber === 1
+            ? require(`../images/Hintergruende/hintergrund_1.png`)
+            : backgroundImageNumber === 2
+            ? require(`../images/Hintergruende/hintergrund_2.png`)
+            : backgroundImageNumber === 3
+            ? require(`../images/Hintergruende/hintergrund_3.png`)
+            : backgroundImageNumber === 4
+            ? require(`../images/Hintergruende/hintergrund_4.png`)
+            : backgroundImageNumber === 5
+            ? require(`../images/Hintergruende/hintergrund_5.png`)
+            : backgroundImageNumber === 6
+            ? require(`../images/Hintergruende/hintergrund_6.png`)
+            : require(`../images/Hintergruende/hintergrund_1.png`)
+        }
+      />
       <ScrollView>
         <Modal visible={modalOpen} animationType="slide">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

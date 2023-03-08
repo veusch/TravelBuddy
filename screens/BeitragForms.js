@@ -44,14 +44,16 @@ export default function RevieForm({ addJourney, setModalOpen }) {
   return (
     <ScrollView>
       <View style={globalStyles.container}>
+        <Text style={styles.headline2}>Neues Tagebuch{"\n"}erstellen</Text>
         {datePicker === "start" ? <DateTimePicker testID="dateTimePicker" value={form.startDate} mode="date" is24Hour={true} onChange={setStartDate} /> : datePicker === "end" ? <DateTimePicker testID="dateTimePicker" value={form.endDate} mode="date" is24Hour={true} onChange={setEndDate} /> : null}
         <View style={styles.WRapperR}>
           <View style={globalStyles.WrapperForms}>
             <View style={globalStyles.InputForms}>
               <TextInput
                 style={globalStyles.input}
-                placeholder="Name der Reise"
+                placeholder="Name"
                 multiline
+                maxLength={30}
                 onChangeText={(e) => {
                   setForm((prev) => ({ ...prev, reiseTitel: e }));
                 }}
@@ -62,7 +64,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
             <View style={[globalStyles.InputForms, styles.obenDrauf]}>
               <MapboxPlacesAutocomplete
                 id="origin"
-                placeholder="Wo warst du?"
+                placeholder="Reiseziel"
                 accessToken={"sk.eyJ1IjoidmV1c2NoIiwiYSI6ImNsZXI1bTBjMzB0MTEzcW83aW1xNjVoNjgifQ._FF_oDaMCx4TCKvzw33LbQ"}
                 onPlaceSelect={(data) => {
                   setForm((prev) => ({ ...prev, reiseLand: data["place_name"] }));
@@ -85,17 +87,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
                 value={form.reiseLand}
               /> */}
             </View>
-            <View style={globalStyles.InputForms}>
-              <TextInput
-                style={globalStyles.input}
-                placeholder="Reisebeschreibung"
-                multiline
-                onChangeText={(e) => {
-                  setForm((prev) => ({ ...prev, reiseBeschreibung: e }));
-                }}
-                value={form.reiseBeschreibung}
-              />
-            </View>
+
             <View style={globalStyles.InputForms}>
               <TouchableOpacity onPress={() => setDatePicker("start")} style={styles.reset}>
                 <Text style={globalStyles.InputForms}>{form.startDate.toLocaleDateString("de-DE").toString()}</Text>
@@ -109,6 +101,17 @@ export default function RevieForm({ addJourney, setModalOpen }) {
 
             <View style={globalStyles.InputForms}>
               <TextInput style={globalStyles.input} placeholder="Titelbild" onChangeText={() => {}} value={form.thumbnail} />
+            </View>
+            <View style={globalStyles.InputForms}>
+              <TextInput
+                style={styles.input}
+                placeholder="Reisebeschreibung"
+                multiline
+                onChangeText={(e) => {
+                  setForm((prev) => ({ ...prev, reiseBeschreibung: e }));
+                }}
+                value={form.reiseBeschreibung}
+              />
             </View>
           </View>
           <View style={globalStyles.ButtonFlex}>
@@ -135,11 +138,29 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
   },
+  headline2: {
+    fontSize: 20,
+    fontFamily: "Medium",
+    textAlign: "center",
+    padding: "5%",
+  },
+
   invalid: {
     backgroundColor: "red",
   },
   obenDrauf: {
     position: "relative",
     zIndex: 100,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#C7DEF0",
+    fontSize: 14,
+    borderRadius: 8,
+    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    height: 100,
+    fontFamily: "Medium",
   },
 });

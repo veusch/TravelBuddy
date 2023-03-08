@@ -29,7 +29,7 @@ export default function ReviewEintraege(props) {
       <ScrollView>
         <View style={styles.container}>
           <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseTitel}</Text>
-          <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseLand}</Text>
+          <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseLand}📍</Text>
 
           <View style={styles.kontext}>
             <Text style={styles.title}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseBeschreibung}</Text>
