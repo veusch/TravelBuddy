@@ -1,23 +1,39 @@
 import React, { useState, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, RecyclerViewBackedScrollView, Image } from "react-native";
 import RevieForm from "./BeitragForms";
 import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import AlleReisen from "../components/AlleReisen";
 import { generateId } from "../util/generateId";
-// import background from "./../images/Hintergruende/Zuege.png";
 
 const HomeScreen = ({ navigation }) => {
-  const { reisenContext, backgroundContext } = useContext(storeContext);
+  const { reisenContext, backgroundContext, profileContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
+  const [profile, setProfile] = profileContext;
   const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
-
   const [modalOpen, setModalOpen] = useState(false);
 
-  let c = 1;
-  let test = c.toString();
+  function getTotalDays() {
+    let count = 0;
+    reisen?.forEach((reise) => {
+      count += reise.reiseTage.length;
+    });
+    return count;
+  }
+
+  function getTotalCountries() {
+    let countyIds = [];
+
+    reisen?.forEach((reise) => {
+      // console.log(reise.reiseLand.countryId);
+      if (!countyIds.includes(reise.reiseLand.countryId)) {
+        countyIds.push(reise.reiseLand.countryId);
+      }
+    });
+
+    return countyIds.length;
+  }
 
   function addDays(date, days) {
     date.setDate(date.getDate() + days);
@@ -78,27 +94,30 @@ const HomeScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => setModalOpen(true)}>
           <Image source={require("../images/neu.png")} style={globalStyles.neu} />
         </TouchableOpacity>
-        <Text style={styles.name}>Name</Text>
+
+        <Text style={styles.name}>{profile.profileName}</Text>
+
         <Text style={styles.wasErlebt}>Was hast du heute erlebt?</Text>
         <View style={styles.statistik}></View>
         <View style={styles.flex2}>
           <View style={styles.besucht}>
             <Text style={{ textAlign: "center", alignItems: "center", padding: 15, fontSize: 16 }}>
-              Du hast insgesamt <Text style={{ color: "orange", fontWeight: "bold" }}>3/195 Länder </Text> bereist!
+              Du hast insgesamt <Text style={{ color: "orange", fontWeight: "bold" }}>{getTotalCountries()}/195 Länder </Text> bereist!
             </Text>
           </View>
           <View style={styles.besucht}>
             <Text style={{ textAlign: "center", alignItems: "center", padding: 15, fontSize: 16 }}>
-              Du warst insgesamt <Text style={{ color: "orange", fontWeight: "bold" }}>70 Tage lang </Text> unterwegs!
+              Du warst insgesamt <Text style={{ color: "orange", fontWeight: "bold" }}>{getTotalDays()} Tage lang </Text> unterwegs!
             </Text>
           </View>
         </View>
         <Text style={globalStyles.headline}>Meine Tagebücher</Text>
         <View style={styles.flex}>
-          <AlleReisen navigation={navigation} />
-          {/* <TouchableOpacity style={{ padding: 10, justifyContent: "space-around", alignItems: "center", flexDirection: "row", borderRadius: 20, margin: 5, backgroundColor: "#DFF1FF", width: "47%" }}>
-            <Text style={{ color: "#213049", textAlign: "center", fontFamily: "Medium" }}>Neues Tagebuch erstellen</Text>
-          </TouchableOpacity> */}
+          <AlleReisen setModalOpen={setModalOpen} navigation={navigation}>
+            <TouchableOpacity onPress={() => setModalOpen(true)} style={{ justifyContent: "space-around", alignItems: "center", flexDirection: "row", borderRadius: 20, margin: 5, width: "47%", height: navigation.state.routeName === "Home" ? 80 : 150, backgroundColor: "#213049" }}>
+              <Text style={styles.addText}>Neues Tagebuch erstellen</Text>
+            </TouchableOpacity>
+          </AlleReisen>
         </View>
       </ScrollView>
 
@@ -132,6 +151,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+  },
+
+  neu: {
+    width: "47%",
+    // flex: 1,
+    backgroundColor: "#213049",
+    margin: 5,
+    borderRadius: 20,
+  },
+
+  addText: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Medium",
+    textAlign: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    alignItems: "center",
+    margin: 10,
   },
 
   statistik: {

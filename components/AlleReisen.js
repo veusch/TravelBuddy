@@ -1,11 +1,11 @@
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
 import { useContext } from "react";
 import { storeContext } from "../App";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { globalStyles } from "../styles/global";
 
-export default function AlleReisen({ navigation }) {
+export default function AlleReisen({ children, navigation, setModalOpen }) {
   const { reisenContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
 
@@ -15,15 +15,37 @@ export default function AlleReisen({ navigation }) {
   };
 
   return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    <View style={{ flexDirection: "row", flexWrap: "wrap", flex: 1 }}>
       {reisen?.map((item) => (
-        <TouchableOpacity style={{ padding: 17, justifyContent: "space-around", alignItems: "center", flexDirection: "row", borderRadius: 20, margin: 5, width: navigation.state.routeName === "Home" ? "47%" : "97%", backgroundColor: "#213049" }} key={item.reiseId} onPress={() => navigation.navigate("reviewEintraege", { reiseId: item.reiseId })}>
-          <Text style={{ color: "white", paddingRight: 20 }}>{item.reiseTitel}</Text>
-          <TouchableOpacity onPress={() => deleteReise(item)}>
-            <MaterialIcons size={30} name="delete" color={"white"} />
+        <TouchableOpacity
+          style={{
+            justifyContent: "space-around",
+            flexDirection: "row",
+            borderRadius: 20,
+            margin: 5,
+            width: navigation.state.routeName === "Home" ? "47%" : "97%",
+            height: navigation.state.routeName === "Home" ? 80 : 150,
+            alignItems: navigation.state.routeName === "Home" ? "center" : "flex-end",
+            justifyContent: navigation.state.routeName === "Home" ? "space-around" : "flex-start",
+
+            backgroundColor: "#213049",
+          }}
+          key={item.reiseId}
+          onPress={() => navigation.navigate("reviewEintraege", { reiseId: item.reiseId })}
+        >
+          {item.thumbnail && <Image style={{ borderRadius: 20, left: 0, opacity: 0.75, height: "100%", width: "100%", position: "absolute", resizeMode: "cover" }} source={{ uri: item.thumbnail }} />}
+          {/* {item.thumbnail && <View style={{ height: 100, width: 100, backgroundColor: "red" }} />} */}
+          <Text style={{ color: "white", paddingLeft: 20, paddingRight: 30, paddingBottom: 10 }}>{item.reiseTitel}</Text>
+          <TouchableOpacity onPress={() => deleteReise(item)} style={{ paddingRight: 10, position: navigation.state.routeName === "Home" ? "relative" : "absolute", justifyContent: "flex-end" }}>
+            <Image source={require("../images/delete.png")} style={styles.icon}></Image>
           </TouchableOpacity>
         </TouchableOpacity>
       ))}
+      {children}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  icon: { width: 30, height: 30, paddingRight: 20 },
+});

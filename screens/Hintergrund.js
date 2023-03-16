@@ -1,7 +1,5 @@
 import React, { useEffect, useContext } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, Image } from "react-native";
-import HintergrundCard from "../components/HintergrundCard";
-import ListenCard from "../components/ListenCard";
 import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import { useState } from "react";

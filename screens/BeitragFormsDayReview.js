@@ -1,26 +1,142 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity } from "react-native";
+import React, { useState, useContext } from "react";
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity, Image } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import UploadImage from "./UploadImagee.js";
 import StarRatingg from "./StarRatingComponent.js";
-import { generateId } from "../util/generateId.js";
 import * as yup from "yup";
-
+import { storeContext } from "../App";
+import { generateId } from "../util/generateId.js";
 const schema = yup.object({
   tagebucheintragTitle: yup.string().required().min(3),
-
   tagebucheintragBody: yup.string().required().min(4),
   tagebuchEintragZiel: yup.string().required(),
 });
 
 export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
+  const { backgroundContext } = useContext(storeContext);
+  const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
+
+  const [form, setForm] = useState({ tagebuchEintragId: generateId(10), tagebuchEintragTime: new Date(), tagebucheintragTitle: "", tagebuchEintragZiel: "", tagebucheintragBody: "", tagebuchEintragImages: [] });
+
   return (
-    <ScrollView>
-      <View style={globalStyles.container}>
+    <ScrollView style={{ height: "100%" }}>
+      <View style={[globalStyles.container, { height: "100%" }]}>
+        <Image
+          style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, height: "100%", flex: 1, zIndex: -100 }}
+          source={
+            backgroundImageNumber === 1
+              ? require(`../images/Hintergruende/hintergrund_1.png`)
+              : backgroundImageNumber === 2
+              ? require(`../images/Hintergruende/hintergrund_2.png`)
+              : backgroundImageNumber === 3
+              ? require(`../images/Hintergruende/hintergrund_3.png`)
+              : backgroundImageNumber === 4
+              ? require(`../images/Hintergruende/hintergrund_4.png`)
+              : backgroundImageNumber === 5
+              ? require(`../images/Hintergruende/hintergrund_5.png`)
+              : backgroundImageNumber === 6
+              ? require(`../images/Hintergruende/hintergrund_6.png`)
+              : require(`../images/Hintergruende/hintergrund_1.png`)
+          }
+        />
         <Text style={styles.headline2}>Neuen Beitrag{"\n"}erstellen</Text>
-        <Formik
+        <View style={styles.inputWrapper}>
+          <View style={globalStyles.WrapperForms}>
+            <View style={globalStyles.InputForms}>
+              <TextInput
+                multiline
+                style={globalStyles.input}
+                placeholder="Titel"
+                onChangeText={(e) => {
+                  setForm((prev) => ({ ...prev, tagebucheintragTitle: e }));
+                }}
+                value={form.tagebucheintragTitle}
+              />
+            </View>
+
+            <View style={globalStyles.InputForms}>
+              <TextInput
+                multiline
+                style={globalStyles.input}
+                placeholder="Wohin gings"
+                onChangeText={(e) => {
+                  setForm((prev) => ({ ...prev, tagebuchEintragZiel: e }));
+                }}
+                value={form.tagebuchEintragZiel}
+              />
+            </View>
+
+            <View style={globalStyles.InputForms}>
+              <TextInput
+                multiline={true}
+                style={[globalStyles.input, { height: 150 }]}
+                placeholder="Was hast du erlebt?"
+                onChangeText={(e) => {
+                  setForm((prev) => ({ ...prev, tagebucheintragBody: e }));
+                }}
+                value={form.tagebucheintragBody}
+              />
+            </View>
+
+            <View style={{ margin: 10, flexDirection: "row", flexWrap: "wrap", justifyContent: "flex-start", alignItems: "center" }}>
+              {form?.tagebuchEintragImages?.map((image) => (
+                <TouchableOpacity
+                  key={image}
+                  onPress={() => {
+                    let temp = form.tagebuchEintragImages;
+                    temp = temp.filter((uri) => uri !== image);
+                    setForm((prev) => ({ ...prev, tagebuchEintragImages: temp }));
+                  }}
+                >
+                  <View style={{ margin: 8, height: 50, width: 50 }}>
+                    <Image source={{ uri: image }} style={{ height: "100%", width: "100%", resizeMode: "cover" }} />
+                    <View style={{ position: "absolute", zIndex: 100, top: -5, right: -5, height: 20, justifyContent: "center", alignItems: "center", width: 20, backgroundColor: "#213049", borderRadius: 100 }}>
+                      <Text style={{ color: "white", width: 8, height: 20 }}>x</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+              <View style={{ margin: 8, justifyContent: "center", alignItems: "center", height: 50, width: 50 }}>
+                <TouchableOpacity
+                  onPress={async () => {
+                    let _image = await ImagePicker.launchImageLibraryAsync({
+                      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                      allowsEditing: true,
+                      aspect: [4, 3],
+                      quality: 1,
+                    });
+                    if (!_image.cancelled) {
+                      setForm((prev) => ({ ...prev, tagebuchEintragImages: [...prev.tagebuchEintragImages, _image.uri] }));
+                    }
+                  }}
+                >
+                  <Image source={require("../images/neu.png")} style={{ width: 30, height: 30 }} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+          <View style={globalStyles.ButtonFlex}>
+            <TouchableOpacity
+              onPress={() => {
+                setModalOpen(false);
+              }}
+              style={globalStyles.Opac}
+            >
+              <Text style={globalStyles.OpacText}>Abbrechen</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                addEntry(form);
+              }}
+              style={globalStyles.Opac}
+            >
+              <Text style={globalStyles.OpacText}>Erstellen</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        {/* <Formik
           initialValues={{ tagebucheintragTitle: "", tagebuchEintragTime: new Date(), tagebuchEintragZiel: "", tagebucheintragBody: "", tagebucheintragImage: "", tagebuchEintragId: generateId(10) }}
           validationSchema={schema}
           onSubmit={(values, actions) => {
@@ -30,43 +146,9 @@ export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
           }}
         >
           {(probs) => (
-            <View style={styles.inputWrapper}>
-              <View style={globalStyles.WrapperForms}>
-                <View style={globalStyles.InputForms}>
-                  <TextInput multiline style={globalStyles.input} placeholder="Titel" onBlur={probs.handleBlur("tagebucheintragTitle")} onChangeText={probs.handleChange("tagebucheintragTitle")} value={probs.values.title} />
-                </View>
-                <Text style={globalStyles.errorNachricht}>{probs.touched.tagebucheintragTitle && probs.errors.tagebucheintragTitle}</Text>
-
-                <View style={globalStyles.InputForms}>
-                  <TextInput multiline style={globalStyles.input} placeholder="Wohin gings" onChangeText={probs.handleChange("tagebuchEintragZiel")} value={probs.values.body1} />
-                </View>
-                <Text style={globalStyles.errorNachricht}>{probs.touched.tagebuchEintragZiel && probs.errors.tagebuchEintragZiel}</Text>
-
-                <View style={globalStyles.InputForms}>
-                  <TextInput multiline={true} style={globalStyles.input} placeholder="Was hast du erlebt?" onChangeText={probs.handleChange("tagebucheintragBody")} onBlur={probs.handleBlur("tagebucheintragBody")} value={probs.values.zusammenfassung} />
-                </View>
-                <Text style={globalStyles.errorNachricht}>{probs.touched.tagebucheintragBody && probs.errors.tagebucheintragBody}</Text>
-
-                <View style={globalStyles.InputForms}>
-                  <TextInput style={globalStyles.input} placeholder="Foto hinzufügen" onChangeText={probs.handleChange("tagebucheintragImage")} value={probs.values.pic} />
-                </View>
-              </View>
-              <View style={globalStyles.ButtonFlex}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setModalOpen(false);
-                  }}
-                  style={globalStyles.Opac}
-                >
-                  <Text style={globalStyles.OpacText}>Abbrechen</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={probs.handleSubmit} style={globalStyles.Opac}>
-                  <Text style={globalStyles.OpacText}>Erstellen</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            
           )}
-        </Formik>
+        </Formik> */}
       </View>
     </ScrollView>
   );

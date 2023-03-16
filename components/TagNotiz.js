@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Modal, TouchableWithoutFeedback, Keyboard, FlatList, Image } from "react-native";
-import TagReviewCard from "./TagReviewCard";
+import { Text, StyleSheet, View, TouchableOpacity, Modal, TouchableWithoutFeedback, Keyboard, Image } from "react-native";
 import RevieForm3 from "../screens/BeitragFormsDayReviewEdit";
 import { MaterialIcons } from "@expo/vector-icons";
-import StarRatingg from "../screens/StarRatingComponent";
 import { globalStyles } from "../styles/global";
-import RevieForm2 from "../screens/BeitragFormsDayReview";
 
 export default function TagNotiz(probs, { navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -43,7 +40,7 @@ export default function TagNotiz(probs, { navigation }) {
 const styles = StyleSheet.create({
   ReiseCard: {
     flex: 1,
-    borderRadius: 6,
+    borderRadius: 20,
     elevation: 3,
     backgroundColor: "#213049",
     shadowOffset: { width: 1, height: 1 },

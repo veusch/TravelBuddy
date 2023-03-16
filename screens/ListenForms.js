@@ -9,10 +9,11 @@ const schema = yup.object({
 });
 
 export default function ListenForms({ addTask, setModalOpen }) {
+  // TODO: Formik und Yup global raushauen und Input Validierung selber machen
+
   return (
     <View style={globalStyles.container}>
       <Text style={globalStyles.headline}>Neue Liste{"\n"}erstellen</Text>
-
       <Formik
         initialValues={{ taskListTitle: "" }}
         validationSchema={schema}

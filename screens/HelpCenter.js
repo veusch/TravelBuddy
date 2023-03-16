@@ -1,12 +1,33 @@
-import React from "react";
-import { Text, StyleSheet, View, ScrollView } from "react-native";
+import React, { useContext } from "react";
+import { Text, StyleSheet, View, ScrollView, Image } from "react-native";
 import { globalStyles } from "../styles/global";
-import TagNotiz from "../components/TagNotiz";
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
+import { storeContext } from "../App";
 
 export default function HelpCenter() {
+  const { backgroundContext } = useContext(storeContext);
+  const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
+
   return (
     <View style={styles.container}>
+      <Image
+        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        source={
+          backgroundImageNumber === 1
+            ? require(`../images/Hintergruende/hintergrund_1.png`)
+            : backgroundImageNumber === 2
+            ? require(`../images/Hintergruende/hintergrund_2.png`)
+            : backgroundImageNumber === 3
+            ? require(`../images/Hintergruende/hintergrund_3.png`)
+            : backgroundImageNumber === 4
+            ? require(`../images/Hintergruende/hintergrund_4.png`)
+            : backgroundImageNumber === 5
+            ? require(`../images/Hintergruende/hintergrund_5.png`)
+            : backgroundImageNumber === 6
+            ? require(`../images/Hintergruende/hintergrund_6.png`)
+            : require(`../images/Hintergruende/hintergrund_1.png`)
+        }
+      />
       <ScrollView>
         <Text style={globalStyles.impHeadline}>Helpcenter</Text>
 

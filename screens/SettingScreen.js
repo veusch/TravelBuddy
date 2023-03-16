@@ -1,12 +1,14 @@
-import React, { useState, useContext } from "react";
-import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from "react-native";
 import UploadImage from "./UploadImagee";
 import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SettingScreen = ({ navigation }) => {
-  const { backgroundContext } = useContext(storeContext);
+  const { backgroundContext, profileContext } = useContext(storeContext);
   const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
+  const [profile, setProfile] = profileContext;
 
   return (
     <View style={styles.container}>
@@ -30,40 +32,92 @@ const SettingScreen = ({ navigation }) => {
       />
       <ScrollView>
         <View>
-          <View style={styles.breite}></View>
           <View style={styles.pic}>
             <UploadImage />
           </View>
           <View style={styles.name}>
-            <TextInput editable multiline numberOfLines={4} defaultValue={"Dein Name"} maxLength={30} fontSize={26} textAlign={"center"}></TextInput>
+            <TextInput
+              onChangeText={async (e) => {
+                setProfile((prev) => ({ ...prev, profileName: e }));
+                await AsyncStorage.setItem("profile", JSON.stringify({ ...profile, profileName: e }));
+              }}
+              editable
+              multiline
+              numberOfLines={4}
+              value={profile.profileName}
+              defaultValue={"Dein Name"}
+              maxLength={30}
+              fontSize={26}
+              textAlign={"center"}
+            ></TextInput>
           </View>
+
           <TouchableOpacity onPress={() => navigation.navigate("Hintergrund")}>
-            <Text style={styles.Settings}> Hintergrund</Text>
+            <View style={styles.Settings}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <Text style={styles.textSettings}> Hintergrund</Text>
+                <Image source={require("../images/right.png")} style={styles.right} />
+              </View>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Text style={styles.Settings}> Privatsphäre</Text>
+            <View style={styles.Settings}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <Text style={styles.textSettings}> Privatsphäre</Text>
+                <Image source={require("../images/right.png")} style={styles.right} />
+              </View>
+            </View>
           </TouchableOpacity>
+
           <TouchableOpacity onPress={() => navigation.navigate("Impressum")}>
-            <Text style={styles.Settings}> Impressum</Text>
+            <View style={styles.Settings}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <Text style={styles.textSettings}> Impressum</Text>
+                <Image source={require("../images/right.png")} style={styles.right} />
+              </View>
+            </View>
           </TouchableOpacity>
+
           <TouchableOpacity>
-            <Text style={styles.Settings} onPress={() => navigation.navigate("Datenschutzerklärung")}>
-              {" "}
-              Datenschutzerklärung
-            </Text>
+            <View style={styles.Settings}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <Text style={styles.textSettings} onPress={() => navigation.navigate("Datenschutzerklärung")}>
+                  {" "}
+                  Datenschutzerklärung
+                </Text>
+                <Image source={require("../images/right.png")} style={styles.right} />
+              </View>
+            </View>
           </TouchableOpacity>
+
           <TouchableOpacity>
-            <Text style={styles.Settings} onPress={() => navigation.navigate("Nutzungsbedingungen")}>
-              {" "}
-              Nutzungbedingungen
-            </Text>
+            <View style={styles.Settings}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <Text style={styles.textSettings} onPress={() => navigation.navigate("Nutzungsbedingungen")}>
+                  Nutzungbedingungen
+                </Text>
+                <Image source={require("../images/right.png")} style={styles.right} />
+              </View>
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("testAutocomplete")}>
-            <Text style={styles.Settings}> Accounteinstellungen</Text>
+
+          <TouchableOpacity onPress={() => navigation.navigate("Accounteinstellungen")}>
+            <View style={styles.Settings}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <Text style={styles.textSettings}> Accounteinstellungen</Text>
+                <Image source={require("../images/right.png")} style={styles.right} />
+              </View>
+            </View>
           </TouchableOpacity>
+
           <TouchableOpacity onPress={() => navigation.navigate("HelpCenter")}>
-            <Text style={styles.Settings}> Helpcenter</Text>
+            <View style={styles.Settings}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <Text style={styles.textSettings}> Helpcenter</Text>
+                <Image source={require("../images/right.png")} style={styles.right} />
+              </View>
+            </View>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -105,6 +159,14 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 
+  right: {
+    height: 18.5,
+    width: 11,
+  },
+
+  textSettings: {
+    fontFamily: "Regular",
+  },
   Settings: {
     borderRadius: 6,
     elevation: 3,
@@ -136,12 +198,6 @@ const styles = StyleSheet.create({
     marginTop: 32,
     justifyContent: "center",
     alignItems: "center",
-  },
-
-  breite: {
-    Width: "100%",
-    backgroundColor: "green",
-    height: 1,
   },
 
   picture: {

@@ -1,23 +1,21 @@
 import React, { useState, useContext } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, Image } from "react-native";
+import { View, Text, StyleSheet, Modal, Button, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ScrollView, Image } from "react-native";
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import RevieForm2 from "../screens/BeitragFormsDayReview";
 import TagNotiz from "./TagNotiz";
 import { globalStyles } from "../styles/global";
 import StarRatingg from "../screens/StarRatingComponent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { storeContext } from "../App";
 
 export default function TagReviewCard(props) {
   const [modalOpen, setModalOpen] = useState(false);
+  const { backgroundContext, reisenContext } = useContext(storeContext);
+  const [reisen, setReisen] = reisenContext;
+  const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
 
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
-
-  const { reisenContext } = useContext(storeContext);
-  const [reisen, setReisen] = reisenContext;
 
   const {
     navigation,
@@ -64,6 +62,24 @@ export default function TagReviewCard(props) {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        source={
+          backgroundImageNumber === 1
+            ? require(`../images/Hintergruende/hintergrund_1.png`)
+            : backgroundImageNumber === 2
+            ? require(`../images/Hintergruende/hintergrund_2.png`)
+            : backgroundImageNumber === 3
+            ? require(`../images/Hintergruende/hintergrund_3.png`)
+            : backgroundImageNumber === 4
+            ? require(`../images/Hintergruende/hintergrund_4.png`)
+            : backgroundImageNumber === 5
+            ? require(`../images/Hintergruende/hintergrund_5.png`)
+            : backgroundImageNumber === 6
+            ? require(`../images/Hintergruende/hintergrund_6.png`)
+            : require(`../images/Hintergruende/hintergrund_1.png`)
+        }
+      />
       <Modal visible={modalOpen} animationType="slide">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.modalContent}>
@@ -76,7 +92,7 @@ export default function TagReviewCard(props) {
         <Image source={require("../images/neu.png")} style={globalStyles.neu} />
       </TouchableOpacity>
       <ScrollView>
-        <Text style={globalStyles.headline}>{new Date(reisen?.find((reise) => reise.reiseId === reiseId)?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)?.reiseTagDate).toLocaleDateString("de-DE")}</Text>
+        <Text style={globalStyles.headline}>{new Date(reisen?.find((reise) => reise.reiseId === reiseId)?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)?.reiseTagDate).toLocaleDateString("de")}</Text>
         {reisen
           ?.find((reise) => reise.reiseId === reiseId)
           ?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)
@@ -90,8 +106,14 @@ export default function TagReviewCard(props) {
                 </CollapseHeader>
 
                 <CollapseBody style={styles.collapse}>
+                  <Text>{new Date(reiseEntry.tagebuchEintragTime).toLocaleTimeString("de")}</Text>
                   <Text style={styles.zusammenfassung}>{reiseEntry.tagebucheintragBody}</Text>
-                  <StarRatingg></StarRatingg>
+                  <View style={{ alignItems: "center" }}>
+                    {reiseEntry?.tagebuchEintragImages?.map((image) => (
+                      <Image key={image} style={{ margin: 10, height: 200, width: 200 }} source={{ uri: image }} />
+                    ))}
+                  </View>
+                  <StarRatingg />
                 </CollapseBody>
               </Collapse>
             </TagNotiz>

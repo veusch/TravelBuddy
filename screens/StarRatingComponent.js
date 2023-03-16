@@ -32,7 +32,6 @@ export default function StarRatingg() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.heading}>{starRating ? `${starRating}/5 ` : ""}</Text>
         <View style={styles.stars}>
           <TouchableWithoutFeedback onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={() => setStarRating(1)}>
             <Animated.View style={animatedScaleStyle}>

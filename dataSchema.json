@@ -1,9 +1,9 @@
-[
-  [
+{
+  "reisenContext": [
     {
       "reiseId": "abc",
       "reiseTitel": "Italien 2020",
-      "reiseLand": "Italien",
+      "reiseLand": { "string": "Italien", "countryId": "234234" },
       "startDate": "2022-08-20",
       "endDate": "2022-08-28",
       "reiseBeschreibung": "balblabla",
@@ -19,15 +19,15 @@
               "tagebuchEintragZiel": "Ortschaftsname",
               "tagebucheintragTitle": "Hier steht ein Titel",
               "tagebucheintragBody": "Hier steht ein Body",
-              "tagebucheintragImage": ""
+              "tagebucheintragImage": [],
+              "rating": 3
             }
           ]
         }
       ]
     }
   ],
-
-  [
+  "taskContext": [
     {
       "taskListId": "abc",
       "taskListTitle": "Titel",
@@ -36,5 +36,9 @@
         { "taskId": "abc", "taskTitle": "Titel", "done": false }
       ]
     }
-  ]
-]
+  ],
+  "profileContext": {
+    "profilePicture": "url",
+    "profileName": "Veri"
+  }
+}

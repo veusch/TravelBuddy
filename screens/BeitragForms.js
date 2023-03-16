@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from "react-native";
+import React, { useState, useContext } from "react";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Image } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { SelectList } from "react-native-dropdown-select-list";
-import { cities } from "../util/cities.js";
+import * as ImagePicker from "expo-image-picker";
 import * as yup from "yup";
 import MapboxPlacesAutocomplete from "react-native-mapbox-places-autocomplete";
-import Config from "react-native-config";
+import { storeContext } from "../App";
 
 export default function RevieForm({ addJourney, setModalOpen }) {
+  const { backgroundContext } = useContext(storeContext);
+  const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
   const [datePicker, setDatePicker] = useState("");
   const [selected, setSelected] = useState("");
   const [invalidDate, setInvalidDate] = useState(false);
-  const [form, setForm] = useState({ reiseTitel: "", reiseLand: "", startDate: new Date(), endDate: new Date(), reiseBeschreibung: "", thumbnail: "" });
+  const [form, setForm] = useState({ reiseTitel: "", reiseLand: { string: "", countryId: "" }, startDate: new Date(), endDate: new Date(), reiseBeschreibung: "", thumbnail: "" });
 
   const schema = yup.object({
     reiseTitel: yup.string().required().min(3),
@@ -34,7 +34,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
   const handleSubmit = () => {
     if (new Date(form.startDate).valueOf() - new Date(form.endDate).valueOf() <= 0) {
       addJourney(form);
-      setForm({ reiseTitel: "", reiseLand: "", startDate: new Date(), endDate: new Date(), reiseBeschreibung: "", thumbnail: "" });
+      setForm({ reiseTitel: "", reiseLand: { string: "", countryId: "" }, startDate: new Date(), endDate: new Date(), reiseBeschreibung: "", thumbnail: "" });
       setInvalidDate(false);
     } else {
       setInvalidDate(true);
@@ -44,6 +44,24 @@ export default function RevieForm({ addJourney, setModalOpen }) {
   return (
     <ScrollView>
       <View style={globalStyles.container}>
+        <Image
+          style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+          source={
+            backgroundImageNumber === 1
+              ? require(`../images/Hintergruende/hintergrund_1.png`)
+              : backgroundImageNumber === 2
+              ? require(`../images/Hintergruende/hintergrund_2.png`)
+              : backgroundImageNumber === 3
+              ? require(`../images/Hintergruende/hintergrund_3.png`)
+              : backgroundImageNumber === 4
+              ? require(`../images/Hintergruende/hintergrund_4.png`)
+              : backgroundImageNumber === 5
+              ? require(`../images/Hintergruende/hintergrund_5.png`)
+              : backgroundImageNumber === 6
+              ? require(`../images/Hintergruende/hintergrund_6.png`)
+              : require(`../images/Hintergruende/hintergrund_1.png`)
+          }
+        />
         <Text style={styles.headline2}>Neues Tagebuch{"\n"}erstellen</Text>
         {datePicker === "start" ? <DateTimePicker testID="dateTimePicker" value={form.startDate} mode="date" is24Hour={true} onChange={setStartDate} /> : datePicker === "end" ? <DateTimePicker testID="dateTimePicker" value={form.endDate} mode="date" is24Hour={true} onChange={setEndDate} /> : null}
         <View style={styles.WRapperR}>
@@ -67,7 +85,8 @@ export default function RevieForm({ addJourney, setModalOpen }) {
                 placeholder="Reiseziel"
                 accessToken={"sk.eyJ1IjoidmV1c2NoIiwiYSI6ImNsZXI1bTBjMzB0MTEzcW83aW1xNjVoNjgifQ._FF_oDaMCx4TCKvzw33LbQ"}
                 onPlaceSelect={(data) => {
-                  setForm((prev) => ({ ...prev, reiseLand: data["place_name"] }));
+                  let temp = JSON.stringify(data)?.split("country.")[1]?.split(`"`)[0];
+                  setForm((prev) => ({ ...prev, reiseLand: { string: data["place_name"], countryId: temp } }));
                 }}
                 onClearInput={({ id }) => {
                   id === "origin";
@@ -100,7 +119,21 @@ export default function RevieForm({ addJourney, setModalOpen }) {
             </View>
 
             <View style={globalStyles.InputForms}>
-              <TextInput style={globalStyles.input} placeholder="Titelbild" onChangeText={() => {}} value={form.thumbnail} />
+              <TouchableOpacity
+                onPress={async () => {
+                  let _image = await ImagePicker.launchImageLibraryAsync({
+                    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                    allowsEditing: true,
+                    aspect: [4, 3],
+                    quality: 1,
+                  });
+                  if (!_image.cancelled) {
+                    setForm((prev) => ({ ...prev, thumbnail: _image.uri }));
+                  }
+                }}
+              >
+                {form.thumbnail ? <Image source={{ uri: form.thumbnail }} style={{ height: 200 }} /> : <Text style={globalStyles.input}>Thumbnail</Text>}
+              </TouchableOpacity>
             </View>
             <View style={globalStyles.InputForms}>
               <TextInput

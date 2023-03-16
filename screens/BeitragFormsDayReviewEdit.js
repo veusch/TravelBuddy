@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View, TextInput, Button, FlatList, TouchableOpacity } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import RevieForm2 from "./BeitragFormsDayReview.js";
-import TagNotiz from "../components/TagNotiz.js";
 
 export default function RevieForm3(probs, { navigation, addJourney, setModalOpen }) {
   //const aiai = navigation.getParam("pic");
@@ -35,12 +32,7 @@ export default function RevieForm3(probs, { navigation, addJourney, setModalOpen
             </View>
 
             <View style={globalStyles.ButtonFlex}>
-              <TouchableOpacity
-                onPress={() => {
-                  setModalOpen(false);
-                }}
-                style={globalStyles.Opac}
-              >
+              <TouchableOpacity style={globalStyles.Opac}>
                 <Text style={globalStyles.OpacText}>Abbrechen</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={probs.handleSubmit} style={globalStyles.Opac}>

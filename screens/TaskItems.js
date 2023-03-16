@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useContext, useEffect } from "react";
-import { View, Text, Button, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Keyboard, Image, ScrollView } from "react-native";
+import React, { useState, useContext } from "react";
+import { View, Text, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Image, ScrollView } from "react-native";
 import { storeContext } from "../App";
 import { generateId } from "../util/generateId";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -54,7 +54,8 @@ export default function TaskItems(props) {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.tasksWrapper}>
-          <Text style={styles.sectionTitle}>Reisevorbereitungen</Text>
+          <Text style={styles.sectionTitle}>{tasks.find((taskList) => taskList.taskListId === taskListId)?.taskListTitle}</Text>
+
           <View style={styles.items}>
             {tasks
               ?.find((taskList) => taskList.taskListId === taskListId)

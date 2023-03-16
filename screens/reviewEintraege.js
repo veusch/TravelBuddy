@@ -1,15 +1,15 @@
 import React, { useState, useContext } from "react";
-import { StyleSheet, View, Text, Button, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Button, ScrollView, TouchableOpacity, Image } from "react-native";
 import TagCard from "../components/TagCard";
 //import { ImagePicker, launchImageLibrary, launchCamera } from "react-native-image-picker";
-import * as ImagePicker from "react-native-image-picker";
-import { MaterialIcons } from "@expo/vector-icons";
 import { storeContext } from "../App";
 import { globalStyles } from "../styles/global";
 
 export default function ReviewEintraege(props) {
   const { reisenContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
+  const { backgroundContext } = useContext(storeContext);
+  const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
 
   const presshandler = (id) => {
     navigation.navigate("reviewDay", { reiseTagId: id, reiseId: reiseId });
@@ -26,10 +26,28 @@ export default function ReviewEintraege(props) {
 
   return (
     <View style={styles.Wrapper}>
+      <Image
+        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        source={
+          backgroundImageNumber === 1
+            ? require(`../images/Hintergruende/hintergrund_1.png`)
+            : backgroundImageNumber === 2
+            ? require(`../images/Hintergruende/hintergrund_2.png`)
+            : backgroundImageNumber === 3
+            ? require(`../images/Hintergruende/hintergrund_3.png`)
+            : backgroundImageNumber === 4
+            ? require(`../images/Hintergruende/hintergrund_4.png`)
+            : backgroundImageNumber === 5
+            ? require(`../images/Hintergruende/hintergrund_5.png`)
+            : backgroundImageNumber === 6
+            ? require(`../images/Hintergruende/hintergrund_6.png`)
+            : require(`../images/Hintergruende/hintergrund_1.png`)
+        }
+      />
       <ScrollView>
         <View style={styles.container}>
           <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseTitel}</Text>
-          <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseLand}📍</Text>
+          <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseLand.string}📍</Text>
 
           <View style={styles.kontext}>
             <Text style={styles.title}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseBeschreibung}</Text>
@@ -55,11 +73,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
     alignItems: "center",
-    backgroundColor: "white",
   },
   Wrapper: {
-    backgroundColor: "white",
     flex: 1,
+    backgroundColor: "white",
   },
 
   title: {
