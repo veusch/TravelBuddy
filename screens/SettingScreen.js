@@ -1,11 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect, Switch } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from "react-native";
 import UploadImage from "./UploadImagee";
 import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 
-const SettingScreen = ({ navigation }) => {
+const SettingScreen = (props) => {
+  const WalkthroughableImage = walkthroughable(View);
+  const InputWalk = walkthroughable(TextInput);
+
+  useEffect(() => {
+    props.copilotEvents.on("stepChange", handleStepChange);
+    props.start();
+  }, []);
+
+  const handleStepChange = (step) => {
+    console.log(`Current step is: ${step.name}`);
+  };
+  const [secondStepActive, setSecondStepActive] = useState(true);
+
   const { backgroundContext, profileContext } = useContext(storeContext);
   const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
   const [profile, setProfile] = profileContext;
@@ -31,28 +45,32 @@ const SettingScreen = ({ navigation }) => {
         }
       />
       <ScrollView>
-        <View>
-          <View style={styles.pic}>
+        <CopilotStep active={secondStepActive} text="Das ist dein Profilbild. Lade gerne ein Bild aus deiner Galerie hierauf!" order={2} name="SecondUniqueKey">
+          <WalkthroughableImage>
             <UploadImage />
-          </View>
+          </WalkthroughableImage>
+        </CopilotStep>
+        <View>
           <View style={styles.name}>
-            <TextInput
-              onChangeText={async (e) => {
-                setProfile((prev) => ({ ...prev, profileName: e }));
-                await AsyncStorage.setItem("profile", JSON.stringify({ ...profile, profileName: e }));
-              }}
-              editable
-              multiline
-              numberOfLines={4}
-              value={profile.profileName}
-              defaultValue={"Dein Name"}
-              maxLength={30}
-              fontSize={26}
-              textAlign={"center"}
-            ></TextInput>
+            <CopilotStep text="Das ist dein Benutzername. Ändere diesen in dem du auf den Text klickst" order={1} name="firstUniqueKey">
+              <InputWalk
+                onChangeText={async (e) => {
+                  setProfile((prev) => ({ ...prev, profileName: e }));
+                  await AsyncStorage.setItem("profile", JSON.stringify({ ...profile, profileName: e }));
+                }}
+                editable
+                multiline
+                numberOfLines={4}
+                value={profile.profileName}
+                defaultValue={"Dein Name"}
+                maxLength={30}
+                fontSize={26}
+                textAlign={"center"}
+              ></InputWalk>
+            </CopilotStep>
           </View>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Hintergrund")}>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Hintergrund")}>
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.textSettings}> Hintergrund</Text>
@@ -61,7 +79,7 @@ const SettingScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate("tipp")}>
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.textSettings}> Privatsphäre</Text>
@@ -70,7 +88,7 @@ const SettingScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Impressum")}>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Impressum")}>
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.textSettings}> Impressum</Text>
@@ -82,7 +100,7 @@ const SettingScreen = ({ navigation }) => {
           <TouchableOpacity>
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                <Text style={styles.textSettings} onPress={() => navigation.navigate("Datenschutzerklärung")}>
+                <Text style={styles.textSettings} onPress={() => props.navigation.navigate("Datenschutzerklärung")}>
                   {" "}
                   Datenschutzerklärung
                 </Text>
@@ -94,7 +112,7 @@ const SettingScreen = ({ navigation }) => {
           <TouchableOpacity>
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                <Text style={styles.textSettings} onPress={() => navigation.navigate("Nutzungsbedingungen")}>
+                <Text style={styles.textSettings} onPress={() => props.navigation.navigate("Nutzungsbedingungen")}>
                   Nutzungbedingungen
                 </Text>
                 <Image source={require("../images/right.png")} style={styles.right} />
@@ -102,7 +120,7 @@ const SettingScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Accounteinstellungen")}>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Accounteinstellungen")}>
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.textSettings}> Accounteinstellungen</Text>
@@ -111,7 +129,7 @@ const SettingScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate("HelpCenter")}>
+          <TouchableOpacity onPress={() => props.navigation.navigate("HelpCenter")}>
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.textSettings}> Helpcenter</Text>
@@ -123,20 +141,20 @@ const SettingScreen = ({ navigation }) => {
       </ScrollView>
 
       <View style={globalStyles.Footer}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("Home")}>
           {/*Home*/}
           <Image source={require("../images/home.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("Reisen")}>
           {/*Reisen*/}
           <Image source={require("../images/eintrag.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("Listen")}>
           {/*Listen*/}
           <Image source={require("../images/liste.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("settings")}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("settings")}>
           {/*Settings*/}
           <Image source={require("../images/profil-white.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
@@ -145,7 +163,17 @@ const SettingScreen = ({ navigation }) => {
   );
 };
 
-export default SettingScreen;
+export default copilot({
+  animated: true, // Can be true or false
+  overlay: "svg", // Can be either view or svg
+
+  labels: {
+    previous: "Vorheriger",
+    next: "Nächster",
+    skip: "Überspringen",
+    finish: "Beenden",
+  },
+})(SettingScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -153,6 +181,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+  },
+
+  buttonText: {
+    color: "white",
+    fontSize: 16,
   },
 
   pic: {

@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { StyleSheet, Text, View, SafeAreaView, TouchableWithoutFeedback, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function StarRatingg() {
-  const [starRating, setStarRating] = useState(null);
+export default function StarRatingg(props) {
+  const [starRating, setStarRating] = useState(props.defaultRating);
 
   const animatedButtonScale = new Animated.Value(1);
+
+  useEffect(() => {
+    props.setRating(props.tagebuchEintragId, starRating);
+    props.forceUpdate();
+  }, [starRating]);
 
   const handlePressIn = () => {
     Animated.spring(animatedButtonScale, {
@@ -23,6 +28,7 @@ export default function StarRatingg() {
       speed: 50,
       bounciness: 4,
     }).start();
+    props.setRating(props.tagebuchEintragId, starRating);
   };
 
   const animatedScaleStyle = {

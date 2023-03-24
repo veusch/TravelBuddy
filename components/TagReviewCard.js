@@ -26,6 +26,23 @@ export default function TagReviewCard(props) {
     },
   } = props;
 
+  const setRating = async (tagebuchEintragId, rating) => {
+    let temp = reisen;
+
+    try {
+      temp
+        .find((reise) => reise.reiseId === reiseId)
+        .reiseTage.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)
+        .reiseEntries.find((tagebuchEintrag) => tagebuchEintrag.tagebuchEintragId === tagebuchEintragId).rating = rating;
+
+      setReisen(temp);
+
+      await AsyncStorage.setItem("reisen", JSON.stringify(temp));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const addEntry = async (review) => {
     let temp = reisen;
 
@@ -98,22 +115,26 @@ export default function TagReviewCard(props) {
           ?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)
           ?.reiseEntries?.map((reiseEntry) => (
             <TagNotiz removeEntry={removeEntry} tagebuchEintragId={reiseEntry.tagebuchEintragId} key={reiseEntry.tagebuchEintragId}>
-              <Collapse>
+              <Collapse
+                onPress={() => {
+                  console.log("Hier");
+                  // forceUpdate();
+                }}
+              >
                 <CollapseHeader>
                   <View>
                     <Text style={styles.titelTagNotiz}>{reiseEntry.tagebucheintragTitle}</Text>
                   </View>
                 </CollapseHeader>
-
                 <CollapseBody style={styles.collapse}>
-                  <Text>{new Date(reiseEntry.tagebuchEintragTime).toLocaleTimeString("de")}</Text>
+                  <Text style={styles.zusammenfassung}>{new Date(reiseEntry.tagebuchEintragTime).toLocaleTimeString("en-US")} Uhr</Text>
                   <Text style={styles.zusammenfassung}>{reiseEntry.tagebucheintragBody}</Text>
                   <View style={{ alignItems: "center" }}>
                     {reiseEntry?.tagebuchEintragImages?.map((image) => (
                       <Image key={image} style={{ margin: 10, height: 200, width: 200 }} source={{ uri: image }} />
                     ))}
                   </View>
-                  <StarRatingg />
+                  <StarRatingg forceUpdate={forceUpdate} defaultRating={reiseEntry.rating ?? 0} tagebuchEintragId={reiseEntry.tagebuchEintragId} setRating={setRating} />
                 </CollapseBody>
               </Collapse>
             </TagNotiz>

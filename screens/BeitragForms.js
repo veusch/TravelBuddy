@@ -45,7 +45,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
     <ScrollView>
       <View style={globalStyles.container}>
         <Image
-          style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+          style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "110%", height: "110%", zIndex: -100 }}
           source={
             backgroundImageNumber === 1
               ? require(`../images/Hintergruende/hintergrund_1.png`)
@@ -63,7 +63,11 @@ export default function RevieForm({ addJourney, setModalOpen }) {
           }
         />
         <Text style={styles.headline2}>Neues Tagebuch{"\n"}erstellen</Text>
-        {datePicker === "start" ? <DateTimePicker testID="dateTimePicker" value={form.startDate} mode="date" is24Hour={true} onChange={setStartDate} /> : datePicker === "end" ? <DateTimePicker testID="dateTimePicker" value={form.endDate} mode="date" is24Hour={true} onChange={setEndDate} /> : null}
+        {datePicker === "start" ? (
+          <DateTimePicker toLocaleDateString="de-DE" testID="dateTimePicker" value={form.startDate} mode="date" is24Hour={true} onChange={setStartDate} />
+        ) : datePicker === "end" ? (
+          <DateTimePicker testID="dateTimePicker" value={form.endDate} mode="date" is24Hour={true} onChange={setEndDate} />
+        ) : null}
         <View style={styles.WRapperR}>
           <View style={globalStyles.WrapperForms}>
             <View style={globalStyles.InputForms}>
@@ -87,6 +91,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
                 onPlaceSelect={(data) => {
                   let temp = JSON.stringify(data)?.split("country.")[1]?.split(`"`)[0];
                   setForm((prev) => ({ ...prev, reiseLand: { string: data["place_name"], countryId: temp } }));
+                  console.log(data);
                 }}
                 onClearInput={({ id }) => {
                   id === "origin";
@@ -109,7 +114,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
 
             <View style={globalStyles.InputForms}>
               <TouchableOpacity onPress={() => setDatePicker("start")} style={styles.reset}>
-                <Text style={globalStyles.InputForms}>{form.startDate.toLocaleDateString("de-DE").toString()}</Text>
+                <Text style={globalStyles.InputForms}>{form.startDate.toLocaleDateString("en-GB")}</Text>
               </TouchableOpacity>
             </View>
             <View style={[globalStyles.InputForms, invalidDate && styles.invalid]}>

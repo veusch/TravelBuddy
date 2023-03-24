@@ -14,18 +14,25 @@ import Hintergrund from "../screens/Hintergrund";
 import HelpCenter from "../screens/HelpCenter";
 import Nutzungsbedingungen from "../screens/Nutzungsbedingungen";
 import Accounteinstellungen from "../screens/AccountEinstellungen";
-
+import tipp from "../screens/tipp";
 Nutzungsbedingungen;
 const screens = {
   Home: {
     screen: HomeScreen,
     navigationOptions: {
       title: "",
-      //headerStyle: () => <header></header>,
     },
   },
 
-  HelpCenter: { screen: HelpCenter, navigationOptions: { title: "" } },
+  tipp: {
+    screen: tipp,
+    navigationOptions: { title: "" },
+  },
+
+  HelpCenter: {
+    screen: HelpCenter,
+    navigationOptions: { title: "" },
+  },
 
   Hintergrund: {
     screen: Hintergrund,

@@ -24,7 +24,7 @@ export default function UploadImage() {
     let _image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [3, 3],
       quality: 1,
     });
     if (!_image.cancelled) {
@@ -37,7 +37,7 @@ export default function UploadImage() {
       {profile?.profilePicture && <Image source={{ uri: profile?.profilePicture }} style={{ width: 200, height: 200 }} />}
       <View style={imageUploaderStyles.uploadBtnContainer}>
         <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn}>
-          <Text>{profile?.profilePicture ? "Edit" : "Upload"} Image</Text>
+          <Text style={{ fontFamily: "Regular" }}>{profile?.profilePicture ? "Ändere dein" : "Upload"} Profilbild</Text>
           <AntDesign name="camera" size={20} color="black" />
         </TouchableOpacity>
       </View>
@@ -56,7 +56,7 @@ const imageUploaderStyles = StyleSheet.create({
     alignSelf: "center",
   },
   uploadBtnContainer: {
-    opacity: 0.7,
+    opacity: 0.45,
     position: "absolute",
     right: 0,
     bottom: 0,

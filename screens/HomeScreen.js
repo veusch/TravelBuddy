@@ -1,13 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, RecyclerViewBackedScrollView, Image } from "react-native";
+import { View, Text, StyleSheet, Modal, Button, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ScrollView, Image } from "react-native";
 import RevieForm from "./BeitragForms";
 import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import AlleReisen from "../components/AlleReisen";
 import { generateId } from "../util/generateId";
+import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
+import PieChart from "react-native-expo-pie-chart";
 
 const HomeScreen = ({ navigation }) => {
+  const [secondStepActive, setSecondStepActive] = useState(true);
+  const WalkthrouableText = walkthroughable(Text);
+  const WalkthroughableImage = walkthroughable(Image);
+
   const { reisenContext, backgroundContext, profileContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
   const [profile, setProfile] = profileContext;
@@ -63,6 +69,10 @@ const HomeScreen = ({ navigation }) => {
     setModalOpen(false);
   };
 
+  function handleStartButtonPress() {
+    this.props.start();
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -83,6 +93,7 @@ const HomeScreen = ({ navigation }) => {
             : require(`../images/Hintergruende/hintergrund_1.png`)
         }
       />
+
       <ScrollView>
         <Modal visible={modalOpen} animationType="slide">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -98,7 +109,34 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.name}>{profile.profileName}</Text>
 
         <Text style={styles.wasErlebt}>Was hast du heute erlebt?</Text>
-        <View style={styles.statistik}></View>
+        <View style={styles.statistik}>
+          <PieChart
+            data={[
+              {
+                key: "First Data",
+                count: 0,
+                color: "blue",
+              },
+              {
+                key: "Second Data",
+                count: 50,
+                color: "yellow",
+              },
+              {
+                key: "Third Data",
+                count: 50,
+                color: "green",
+              },
+              {
+                key: "Forth Data",
+                count: 0,
+                color: "orange",
+              },
+            ]}
+            length={200}
+          />
+        </View>
+
         <View style={styles.flex2}>
           <View style={styles.besucht}>
             <Text style={{ textAlign: "center", alignItems: "center", padding: 15, fontSize: 16 }}>
@@ -144,7 +182,10 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-export default HomeScreen;
+export default copilot({
+  overlay: "svg", // or 'view'
+  animated: true, // or false
+})(HomeScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,

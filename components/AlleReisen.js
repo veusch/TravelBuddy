@@ -35,8 +35,8 @@ export default function AlleReisen({ children, navigation, setModalOpen }) {
         >
           {item.thumbnail && <Image style={{ borderRadius: 20, left: 0, opacity: 0.75, height: "100%", width: "100%", position: "absolute", resizeMode: "cover" }} source={{ uri: item.thumbnail }} />}
           {/* {item.thumbnail && <View style={{ height: 100, width: 100, backgroundColor: "red" }} />} */}
-          <Text style={{ color: "white", paddingLeft: 20, paddingRight: 30, paddingBottom: 10 }}>{item.reiseTitel}</Text>
-          <TouchableOpacity onPress={() => deleteReise(item)} style={{ paddingRight: 10, position: navigation.state.routeName === "Home" ? "relative" : "absolute", justifyContent: "flex-end" }}>
+          <Text style={{ fontSize: navigation.state.routeName === "Home" ? 16 : 20, color: "white", paddingLeft: 20, paddingRight: 30, paddingBottom: 10 }}>{item.reiseTitel}</Text>
+          <TouchableOpacity onPress={() => deleteReise(item)} style={{ paddingRight: 10 }}>
             <Image source={require("../images/delete.png")} style={styles.icon}></Image>
           </TouchableOpacity>
         </TouchableOpacity>
@@ -47,5 +47,9 @@ export default function AlleReisen({ children, navigation, setModalOpen }) {
 }
 
 const styles = StyleSheet.create({
-  icon: { width: 30, height: 30, paddingRight: 20 },
+  icon: {
+    width: 30,
+    height: 30,
+    marginBottom: 10,
+  },
 });
