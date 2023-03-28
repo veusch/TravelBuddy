@@ -23,24 +23,6 @@ export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
   return (
     <ScrollView style={{ height: "100%" }}>
       <View style={[globalStyles.container, { height: "100%" }]}>
-        <Image
-          style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, height: "100%", flex: 1, zIndex: -100 }}
-          source={
-            backgroundImageNumber === 1
-              ? require(`../images/Hintergruende/hintergrund_1.png`)
-              : backgroundImageNumber === 2
-              ? require(`../images/Hintergruende/hintergrund_2.png`)
-              : backgroundImageNumber === 3
-              ? require(`../images/Hintergruende/hintergrund_3.png`)
-              : backgroundImageNumber === 4
-              ? require(`../images/Hintergruende/hintergrund_4.png`)
-              : backgroundImageNumber === 5
-              ? require(`../images/Hintergruende/hintergrund_5.png`)
-              : backgroundImageNumber === 6
-              ? require(`../images/Hintergruende/hintergrund_6.png`)
-              : require(`../images/Hintergruende/hintergrund_1.png`)
-          }
-        />
         <Text style={styles.headline2}>Neuen Beitrag{"\n"}erstellen</Text>
         <View style={styles.inputWrapper}>
           <View style={globalStyles.WrapperForms}>
@@ -53,18 +35,6 @@ export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
                   setForm((prev) => ({ ...prev, tagebucheintragTitle: e }));
                 }}
                 value={form.tagebucheintragTitle}
-              />
-            </View>
-
-            <View style={globalStyles.InputForms}>
-              <TextInput
-                multiline
-                style={globalStyles.input}
-                placeholder="Wohin gings"
-                onChangeText={(e) => {
-                  setForm((prev) => ({ ...prev, tagebuchEintragZiel: e }));
-                }}
-                value={form.tagebuchEintragZiel}
               />
             </View>
 

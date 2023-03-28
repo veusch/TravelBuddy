@@ -10,8 +10,10 @@ export default function HelpCenter() {
 
   return (
     <View style={styles.container}>
+      <View style={{ margin: 30 }}></View>
+
       <Image
-        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        style={{ position: "absolute", opacity: 0.25, resizeMode: "cover", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
         source={
           backgroundImageNumber === 1
             ? require(`../images/Hintergruende/hintergrund_1.png`)

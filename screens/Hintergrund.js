@@ -18,6 +18,7 @@ export default function Hintergrund({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <View style={{ margin: 30 }}></View>
       <Text style={globalStyles.impHeadline}>Hintergrund</Text>
       <View style={styles.hintergrundWrapper}>
         <TouchableOpacity

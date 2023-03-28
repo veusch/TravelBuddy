@@ -27,7 +27,7 @@ export default function ReviewEintraege(props) {
   return (
     <View style={styles.Wrapper}>
       <Image
-        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        style={{ position: "absolute", opacity: 0.2, resizeMode: "cover", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
         source={
           backgroundImageNumber === 1
             ? require(`../images/Hintergruende/hintergrund_1.png`)
@@ -47,7 +47,7 @@ export default function ReviewEintraege(props) {
       <ScrollView>
         <View style={styles.container}>
           <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseTitel}</Text>
-          <Text style={globalStyles.headline2}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseLand.string}📍</Text>
+          <Text style={globalStyles.headline3}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseLand.string}📍</Text>
 
           <View style={styles.kontext}>
             <Text style={styles.title}>{reisen.find((reise) => reise.reiseId === reiseId)?.reiseBeschreibung}</Text>
@@ -57,7 +57,7 @@ export default function ReviewEintraege(props) {
             .reiseTage.map((reiseTag) => (
               <TouchableOpacity key={reiseTag.reiseTagId} onPress={() => presshandler(reiseTag.reiseTagId)}>
                 <TagCard>
-                  <Text style={{ color: "white" }}>{new Date(reiseTag.reiseTagDate).toLocaleDateString("de-DE")}</Text>
+                  <Text style={{ color: "white", fontFamily: "Medium", fontSize: 20 }}>{new Date(reiseTag.reiseTagDate).toLocaleDateString("de-DE")}</Text>
                 </TagCard>
               </TouchableOpacity>
             ))}
@@ -86,9 +86,10 @@ const styles = StyleSheet.create({
   },
 
   kontext: {
-    //backgroundColor: "#EFF8FF",
+    backgroundColor: "#EFF8FF",
     borderRadius: 20,
     padding: 20,
     margin: 10,
+    width: "100%",
   },
 });

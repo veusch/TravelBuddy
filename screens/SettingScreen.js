@@ -7,8 +7,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 
 const SettingScreen = (props) => {
-  const WalkthroughableImage = walkthroughable(View);
-  const InputWalk = walkthroughable(TextInput);
+  const WalkthroughableImage = walkthroughable(Text);
+  const InputWalk = walkthroughable(View);
 
   useEffect(() => {
     props.copilotEvents.on("stepChange", handleStepChange);
@@ -27,7 +27,7 @@ const SettingScreen = (props) => {
   return (
     <View style={styles.container}>
       <Image
-        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        style={{ position: "absolute", opacity: 0.2, resizeMode: "cover", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
         source={
           backgroundImageNumber === 1
             ? require(`../images/Hintergruende/hintergrund_1.png`)
@@ -44,31 +44,30 @@ const SettingScreen = (props) => {
             : require(`../images/Hintergruende/hintergrund_1.png`)
         }
       />
-      <ScrollView>
+
+      <ScrollView style={{ width: "100%" }} contentContainerStyle={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
+        <View style={{ margin: 40 }}></View>
         <CopilotStep active={secondStepActive} text="Das ist dein Profilbild. Lade gerne ein Bild aus deiner Galerie hierauf!" order={2} name="SecondUniqueKey">
           <WalkthroughableImage>
             <UploadImage />
           </WalkthroughableImage>
         </CopilotStep>
-        <View>
-          <View style={styles.name}>
-            <CopilotStep text="Das ist dein Benutzername. Ändere diesen in dem du auf den Text klickst" order={1} name="firstUniqueKey">
-              <InputWalk
-                onChangeText={async (e) => {
-                  setProfile((prev) => ({ ...prev, profileName: e }));
-                  await AsyncStorage.setItem("profile", JSON.stringify({ ...profile, profileName: e }));
-                }}
-                editable
-                multiline
-                numberOfLines={4}
-                value={profile.profileName}
-                defaultValue={"Dein Name"}
-                maxLength={30}
-                fontSize={26}
-                textAlign={"center"}
-              ></InputWalk>
-            </CopilotStep>
-          </View>
+
+        <View style={styles.name}>
+          <TextInput
+            onChangeText={async (e) => {
+              setProfile((prev) => ({ ...prev, profileName: e }));
+              await AsyncStorage.setItem("profile", JSON.stringify({ ...profile, profileName: e }));
+            }}
+            editable
+            multiline
+            numberOfLines={4}
+            value={profile.profileName}
+            defaultValue={"Dein Name"}
+            maxLength={30}
+            fontSize={26}
+            textAlign={"center"}
+          />
 
           <TouchableOpacity onPress={() => props.navigation.navigate("Hintergrund")}>
             <View style={styles.Settings}>
@@ -101,7 +100,6 @@ const SettingScreen = (props) => {
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.textSettings} onPress={() => props.navigation.navigate("Datenschutzerklärung")}>
-                  {" "}
                   Datenschutzerklärung
                 </Text>
                 <Image source={require("../images/right.png")} style={styles.right} />
@@ -177,10 +175,17 @@ export default copilot({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+    width: "100%",
+  },
+
+  sv: {
+    width: "100%",
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   buttonText: {
@@ -208,10 +213,9 @@ const styles = StyleSheet.create({
     shadowColor: "#333",
     shadowRadius: 6,
     shadowOpacity: 0.3,
-    marginHorizontal: 4,
-    marginVertical: 4,
-    width: 250,
-    heigh: 300,
+    marginVertical: 8,
+    width: 300,
+    heigh: 280,
     padding: 15,
     fontFamily: "Regular",
   },
@@ -243,7 +247,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     marginTop: 10,
   },
-  name: { padding: 10, alignContent: "center", justifyContent: "center" },
+  name: { alignContent: "center", justifyContent: "center" },
 
   button: {
     marginTop: 10,

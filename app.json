@@ -13,11 +13,13 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/appicon.png",
+    "backgroundColor": "white",
+
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/appicon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FFFFFF"
+      "backgroundColor": "white"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -30,7 +32,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/appicon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "white"
       },
       "permissions": ["android.permission.RECORD_AUDIO"],
       "package": "com.veusch.TravelBuddy"

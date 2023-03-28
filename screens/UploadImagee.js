@@ -54,6 +54,8 @@ const imageUploaderStyles = StyleSheet.create({
     borderRadius: 999,
     overflow: "hidden",
     alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   uploadBtnContainer: {
     opacity: 0.45,
@@ -63,6 +65,9 @@ const imageUploaderStyles = StyleSheet.create({
     backgroundColor: "lightgrey",
     width: "100%",
     height: "25%",
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   uploadBtn: {
     display: "flex",

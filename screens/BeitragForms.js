@@ -32,12 +32,22 @@ export default function RevieForm({ addJourney, setModalOpen }) {
   };
 
   const handleSubmit = () => {
-    if (new Date(form.startDate).valueOf() - new Date(form.endDate).valueOf() <= 0) {
+    if (new Date(form.startDate).valueOf() - new Date(form.endDate).valueOf() <= 0 && form.reiseTitel.trim()) {
       addJourney(form);
       setForm({ reiseTitel: "", reiseLand: { string: "", countryId: "" }, startDate: new Date(), endDate: new Date(), reiseBeschreibung: "", thumbnail: "" });
       setInvalidDate(false);
+    } else if (new Date(form.startDate).valueOf() - new Date(form.endDate).valueOf() <= 0) {
+      alert("Bitte gebe einen Namen an!");
     } else {
       setInvalidDate(true);
+    }
+  };
+
+  const checkTextInput = () => {
+    //Check for the Name TextInput
+    if (!form.reiseTitel.trim()) {
+      alert("Please Enter Name");
+      return;
     }
   };
 
@@ -45,7 +55,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
     <ScrollView>
       <View style={globalStyles.container}>
         <Image
-          style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "110%", height: "110%", zIndex: -100 }}
+          style={{ position: "absolute", opacity: 0.25, resizeMode: "cover", top: 0, left: 0, width: "110%", height: "110%", zIndex: -100 }}
           source={
             backgroundImageNumber === 1
               ? require(`../images/Hintergruende/hintergrund_1.png`)
@@ -72,7 +82,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
           <View style={globalStyles.WrapperForms}>
             <View style={globalStyles.InputForms}>
               <TextInput
-                style={globalStyles.input}
+                style={globalStyles.InputForms}
                 placeholder="Name"
                 multiline
                 maxLength={30}
@@ -100,7 +110,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
                 containerStyle={{
                   marginBottom: 12,
                 }}
-                inputStyle={{ backgroundColor: "#C7DEF0" }}
+                inputStyle={{ backgroundColor: "#C7DEF0", fontFamily: "Medium", fontSize: 14 }}
               />
               {/* <TextInput
                 style={globalStyles.input}
@@ -114,12 +124,18 @@ export default function RevieForm({ addJourney, setModalOpen }) {
 
             <View style={globalStyles.InputForms}>
               <TouchableOpacity onPress={() => setDatePicker("start")} style={styles.reset}>
-                <Text style={globalStyles.InputForms}>{form.startDate.toLocaleDateString("en-GB")}</Text>
+                <Text style={globalStyles.InputForms}>
+                  <Text style={{ color: "green" }}>Von </Text>
+                  {form.startDate.toLocaleDateString("en-GB")}
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={[globalStyles.InputForms, invalidDate && styles.invalid]}>
               <TouchableOpacity onPress={() => setDatePicker("end")} style={styles.reset}>
-                <Text style={[globalStyles.InputForms, invalidDate && styles.invalid]}>{form.endDate.toLocaleDateString("de-DE").toString()}</Text>
+                <Text style={[globalStyles.InputForms, invalidDate && styles.invalid]}>
+                  <Text style={{ color: "green" }}>Bis </Text>
+                  {form.endDate.toLocaleDateString("de-DE").toString()}
+                </Text>
               </TouchableOpacity>
             </View>
 
@@ -137,12 +153,12 @@ export default function RevieForm({ addJourney, setModalOpen }) {
                   }
                 }}
               >
-                {form.thumbnail ? <Image source={{ uri: form.thumbnail }} style={{ height: 200 }} /> : <Text style={globalStyles.input}>Thumbnail</Text>}
+                {form.thumbnail ? <Image source={{ uri: form.thumbnail }} style={{ height: 200 }} /> : <Text style={globalStyles.InputForms}>Titelbild</Text>}
               </TouchableOpacity>
             </View>
             <View style={globalStyles.InputForms}>
               <TextInput
-                style={styles.input}
+                style={globalStyles.InputForms}
                 placeholder="Reisebeschreibung"
                 multiline
                 onChangeText={(e) => {
@@ -181,6 +197,7 @@ const styles = StyleSheet.create({
     fontFamily: "Medium",
     textAlign: "center",
     padding: "5%",
+    color: "#1F314A",
   },
 
   invalid: {

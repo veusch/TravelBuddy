@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Image, ScrollView } from "react-native";
+import { SafeAreaView, View, Text, StyleSheet, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, Image, ScrollView } from "react-native";
 import { storeContext } from "../App";
 import { generateId } from "../util/generateId";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -9,6 +9,9 @@ import { globalStyles } from "../styles/global";
 export default function TaskItems(props) {
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
+  const { reisenContext, backgroundContext } = useContext(storeContext);
+  const [reisen, setReisen] = reisenContext;
+  const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
 
   const {
     navigation,
@@ -51,32 +54,52 @@ export default function TaskItems(props) {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.tasksWrapper}>
-          <Text style={styles.sectionTitle}>{tasks.find((taskList) => taskList.taskListId === taskListId)?.taskListTitle}</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Image
+          style={{ position: "absolute", opacity: 0.2, resizeMode: "cover", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+          source={
+            backgroundImageNumber === 1
+              ? require(`../images/Hintergruende/hintergrund_1.png`)
+              : backgroundImageNumber === 2
+              ? require(`../images/Hintergruende/hintergrund_2.png`)
+              : backgroundImageNumber === 3
+              ? require(`../images/Hintergruende/hintergrund_3.png`)
+              : backgroundImageNumber === 4
+              ? require(`../images/Hintergruende/hintergrund_4.png`)
+              : backgroundImageNumber === 5
+              ? require(`../images/Hintergruende/hintergrund_5.png`)
+              : backgroundImageNumber === 6
+              ? require(`../images/Hintergruende/hintergrund_6.png`)
+              : require(`../images/Hintergruende/hintergrund_1.png`)
+          }
+        />
+        <ScrollView>
+          <View style={styles.tasksWrapper}>
+            <Text style={styles.sectionTitle}>{tasks.find((taskList) => taskList.taskListId === taskListId)?.taskListTitle}</Text>
 
-          <View style={styles.items}>
-            {tasks
-              ?.find((taskList) => taskList.taskListId === taskListId)
-              ?.taskListItems?.sort((taskListItem) => taskListItem.done)
-              .map((taskListItem) => {
-                return (
-                  <TouchableOpacity key={taskListItem.taskId} onPress={() => completeTaskItem(taskListItem.taskId)}>
-                    <View style={styles.item}>
-                      <View style={styles.itemLeft}>
-                        {taskListItem.done ? <MaterialIcons size={24} name="check" /> : <View style={styles.square}></View>}
-                        <Text style={styles.itemText}>{taskListItem.taskTitle}</Text>
+            <View style={styles.items}>
+              {tasks
+                ?.find((taskList) => taskList.taskListId === taskListId)
+                ?.taskListItems?.sort((taskListItem) => taskListItem.done)
+                .map((taskListItem) => {
+                  return (
+                    <TouchableOpacity key={taskListItem.taskId} onPress={() => completeTaskItem(taskListItem.taskId)}>
+                      <View style={styles.item}>
+                        <View style={styles.itemLeft}>
+                          {taskListItem.done ? <MaterialIcons size={24} name="check" /> : <View style={styles.square}></View>}
+                          <Text style={styles.itemText}>{taskListItem.taskTitle}</Text>
+                        </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
+                    </TouchableOpacity>
+                  );
+                })}
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
-        <TextInput style={styles.input} placeholder={"write a Task"} onChangeText={(text) => setTaskInput(text)} value={taskInput} />
+        <TextInput style={styles.input} placeholder={"Schreibe etwas"} onChangeText={(text) => setTaskInput(text)} value={taskInput} />
         <TouchableOpacity onPress={addTaskItem}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
@@ -102,7 +125,7 @@ export default function TaskItems(props) {
           <Image source={require("../images/profil.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -114,6 +137,8 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: "bold",
+    marginTop: "25%",
+    textAlign: "center",
   },
 
   Listen: {
@@ -149,23 +174,31 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 15,
     maxWidth: 250,
-    backgroundColor: "white",
-    borderRadius: 60,
-    borderColor: "#C0C0C0",
-    borderWidth: 1,
+    backgroundColor: "#DFF1FF",
+    borderRadius: 20,
+
     width: 250,
   },
   addWrapper: {
     width: 60,
     height: 60,
-    backgroundColor: "white",
-    borderWidth: 1,
+    backgroundColor: "#DFF1FF",
+
     borderRadius: 60,
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "#C0C0C0",
+    alignContent: "center",
+    alignSelf: "center",
   },
-  addText: {},
+  addText: {
+    backgroundColor: "#DFF1FF",
+    fontSize: 26,
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: "center",
+  },
   item: {
     backgroundColor: "white",
     padding: 15,

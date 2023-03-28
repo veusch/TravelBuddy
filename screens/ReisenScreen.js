@@ -45,7 +45,7 @@ const ReisenScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        style={{ position: "absolute", opacity: 0.25, resizeMode: "cover", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
         source={
           backgroundImageNumber === 1
             ? require(`../images/Hintergruende/hintergrund_1.png`)
@@ -62,7 +62,7 @@ const ReisenScreen = ({ navigation }) => {
             : require(`../images/Hintergruende/hintergrund_1.png`)
         }
       />
-      <ScrollView>
+      <ScrollView style={{ width: "100%" }} contentContainerStyle={{ width: "100%" }}>
         <Modal visible={modalOpen} animationType="slide">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>

@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
 
   ReiseCardContent: {
     marginHorizontal: 18,
-    marginVertical: 30,
+    marginVertical: 10,
   },
 });

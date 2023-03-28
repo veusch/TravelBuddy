@@ -26,8 +26,9 @@ export default function TagNotiz(probs, { navigation }) {
       </Modal>
       <View style={styles.besides}>
         <View style={styles.ReiseCardContent}>{probs.children}</View>
-
-        <MaterialIcons style={{ color: "white" }} size={24} name="delete" onPress={() => probs.removeEntry(probs.tagebuchEintragId)} />
+        <TouchableOpacity onPress={() => probs.removeEntry(probs.tagebuchEintragId)}>
+          <Image source={require("../images/delete.png")} style={styles.icon}></Image>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -48,14 +49,18 @@ const styles = StyleSheet.create({
     width: 310,
   },
 
+  icon: {
+    width: 30,
+    height: 30,
+  },
+
   Edit: {
     color: "white",
     padding: "10%",
   },
 
   ReiseCardContent: {
-    marginHorizontal: 18,
-    marginVertical: 15,
+    marginVertical: 6,
     color: "white",
   },
 

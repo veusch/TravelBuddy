@@ -28,6 +28,12 @@ export const globalStyles = StyleSheet.create({
     padding: "5%",
   },
 
+  headline3: {
+    fontFamily: "Medium",
+    fontSize: 15,
+    padding: "5%",
+  },
+
   impBold: {
     fontSize: 16,
     fontFamily: "Bold",
@@ -60,10 +66,25 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  addEintrag: {
+    borderRadius: 20,
+    elevation: 3,
+    backgroundColor: "#213049",
+    shadowOffset: { width: 1, height: 1 },
+    shadowColor: "#333",
+    shadowRadius: 6,
+    shadowOpacity: 0.3,
+    margin: 10,
+    width: 305,
+    height: 60,
+    justifyContent: "center",
+  },
+
   neu: {
     width: 30,
     height: 30,
     marginLeft: "85%",
+    marginTop: "15%",
   },
 
   errorNachricht: {
@@ -147,6 +168,9 @@ export const globalStyles = StyleSheet.create({
     padding: 7,
     margin: 7,
     borderColor: "#C7DEF0",
+    fontFamily: "Medium",
+    fontSize: 14,
+    color: "#213049",
   },
   ButtonForms: {
     padding: 10,

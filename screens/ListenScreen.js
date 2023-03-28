@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, Button, StyleSheet, AppRegistry, Modal, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView, Image } from "react-native";
 import ListenForms from "./ListenForms";
 import ListenCard from "../components/ListenCard";
@@ -30,7 +29,7 @@ export default function ListenScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Image
-        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        style={{ position: "absolute", opacity: 0.2, resizeMode: "cover", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
         source={
           backgroundImageNumber === 1
             ? require(`../images/Hintergruende/hintergrund_1.png`)
@@ -47,7 +46,7 @@ export default function ListenScreen({ navigation }) {
             : require(`../images/Hintergruende/hintergrund_1.png`)
         }
       />
-      <ScrollView>
+      <ScrollView style={{ width: "100%" }} contentContainerStyle={{ width: "100%" }}>
         <Modal visible={modalOpen} animationType="slide">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
@@ -65,8 +64,10 @@ export default function ListenScreen({ navigation }) {
               <TouchableOpacity key={taskList.taskListId} onPress={() => navigation.navigate("ListeNeu", { taskListId: taskList.taskListId })}>
                 <ListenCard>
                   <View style={styles.wrapper}>
-                    <Text>{taskList.taskListTitle}</Text>
-                    <MaterialIcons style={styles.delete} size={24} name="delete" onPress={() => completeTask(taskList.taskListId)} />
+                    <Text style={{ fontFamily: "Regular", marginRight: 30, marginLeft: 10 }}>{taskList.taskListTitle}</Text>
+                    <TouchableOpacity onPress={() => completeTask(taskList.taskListId)}>
+                      <Image source={require("../images/delete.png")} style={styles.icon}></Image>
+                    </TouchableOpacity>
                   </View>
                 </ListenCard>
               </TouchableOpacity>
@@ -111,7 +112,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 
-  wrapper: { flexDirection: "row", justifyContent: "space-around" },
+  wrapper: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
   text: { fontSize: 20 },
   addText: {
     color: "white",
@@ -134,6 +139,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
+  icon: {
+    width: 30,
+    height: 30,
+    marginBottom: 10,
+    alignItems: "center",
+    alignSelf: "center",
+    alignContent: "center",
+    justifyContent: "center",
+  },
   Listen: {
     color: "lightgrey",
   },

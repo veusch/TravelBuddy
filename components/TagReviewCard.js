@@ -80,7 +80,7 @@ export default function TagReviewCard(props) {
   return (
     <View style={styles.container}>
       <Image
-        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        style={{ position: "absolute", opacity: 0.2, resizeMode: "cover", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
         source={
           backgroundImageNumber === 1
             ? require(`../images/Hintergruende/hintergrund_1.png`)
@@ -127,8 +127,8 @@ export default function TagReviewCard(props) {
                   </View>
                 </CollapseHeader>
                 <CollapseBody style={styles.collapse}>
-                  <Text style={styles.zusammenfassung}>{new Date(reiseEntry.tagebuchEintragTime).toLocaleTimeString("en-US")} Uhr</Text>
-                  <Text style={styles.zusammenfassung}>{reiseEntry.tagebucheintragBody}</Text>
+                  <Text style={styles.zusammenfassung2}>{new Date(reiseEntry.tagebuchEintragTime).toLocaleTimeString("en-US")} Uhr</Text>
+                  <Text style={styles.zusammenfassung2}>{reiseEntry.tagebucheintragBody}</Text>
                   <View style={{ alignItems: "center" }}>
                     {reiseEntry?.tagebuchEintragImages?.map((image) => (
                       <Image key={image} style={{ margin: 10, height: 200, width: 200 }} source={{ uri: image }} />
@@ -139,6 +139,12 @@ export default function TagReviewCard(props) {
               </Collapse>
             </TagNotiz>
           ))}
+
+        <View style={globalStyles.addEintrag}>
+          <TouchableOpacity onPress={() => setModalOpen(true)}>
+            <Text style={styles.addText}>Neuen Eintrag hinzufügen</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -150,6 +156,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+  },
+
+  addText: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Medium",
+    textAlign: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    alignItems: "center",
   },
 
   collapse: {
@@ -166,14 +182,24 @@ const styles = StyleSheet.create({
 
   zusammenfassung: {
     padding: 15,
+    fontSize: 20,
+    fontFamily: "Medium",
+  },
+  zusammenfassung2: {
+    padding: 15,
+    fontSize: 16,
+    fontFamily: "Medium",
   },
 
   titelTagNotiz: {
-    fontWeight: "bold",
+    fontFamily: "Medium",
     fontSize: 20,
     color: "white",
     textAlign: "center",
-    marginBottom: 10,
+    alignItems: "center",
+    alignSelf: "center",
+    alignContent: "center",
+    justifyContent: "center",
   },
 
   textDay: {

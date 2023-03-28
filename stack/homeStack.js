@@ -118,6 +118,8 @@ const HomeStack = createStackNavigator(screens, {
     headerTintColor: "#444",
     headerStyle: { backgroundColor: "white", height: 80 },
     headerTitleStyle: { alignSelf: "center" },
+    headerTransparent: true,
+
     //headerBackImage:
   },
 });

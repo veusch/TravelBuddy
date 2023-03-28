@@ -6,10 +6,10 @@ import { globalStyles } from "../styles/global";
 import { storeContext } from "../App";
 import AlleReisen from "../components/AlleReisen";
 import { generateId } from "../util/generateId";
-import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 import PieChart from "react-native-expo-pie-chart";
+import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = (props) => {
   const [secondStepActive, setSecondStepActive] = useState(true);
   const WalkthrouableText = walkthroughable(Text);
   const WalkthroughableImage = walkthroughable(Image);
@@ -19,6 +19,15 @@ const HomeScreen = ({ navigation }) => {
   const [profile, setProfile] = profileContext;
   const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    props.copilotEvents.on("stepChange", handleStepChange);
+    props.start();
+  }, []);
+
+  const handleStepChange = (step) => {
+    console.log(`Current step is: ${step.name}`);
+  };
 
   function getTotalDays() {
     let count = 0;
@@ -76,7 +85,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        style={{ position: "absolute", opacity: 0.25, resizeMode: "repeat", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
+        style={{ position: "absolute", opacity: 0.25, resizeMode: "cover", top: 0, left: 0, width: "100%", height: "100%", zIndex: -100 }}
         source={
           backgroundImageNumber === 1
             ? require(`../images/Hintergruende/hintergrund_1.png`)
@@ -94,7 +103,7 @@ const HomeScreen = ({ navigation }) => {
         }
       />
 
-      <ScrollView>
+      <ScrollView style={{ width: "100%" }} contentContainerStyle={{ width: "100%" }}>
         <Modal visible={modalOpen} animationType="slide">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.modalContent}>
@@ -103,11 +112,15 @@ const HomeScreen = ({ navigation }) => {
           </TouchableWithoutFeedback>
         </Modal>
         <TouchableOpacity onPress={() => setModalOpen(true)}>
-          <Image source={require("../images/neu.png")} style={globalStyles.neu} />
+          <CopilotStep active={secondStepActive} text="Hier kannst du eine neue Reise erstellen!" order={2} name="SecondUniqueKey">
+            <WalkthroughableImage source={require("../images/neu.png")} style={globalStyles.neu} />
+          </CopilotStep>
         </TouchableOpacity>
-
-        <Text style={styles.name}>{profile.profileName}</Text>
-
+        <CopilotStep text="Das ist dein Benutzername. Ändere diesen in dem bei den Einstellungen du auf dein Name klickst" order={1} name="firstUniqueKey">
+          <WalkthrouableText default={"Dein Name"} style={styles.name}>
+            {profile.profileName}
+          </WalkthrouableText>
+        </CopilotStep>
         <Text style={styles.wasErlebt}>Was hast du heute erlebt?</Text>
         <View style={styles.statistik}>
           <PieChart
@@ -151,8 +164,8 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <Text style={globalStyles.headline}>Meine Tagebücher</Text>
         <View style={styles.flex}>
-          <AlleReisen setModalOpen={setModalOpen} navigation={navigation}>
-            <TouchableOpacity onPress={() => setModalOpen(true)} style={{ justifyContent: "space-around", alignItems: "center", flexDirection: "row", borderRadius: 20, margin: 5, width: "47%", height: navigation.state.routeName === "Home" ? 80 : 150, backgroundColor: "#213049" }}>
+          <AlleReisen setModalOpen={setModalOpen} navigation={props.navigation}>
+            <TouchableOpacity onPress={() => setModalOpen(true)} style={{ justifyContent: "space-around", alignItems: "center", flexDirection: "row", borderRadius: 20, margin: 5, width: "47%", height: props.navigation.state.routeName === "Home" ? 80 : 150, backgroundColor: "#213049" }}>
               <Text style={styles.addText}>Neues Tagebuch erstellen</Text>
             </TouchableOpacity>
           </AlleReisen>
@@ -160,22 +173,28 @@ const HomeScreen = ({ navigation }) => {
       </ScrollView>
 
       <View style={globalStyles.Footer}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("Home")}>
           {/*Home*/}
           <Image source={require("../images/home-white.png")} style={globalStyles.iconNavigator} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Reisen")}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("Reisen")}>
           {/*Reisen*/}
-          <Image source={require("../images/eintrag.png")} style={globalStyles.iconNavigator} />
+          <CopilotStep text="Schaue hier vorbei um deine Reisen zu verwalten" order={3} name="ThirdUniqueKey">
+            <WalkthroughableImage source={require("../images/eintrag.png")} style={globalStyles.iconNavigator} />
+          </CopilotStep>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Listen")}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("Listen")}>
           {/*Listen*/}
-          <Image source={require("../images/liste.png")} style={globalStyles.iconNavigator} />
+          <CopilotStep text="Schaue hier vorbei um Reiselisten zu erstellen" order={4} name="FourthUniqueKey">
+            <WalkthroughableImage source={require("../images/liste.png")} style={globalStyles.iconNavigator} />
+          </CopilotStep>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("settings")}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("settings")}>
           {/*Settings*/}
-          <Image source={require("../images/profil.png")} style={globalStyles.iconNavigator} />
+          <CopilotStep text="Schaue hier vorbei um dein Profil zu verwalten" order={5} name="FithUniqueKey">
+            <WalkthroughableImage source={require("../images/profil.png")} style={globalStyles.iconNavigator} />
+          </CopilotStep>
         </TouchableOpacity>
       </View>
     </View>
@@ -183,8 +202,15 @@ const HomeScreen = ({ navigation }) => {
 };
 
 export default copilot({
-  overlay: "svg", // or 'view'
-  animated: true, // or false
+  animated: true, // Can be true or false
+  overlay: "svg", // Can be either view or svg
+
+  labels: {
+    previous: "Vorheriger",
+    next: "Nächster",
+    skip: "Überspringen",
+    finish: "Beenden",
+  },
 })(HomeScreen);
 const styles = StyleSheet.create({
   container: {
