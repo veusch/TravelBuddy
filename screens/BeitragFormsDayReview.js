@@ -18,6 +18,14 @@ export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
   const { backgroundContext } = useContext(storeContext);
   const [backgroundImageNumber, setBackgroundImageNumber] = backgroundContext;
 
+  const handleSubmit = () => {
+    if (form.tagebucheintragTitle.trim() && form.tagebucheintragBody.trim()) {
+      addEntry(form);
+    } else {
+      alert("Bitte fülle beide Felder aus!");
+    }
+  };
+
   const [form, setForm] = useState({ tagebuchEintragId: generateId(10), tagebuchEintragTime: new Date(), tagebucheintragTitle: "", tagebuchEintragZiel: "", tagebucheintragBody: "", tagebuchEintragImages: [] });
 
   return (
@@ -96,12 +104,7 @@ export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
             >
               <Text style={globalStyles.OpacText}>Abbrechen</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                addEntry(form);
-              }}
-              style={globalStyles.Opac}
-            >
+            <TouchableOpacity onPress={handleSubmit} style={globalStyles.Opac}>
               <Text style={globalStyles.OpacText}>Erstellen</Text>
             </TouchableOpacity>
           </View>
@@ -137,6 +140,7 @@ const styles = StyleSheet.create({
     fontFamily: "Medium",
     textAlign: "center",
     padding: "5%",
+    color: "#1F314A",
   },
   Buttonv: {
     paddingTop: 60,

@@ -84,7 +84,7 @@ export const globalStyles = StyleSheet.create({
     width: 30,
     height: 30,
     marginLeft: "85%",
-    marginTop: "15%",
+    marginTop: "10%",
   },
 
   errorNachricht: {
@@ -192,7 +192,7 @@ export const globalStyles = StyleSheet.create({
     margin: "4%",
   },
   OpacText: {
-    color: "white",
+    color: "#213049",
     padding: 10,
     fontSize: 14,
     textAlign: "center",

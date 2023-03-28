@@ -55,7 +55,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
     <ScrollView>
       <View style={globalStyles.container}>
         <Image
-          style={{ position: "absolute", opacity: 0.25, resizeMode: "cover", top: 0, left: 0, width: "110%", height: "110%", zIndex: -100 }}
+          style={{ position: "absolute", opacity: 0.2, resizeMode: "cover", top: 0, left: 0, width: "110%", height: "110%", zIndex: -100 }}
           source={
             backgroundImageNumber === 1
               ? require(`../images/Hintergruende/hintergrund_1.png`)
@@ -91,6 +91,24 @@ export default function RevieForm({ addJourney, setModalOpen }) {
                 }}
                 value={form.reiseTitel}
               />
+            </View>
+
+            <View style={globalStyles.InputForms}>
+              <TouchableOpacity
+                onPress={async () => {
+                  let _image = await ImagePicker.launchImageLibraryAsync({
+                    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                    allowsEditing: true,
+                    aspect: [4, 3],
+                    quality: 1,
+                  });
+                  if (!_image.cancelled) {
+                    setForm((prev) => ({ ...prev, thumbnail: _image.uri }));
+                  }
+                }}
+              >
+                {form.thumbnail ? <Image source={{ uri: form.thumbnail }} style={{ height: 200 }} /> : <Text style={globalStyles.InputForms}>Titelbild</Text>}
+              </TouchableOpacity>
             </View>
 
             <View style={[globalStyles.InputForms, styles.obenDrauf]}>
@@ -139,23 +157,6 @@ export default function RevieForm({ addJourney, setModalOpen }) {
               </TouchableOpacity>
             </View>
 
-            <View style={globalStyles.InputForms}>
-              <TouchableOpacity
-                onPress={async () => {
-                  let _image = await ImagePicker.launchImageLibraryAsync({
-                    mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                    allowsEditing: true,
-                    aspect: [4, 3],
-                    quality: 1,
-                  });
-                  if (!_image.cancelled) {
-                    setForm((prev) => ({ ...prev, thumbnail: _image.uri }));
-                  }
-                }}
-              >
-                {form.thumbnail ? <Image source={{ uri: form.thumbnail }} style={{ height: 200 }} /> : <Text style={globalStyles.InputForms}>Titelbild</Text>}
-              </TouchableOpacity>
-            </View>
             <View style={globalStyles.InputForms}>
               <TextInput
                 style={globalStyles.InputForms}

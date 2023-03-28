@@ -36,13 +36,15 @@ export default function TaskItems(props) {
   const [taskInput, setTaskInput] = useState();
 
   const addTaskItem = async () => {
-    let temp = tasks;
-    temp.find((task) => task.taskListId === taskListId).taskListItems = temp.find((task) => task.taskListId === taskListId).taskListItems || [];
-    temp.find((taskList) => taskList.taskListId === taskListId).taskListItems.push({ taskId: generateId(10), taskTitle: taskInput, done: false });
-    setTasks(temp);
-    await AsyncStorage.setItem("tasks", JSON.stringify(temp));
-    setTaskInput("");
-    forceUpdate();
+    if (taskInput.trim()) {
+      let temp = tasks;
+      temp.find((task) => task.taskListId === taskListId).taskListItems = temp.find((task) => task.taskListId === taskListId).taskListItems || [];
+      temp.find((taskList) => taskList.taskListId === taskListId).taskListItems.push({ taskId: generateId(10), taskTitle: taskInput, done: false });
+      setTasks(temp);
+      await AsyncStorage.setItem("tasks", JSON.stringify(temp));
+      setTaskInput("");
+      forceUpdate();
+    }
   };
 
   const completeTaskItem = async (taskId) => {

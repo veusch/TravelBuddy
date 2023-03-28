@@ -108,7 +108,7 @@ export default function TagReviewCard(props) {
       <TouchableOpacity onPress={() => setModalOpen(true)}>
         <Image source={require("../images/neu.png")} style={globalStyles.neu} />
       </TouchableOpacity>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ alignContent: "center", alignItems: "center" }}>
         <Text style={globalStyles.headline}>{new Date(reisen?.find((reise) => reise.reiseId === reiseId)?.reiseTage?.find((reiseTag) => reiseTag.reiseTagId === reiseTagId)?.reiseTagDate).toLocaleDateString("de")}</Text>
         {reisen
           ?.find((reise) => reise.reiseId === reiseId)
@@ -162,10 +162,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontFamily: "Medium",
-    textAlign: "center",
-    justifyContent: "center",
     alignSelf: "center",
-    alignItems: "center",
   },
 
   collapse: {
