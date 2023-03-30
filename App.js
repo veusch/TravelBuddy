@@ -26,12 +26,14 @@ const App = () => {
       let tempProfile = await AsyncStorage.getItem("profile");
 
       await AsyncStorage.clear();
+
       const defaultProfile = { profileName: "Dein Name" };
-      console.log(require("./images/demo/nr2.png"));
+
       const defaultReisen = [
         {
+          defaultReise: true,
           startDate: "2023-03-26T17:09:20.187Z",
-          thumbnail: "file:///data/user/0/host.exp.exponent/cache/ImagePicker/e8c3b874-c104-43b7-8655-55d6633e8d31.jpeg",
+          thumbnail: "./images/demo/nr2.png",
           endDate: "2023-03-31T17:09:20.187Z",
           reiseTitel: "Barcelona",
           reiseLand: { string: "Barcelona, Spain", countryId: "8774" },
