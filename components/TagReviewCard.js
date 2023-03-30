@@ -123,7 +123,9 @@ export default function TagReviewCard(props) {
               >
                 <CollapseHeader>
                   <View>
-                    <Text style={styles.titelTagNotiz}>{reiseEntry.tagebucheintragTitle}</Text>
+                    <Text multiline style={styles.titelTagNotiz}>
+                      {reiseEntry.tagebucheintragTitle}
+                    </Text>
                   </View>
                 </CollapseHeader>
                 <CollapseBody style={styles.collapse}>
@@ -131,7 +133,7 @@ export default function TagReviewCard(props) {
                   <Text style={styles.zusammenfassung2}>{reiseEntry.tagebucheintragBody}</Text>
                   <View style={{ alignItems: "center" }}>
                     {reiseEntry?.tagebuchEintragImages?.map((image) => (
-                      <Image key={image} style={{ margin: 10, height: 200, width: 200 }} source={{ uri: image }} />
+                      <Image key={image} style={{ margin: 10, height: 270, width: 200 }} source={{ uri: image }} />
                     ))}
                   </View>
                   <StarRatingg forceUpdate={forceUpdate} defaultRating={reiseEntry.rating ?? 0} tagebuchEintragId={reiseEntry.tagebuchEintragId} setRating={setRating} />
@@ -192,8 +194,6 @@ const styles = StyleSheet.create({
     fontFamily: "Medium",
     fontSize: 20,
     color: "white",
-    textAlign: "center",
-    alignItems: "center",
     alignSelf: "center",
     alignContent: "center",
     justifyContent: "center",

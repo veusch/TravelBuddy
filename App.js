@@ -25,8 +25,8 @@ const App = () => {
       let tempBackgroundImageNumber = await AsyncStorage.getItem("backgroundImageNumber");
       let tempProfile = await AsyncStorage.getItem("profile");
 
-      // await AsyncStorage.clear();
-
+      await AsyncStorage.clear();
+      const defaultProfile = { profileName: "Dein Name" };
       const defaultReisen = [
         {
           startDate: "2023-03-26T17:09:20.187Z",
@@ -77,8 +77,66 @@ const App = () => {
                 },
               ],
             },
-            { reiseTagId: "zSwKCBsZNy", reiseTagDate: "2023-03-27T17:09:20.187Z", reiseEntries: [] },
-            { reiseTagId: "UkH7vq8mEW", reiseTagDate: "2023-03-28T17:09:20.187Z", reiseEntries: [] },
+            {
+              reiseTagId: "zSwKCBsZNy",
+              reiseTagDate: "2023-03-27T17:09:20.187Z",
+              reiseEntries: [
+                {
+                  tagebuchEintragId: "44HoZtzUlV",
+                  tagebuchEintragTime: "2023-03-26T17:13:09.962Z",
+                  tagebuchEintragZiel: "",
+                  tagebuchEintragImages: [
+                    "file:///data/user/0/host.exp.exponent/cache/ImagePicker/e8c3b874-c104-43b7-8655-55d6633e8d31.jpeg",
+                    "file:///data/user/0/host.exp.exponent/cache/ImagePicker/7f2028e3-f239-4fe5-a8dc-bd31c8435369.jpeg",
+                    "file:///data/user/0/host.exp.exponent/cache/ImagePicker/d91e8a1d-3dcf-4649-b107-46178b1390c8.jpeg",
+                  ],
+                  tagebucheintragTitle: "Aquarium",
+                  tagebucheintragBody:
+                    "Heute starteten wir den Tag früh und machten uns auf den Weg zu einer empfohlenen Sandwich-Bar, um unser Mittagessen zu besorgen. Wir stellten fest, dass dieser Ort kein Geheimtipp mehr war, denn eine lange Warteschlange hatte sich bereits gebildet. Trotz einer Wartezeit von 40 Minuten waren die Sandwiches jeden Cent und jede Minute wert. Sie waren köstlich, groß und auch preisgünstig. Wir genossen unser Mittagessen an der Hafenpromenade und besuchten anschließend das Aquarium, obwohl der Eintritt etwas teuer war. Die Zeit war jedoch gut investiert, da wir über 2 Stunden damit verbrachten, alle Arten von bunten Fischen zu beobachten. Zurück in unserem Apartment haben wir uns ausgeruht und für den Abend hergerichtet. Bevor wir zum Club aufbrachen, holten wir uns Sushi für unser Abendessen. Der Club war sehr schön eingerichtet, die Musik war großartig und es gab viele nette Leute. Wir feierten bis in die frühen Morgenstunden.",
+                  rating: 5,
+                },
+                {
+                  tagebuchEintragId: "duC9h4bveJ",
+                  tagebuchEintragTime: "2023-03-26T17:16:29.241Z",
+                  tagebuchEintragZiel: "",
+                  tagebucheintragTitle: "Sagrada",
+                  tagebuchEintragImages: ["file:///data/user/0/host.exp.exponent/cache/ImagePicker/3445d76c-666c-4e22-bd44-bb7c440269c3.jpeg"],
+                  tagebucheintragBody:
+                    "Heute war ein aufregender Tag in Barcelona. Ich hatte ein Ticket für die Sagrada Familia gebucht und wir mussten früh aufstehen. Während ich die Kirche besichtigt und eine Führung gemacht habe, hat Verena den Nachmittag am Strand verbracht. Die Kirche war atemberaubend und ich habe viele schöne Fotos gemacht. Nach der Besichtigung haben wir uns am Strand getroffen und sind gemeinsam zum Placa de Espana gefahren. Dort sind wir viele Stufen nach oben auf den Berg gestiegen und haben die wunderschöne Aussicht auf die Stadt genossen. Es war ein unvergesslicher Moment, als wir mit vielen anderen Leuten den Sonnenuntergang genossen haben und einem Straßenmusiker zugehört haben.Als wir zurück im Zimmer waren, haben wir uns für den Clubabend fertig gemacht und sind dann losgezogen. Es war ein aufregender Abend mit toller Musik und wir sind spät zurück ins Zimmer gekommen.",
+                  rating: 3,
+                },
+              ],
+            },
+            {
+              reiseTagId: "UkH7vq8mEW",
+              reiseTagDate: "2023-03-28T17:09:20.187Z",
+              reiseEntries: [
+                {
+                  tagebuchEintragId: "44HoZtzUlV",
+                  tagebuchEintragTime: "2023-03-26T17:13:09.962Z",
+                  tagebuchEintragZiel: "",
+                  tagebuchEintragImages: [
+                    "file:///data/user/0/host.exp.exponent/cache/ImagePicker/e8c3b874-c104-43b7-8655-55d6633e8d31.jpeg",
+                    "file:///data/user/0/host.exp.exponent/cache/ImagePicker/7f2028e3-f239-4fe5-a8dc-bd31c8435369.jpeg",
+                    "file:///data/user/0/host.exp.exponent/cache/ImagePicker/d91e8a1d-3dcf-4649-b107-46178b1390c8.jpeg",
+                  ],
+                  tagebucheintragTitle: "Strand",
+                  tagebucheintragBody:
+                    "Am vorletzten Tag unseres Aufenthalts haben wir uns eine köstliche Pizza gegönnt und ein Picknick an der Strandpromenade gemacht. Währenddessen bemerkten wir, dass der katalanische Nationalfeiertag begangen wurde. Die ganze Stadt war geschmückt und es fand ein großer Umzug statt. Wir beschlossen spontan, daran teilzunehmen und uns ein Stück des Zuges anzuschließen. Schließlich kamen wir in der Nähe des Strandes an und beschlossen, eine erfrischende Schwimmrunde zu drehen und den Rest des Tages am Strand zu verbringen. Am Abend unternahmen wir noch einen letzten Ausflug in einen Club und ließen den Abend anschließend beim Schwimmen am Strand ausklingen. Danach fuhren wir zurück zur Unterkunft und begannen damit, unsere Sachen für die Abreise zu packen.",
+                  rating: 5,
+                },
+                {
+                  tagebuchEintragId: "duC9h4bveJ",
+                  tagebuchEintragTime: "2023-03-26T17:16:29.241Z",
+                  tagebuchEintragZiel: "",
+                  tagebucheintragTitle: "Abreise",
+                  tagebuchEintragImages: ["file:///data/user/0/host.exp.exponent/cache/ImagePicker/3445d76c-666c-4e22-bd44-bb7c440269c3.jpeg"],
+                  tagebucheintragBody:
+                    "Heute Morgen waren wir richtig in Eile, um pünktlich den Bus zum Flughafen zu erwischen. Es war wirklich stressig! Als wir endlich am Flughafen ankamen, gönnten wir uns ein schnelles Frühstück, durchliefen die Sicherheitskontrolle und warteten dann auf unseren Abflug. Der Flug war etwas turbulent, aber schließlich landeten wir glücklich am Wiener Flughafen.",
+                  rating: 3,
+                },
+              ],
+            },
             { reiseTagId: "erPSV9wNwZ", reiseTagDate: "2023-03-29T17:09:20.187Z", reiseEntries: [] },
             { reiseTagId: "TmOnaxvTor", reiseTagDate: "2023-03-30T17:09:20.187Z", reiseEntries: [] },
             { reiseTagId: "pUCwhoNMWN", reiseTagDate: "2023-03-31T17:09:20.187Z", reiseEntries: [] },
@@ -109,6 +167,8 @@ const App = () => {
         setProfile(JSON.parse(tempProfile));
       } else {
         setProfile({});
+        setProfile(defaultProfile);
+        await AsyncStorage.setItem("profile", JSON.stringify(defaultProfile));
       }
     }
 

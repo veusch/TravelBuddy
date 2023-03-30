@@ -143,7 +143,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
             <View style={globalStyles.InputForms}>
               <TouchableOpacity onPress={() => setDatePicker("start")} style={styles.reset}>
                 <Text style={globalStyles.InputForms}>
-                  <Text style={{ color: "green" }}>Von </Text>
+                  <Text style={{ color: "orange" }}>Von </Text>
                   {form.startDate.toLocaleDateString("en-GB")}
                 </Text>
               </TouchableOpacity>
@@ -151,7 +151,7 @@ export default function RevieForm({ addJourney, setModalOpen }) {
             <View style={[globalStyles.InputForms, invalidDate && styles.invalid]}>
               <TouchableOpacity onPress={() => setDatePicker("end")} style={styles.reset}>
                 <Text style={[globalStyles.InputForms, invalidDate && styles.invalid]}>
-                  <Text style={{ color: "green" }}>Bis </Text>
+                  <Text style={{ color: "orange" }}>Bis </Text>
                   {form.endDate.toLocaleDateString("de-DE").toString()}
                 </Text>
               </TouchableOpacity>
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
 
   invalid: {
-    backgroundColor: "red",
+    backgroundColor: "#D51111",
   },
   obenDrauf: {
     position: "relative",

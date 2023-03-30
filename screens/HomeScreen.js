@@ -13,6 +13,7 @@ const HomeScreen = (props) => {
   const [secondStepActive, setSecondStepActive] = useState(true);
   const WalkthrouableText = walkthroughable(Text);
   const WalkthroughableImage = walkthroughable(Image);
+  const defaultName = "Dein Name";
 
   const { reisenContext, backgroundContext, profileContext } = useContext(storeContext);
   const [reisen, setReisen] = reisenContext;
@@ -118,7 +119,7 @@ const HomeScreen = (props) => {
         </TouchableOpacity>
         <CopilotStep text="Das ist dein Benutzername. Ändere diesen in dem bei den Einstellungen du auf dein Name klickst" order={1} name="firstUniqueKey">
           <WalkthrouableText default={"Dein Name"} style={styles.name}>
-            {profile.profileName}
+            <Text defaultValue={"Dein Name"}>{profile.profileName}</Text>
           </WalkthrouableText>
         </CopilotStep>
         <Text style={styles.wasErlebt}>Was hast du heute erlebt?</Text>
@@ -127,22 +128,22 @@ const HomeScreen = (props) => {
             data={[
               {
                 key: "First Data",
-                count: 0,
-                color: "blue",
+                count: 50,
+                color: "#3B5875",
               },
               {
                 key: "Second Data",
                 count: 50,
-                color: "yellow",
+                color: "#5B82A3",
               },
               {
                 key: "Third Data",
                 count: 50,
-                color: "green",
+                color: "#80AAC1",
               },
               {
                 key: "Forth Data",
-                count: 0,
+                count: 50,
                 color: "orange",
               },
             ]}

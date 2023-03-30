@@ -96,18 +96,16 @@ const SettingScreen = (props) => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Datenschutzerklärung")}>
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                <Text style={styles.textSettings} onPress={() => props.navigation.navigate("Datenschutzerklärung")}>
-                  Datenschutzerklärung
-                </Text>
+                <Text style={styles.textSettings}>Datenschutzerklärung</Text>
                 <Image source={require("../images/right.png")} style={styles.right} />
               </View>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Nutzungsbedingungen")}>
             <View style={styles.Settings}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.textSettings} onPress={() => props.navigation.navigate("Nutzungsbedingungen")}>

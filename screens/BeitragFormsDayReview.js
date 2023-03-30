@@ -37,6 +37,7 @@ export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
             <View style={globalStyles.InputForms}>
               <TextInput
                 multiline
+                maxLength={25}
                 style={globalStyles.input}
                 placeholder="Titel"
                 onChangeText={(e) => {
@@ -82,7 +83,7 @@ export default function RevieForm2({ addEntry, navigation, setModalOpen }) {
                     let _image = await ImagePicker.launchImageLibraryAsync({
                       mediaTypes: ImagePicker.MediaTypeOptions.Images,
                       allowsEditing: true,
-                      aspect: [4, 3],
+                      aspect: [3, 5],
                       quality: 1,
                     });
                     if (!_image.cancelled) {

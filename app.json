@@ -9,17 +9,16 @@
       ]
     ],
     "name": "TravelBuddy",
-    "slug": "TravelBuddy",
+    "slug": "travelbuddy",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/appicon.png",
-    "backgroundColor": "white",
+    "icon": "./assets/logo.png",
 
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/appicon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "white"
+      "image": "./assets/logo.png",
+      "resizeMode": "",
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -31,8 +30,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/appicon.png",
-        "backgroundColor": "white"
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#ffffff"
       },
       "permissions": ["android.permission.RECORD_AUDIO"],
       "package": "com.veusch.TravelBuddy"
@@ -42,8 +41,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "53cc9c21-2016-4121-9277-a0d9396f5619"
+        "projectId": "9474a32a-235c-4494-b62e-70df847cd953"
       }
-    }
+    },
+    "owner": "fusch"
   }
 }
