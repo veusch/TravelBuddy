@@ -33,7 +33,6 @@ const App = () => {
         {
           defaultReise: true,
           startDate: "2023-03-26T17:09:20.187Z",
-          thumbnail: "./images/demo/nr2.png",
           endDate: "2023-03-31T17:09:20.187Z",
           reiseTitel: "Barcelona",
           reiseLand: { string: "Barcelona, Spain", countryId: "8774" },
